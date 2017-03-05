@@ -18,4 +18,8 @@ public interface BillRepository extends JpaRepository<Bill, Integer>{
 	//Select bills from a campaign
 	@Query("select b from Bill b where b.campaign=?1")
 	public Collection<Bill> billsOfCampaign(Campaign campaign);
+	
+	//Select bills from sponsor
+	@Query("select b from Bill b where b.sponsor.id=?1")
+	public Collection<Bill> sponsorBills(int id);
 }

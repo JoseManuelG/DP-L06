@@ -39,18 +39,10 @@ public class BillController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		
-		Collection<Bill> bills=billService.findAll();
 		Sponsor sponsor=sponsorService.findByPrincipal();
-		Collection<Bill> resultBills=new ArrayList<Bill>();
-//TODO Revisar porque no meter este for en una query		
-		for(Bill bill:bills){
-			if(bill.getSponsor().equals(sponsor)){
-				resultBills.add(bill);
-			}
-		}
-//Fin del todo 		
+		Collection<Bill> bills=billService.sponsorBills(sponsor.getId());
 		result = new ModelAndView("bill/sponsor/list");
-		result.addObject("bills",resultBills);
+		result.addObject("bills",bills);
 		result.addObject("requestURI","bill/sponsor/list.do");
 
 		return result;
@@ -94,14 +86,7 @@ public class BillController extends AbstractController {
 	public ModelAndView edit(int billId) {
 		ModelAndView result;
 	
-		Bill bill=billService.findOne(billId);
-//TODO Pasar este bloque a un servicio		
-		if(bill.getDateOfPay()==(null)){
-			Date currentTime=new Date(System.currentTimeMillis()-10000);
-			bill.setDateOfPay(currentTime);
-			bill=billService.save(bill);
-		}
-//Fin del todo 	
+		Bill bill=billService.payBill(billId);
 		result = new ModelAndView("bill/sponsor/view");
 		result.addObject("bill",bill);
 		

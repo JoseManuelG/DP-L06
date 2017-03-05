@@ -123,4 +123,21 @@ public class BillService {
 		Collection<Bill> result=billRepository.UnpaidBills();
 		return result;
 	}
+	
+	public Collection<Bill> sponsorBills(int id){
+		Collection<Bill> result = new ArrayList<Bill>();
+		result=billRepository.sponsorBills(id);
+		return result;
+	}
+	
+	public Bill payBill(int billId){
+		Bill result;
+		result=findOne(billId);
+		if(result.getDateOfPay()==(null)){
+			Date currentTime=new Date(System.currentTimeMillis()-10000);
+			result.setDateOfPay(currentTime);
+			result=save(result);
+		}
+		return result;
+	}
 }
