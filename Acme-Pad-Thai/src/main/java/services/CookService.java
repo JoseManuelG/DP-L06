@@ -36,6 +36,9 @@ public class CookService {
 	public Cook create(){
 		Cook result;
 		result=new Cook();
+		result.setAttends(new ArrayList<Attend>());
+		result.setSocialIdentities(new ArrayList<SocialIdentity>());
+		result.setMasterClasses(new ArrayList<MasterClass>());
 		return result;
 	}
 	public Cook create(ActorForm actorForm) {

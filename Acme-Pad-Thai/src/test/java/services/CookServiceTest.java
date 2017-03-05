@@ -40,6 +40,8 @@ public class CookServiceTest extends AbstractTest {
 
 	@Test
 	public void testSaveCook() {
+		super.authenticate("admin");
+
 		Cook cook, cookSaved;
 		Collection<Cook> cooks;
 		// Creamos cook
@@ -61,6 +63,7 @@ public class CookServiceTest extends AbstractTest {
 		// comprobamos si efectivamente se ha guardado
 		cooks = cookService.findAll();
 		Assert.isTrue(cooks.contains(cookSaved), "El cook no se ha guardado");
+		super.authenticate(null);
 	}
 
 	@Test
@@ -158,6 +161,7 @@ public class CookServiceTest extends AbstractTest {
 		Cook cook, cookSaved;
 		Collection<Cook> cooks;
 		// Creamos cook
+		super.authenticate("admin");
 		cook = cookService.create();
 		Collection<Authority> authorities = new ArrayList<Authority>();
 		Authority authority = new Authority();
@@ -173,13 +177,16 @@ public class CookServiceTest extends AbstractTest {
 		cook.setUserAccount(userAcc);
 		// guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+
 		// comprobamos si efectivamente se ha guardado
 		cooks = cookService.findAll();
 		Assert.isTrue(cooks.contains(cookSaved), "El cook no se ha guardado");
-
+		super.authenticate("cookTest");
 		cookService.delete(cookSaved);
 		cooks = cookService.findAll();
 		Assert.isTrue(!(cooks.contains(cookSaved)), "El cook no se ha borrado");
+		super.authenticate(null);
 	}
 
 	@Test

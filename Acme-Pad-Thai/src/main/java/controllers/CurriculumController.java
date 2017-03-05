@@ -116,10 +116,8 @@ public class CurriculumController extends AbstractController {
 					System.out.println(binding.getAllErrors().toString());
 				} else {
 					try {
-						//TODO revisar esto
 						nutritionist.setCurriculum(curriculumService.save(curriculum));
 						nutritionistService.save(nutritionist);
-						//fin del todo
 						result = new ModelAndView("curriculum/view");
 						
 				} catch (Throwable oops) {
