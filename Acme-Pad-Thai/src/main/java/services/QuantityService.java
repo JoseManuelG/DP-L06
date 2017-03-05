@@ -42,6 +42,14 @@ public class QuantityService {
 
 		return result;
 	}
+	
+	public Quantity create(Recipe recipe) {
+		Quantity result;
+
+		result = new Quantity();
+		result.setRecipe(recipe);
+		return result;
+	}
 
 	public Collection<Quantity> findAll() {
 		Collection<Quantity> result;
@@ -156,6 +164,13 @@ public class QuantityService {
 	    return result;
 	  }
 	
-
+	public Collection<String> unidades(){
+		Collection<String> units =new ArrayList<String>();
+		String[] unitsArray = { "grams","kilograms","ounces", "pounds", "millilitres", "litres", "spoons", "cups", "pieces" };
+		for(int i =  0; i < unitsArray.length; i++){
+			units.add(unitsArray[i]);  
+		}
+		return units;
+	}
 
 }

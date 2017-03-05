@@ -89,14 +89,11 @@ public class QuantityController extends AbstractController {
 	@RequestMapping(value = "/user/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam Integer recipeId) {
 		ModelAndView result;
-		Quantity quantity = quantityService.create();
 		Recipe recipe = recipeService.findOne(recipeId);
+		Quantity quantity = quantityService.create(recipe);
 		Collection<Ingredient> ingredients = ingredientService.findAll();
 		Collection<Ingredient> ingredientsAdded =ingredientService.findIngredentsByRecipe(recipe);
 		ingredients.removeAll(ingredientsAdded);
-		//TODO pa servicio
-		quantity.setRecipe(recipe);
-		// fin de servicio
 		result = createEditModelAndView(quantity);
 		result.addObject("ingredients",ingredients);
 		result.addObject("ingredient",quantity.getIngredient());
@@ -156,14 +153,7 @@ public class QuantityController extends AbstractController {
 	public @ResponseBody ModelAndView save( Quantity quantity, BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			Collection<String> units =new ArrayList<String>();
-			System.out.println(binding.getAllErrors());
-			//TODO Pa servicios
-			String[] unitsArray = { "grams","kilograms","ounces", "pounds", "millilitres", "litres", "spoons", "cups", "pieces" };
-			for(int i =  0; i < unitsArray.length; i++){
-				units.add(unitsArray[i]);  
-			}
-			// fin de servicio
+			Collection<String> units=quantityService.unidades();
 			result = createEditModelAndView(quantity, "quantity.commit.error");
 			result.addObject("units",units);
 		} else {
@@ -212,17 +202,11 @@ public class QuantityController extends AbstractController {
 		
 		protected ModelAndView createEditModelAndView(Quantity quantity, String message) {
 			ModelAndView result;
-			//TODO Pa servicios
 			User user = userService.findByPrincipal();
 			Collection<Ingredient> ingredients = ingredientService.findAll();
 			Collection<Ingredient> ingredientsAdded =ingredientService.findIngredentsByRecipe(quantity.getRecipe());
 			ingredients.removeAll(ingredientsAdded);
-			Collection<String> units =new ArrayList<String>();
-			String[] unitsArray = { "grams","kilograms","ounces", "pounds", "millilitres", "litres", "spoons", "cups", "pieces" };
-			for(int i =  0; i < unitsArray.length; i++){
-				units.add(unitsArray[i]);  
-			}
-			//fin todo
+			Collection<String> units =quantityService.unidades();
 			result = new ModelAndView("quantity/user/edit");
 			result.addObject("units",units);
 			result.addObject("user",user);

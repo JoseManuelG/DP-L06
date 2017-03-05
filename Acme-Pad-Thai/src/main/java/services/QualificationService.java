@@ -15,6 +15,7 @@ import repositories.QualificationRepository;
 import security.LoginService;
 import domain.Qualification;
 import domain.Recipe;
+import domain.User;
 
 @Service
 @Transactional
@@ -46,6 +47,14 @@ public class QualificationService {
 
 		result = new Qualification();
 
+		return result;
+	}
+	public Qualification create(Recipe recipe,User user) {
+		Qualification result;
+
+		result = new Qualification();
+		result.setRecipe(recipe);
+		result.setCustomer(user);
 		return result;
 	}
 
