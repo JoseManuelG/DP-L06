@@ -183,8 +183,8 @@ public class UserService {
 		return result;
 	}
 	
-	public int findAvgRecipesForUsers(){
-		int result = userRepository.findAvgRecipesForUsers();
+	public double findAvgRecipesForUsers(){
+		double result = userRepository.findAvgRecipesForUsers();
 		return result;
 	}
 	
