@@ -898,6 +898,8 @@
 		<property name="masterClass" ref="masterClass1" />
 		<property name="attachments" >
 			<list>	
+				<value>http://images.freeimages.com/images/previews/f3f/food-1171568.jpg</value>
+				<value>http://images.freeimages.com/images/previews/f3f/food-1171568.jpg</value>
 			</list>
 		</property>
 	</bean>
@@ -910,6 +912,7 @@
 		<property name="masterClass" ref="masterClass1" />
 		<property name="attachments" >
 			<list>	
+				<value>http://images.freeimages.com/images/previews/f3f/food-1171568.jpg</value>
 			</list>
 		</property>
 	</bean>	
