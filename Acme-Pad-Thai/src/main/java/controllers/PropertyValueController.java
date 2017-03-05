@@ -86,9 +86,9 @@ public class PropertyValueController extends AbstractController {
 		result = new ModelAndView("propertyValue/nutritionist/create");
 		propertyValue.setIngredient(ingredient);
 		result.addObject("requestURI","propertyValue/nutritionist/edit.do");
-		
 		result.addObject("properties",properties);
 		result.addObject("propertyValue", propertyValue);
+		result.addObject("urlID",propertyValue.getIngredient().getId());
 
 		return result;
 	}
@@ -177,6 +177,7 @@ public class PropertyValueController extends AbstractController {
 			result = new ModelAndView("propertyValue/nutritionist/edit");
 			result.addObject("propertyValue", propertyValue);
 			result.addObject("message", message);
+			result.addObject("urlID",propertyValue.getIngredient().getId());	
 
 			return result;
 		}

@@ -29,7 +29,7 @@
 			<spring:message code="propertyValue.property" />:
 			</form:label>
 		<form:select id="propertyDropdown" path="property">
-			<form:option value="0" label="----"/>
+			
 			<form:options items="${properties}" itemValue="id" itemLabel="name" />
 			<form:errors cssClass="error" path="property" />
 			<br />
@@ -39,12 +39,12 @@
 
 	<input type="submit" name="save"
 		value="<spring:message code="propertyValue.save" />" />&nbsp; 
-	<jstl:if test="${belongs.id != 0}">
+	<jstl:if test="${propertyValue.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="propertyValue.delete" />"
 			onclick="return confirm('<spring:message code="propertyValue.confirm.delete" />')" />&nbsp;
 	</jstl:if>
 	<input type="button" name="cancel" value="<spring:message code="propertyValue.cancel" />"
-		onclick="javascript:window.location.href='recipe/user/myRecipes.do'" />
+		onclick="javascript:window.location.href='ingredient/nutritionist/view.do?ingredientId=${urlID}'" />
 	<br />
 </form:form>
