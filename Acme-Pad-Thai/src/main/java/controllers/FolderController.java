@@ -1,7 +1,6 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,7 +21,6 @@ import services.ActorService;
 import services.FolderService;
 import domain.Actor;
 import domain.Folder;
-import domain.Message;
 
 @Controller
 @RequestMapping("folder")
@@ -55,18 +53,12 @@ public class FolderController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		
-		Collection<Folder> folders=folderService.findAll();
 		Actor actor=actorService.findActorByPrincial();
-		Collection<Folder> resultFolders=new ArrayList<Folder>();
-		//TODO pASAR A QUERY
-		for(Folder folder:folders){
-			if(folder.getActor().equals(actor)){
-				resultFolders.add(folder);
-			}
-		}
+		Collection<Folder> folders=actorService.findActorFoldersById(actor.getId());
+
 		//fin del todo
 		result = new ModelAndView("folder/list");
-		result.addObject("folders",resultFolders);
+		result.addObject("folders",folders);
 		result.addObject("requestURI","folder/list.do");
 
 		return result;
@@ -136,12 +128,6 @@ public class FolderController extends AbstractController {
 			
 			Folder folder=folderService.create();
 			Assert.notNull(folder);
-			//TODO Para servicio
-			Actor actor=actorService.findActorByPrincial();
-			folder.setActor(actor);
-			Collection<Message> messages=new ArrayList<Message>();
-			folder.setMessages(messages);
-			//fin del todo
 			result=createEditModelAndView(folder);
 
 			return result;

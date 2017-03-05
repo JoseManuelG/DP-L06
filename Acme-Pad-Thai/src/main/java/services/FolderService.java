@@ -38,6 +38,13 @@ public class FolderService {
 		result.setMessages(messages);
 		return result;
 	}
+	public Folder create(Actor actor){
+		Folder result=new Folder();
+		result.setActor(actor);
+		Collection<Message> messages=new ArrayList<Message>();
+		result.setMessages(messages);
+		return result;
+	}
 
 	@SuppressWarnings("static-access")
 	public Folder save(Folder folder){

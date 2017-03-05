@@ -1,17 +1,25 @@
 package services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Folder;
 
 @Service
 @Transactional
 public class ActorService {
+	
+	@Autowired
+	ActorRepository actorRepository;
+	
 	@Autowired
 	LoginService loginService;
 	@Autowired
@@ -77,6 +85,12 @@ public class ActorService {
 				result=nutritionistService.findOne(id);
 			}catch (Exception e) {}
 		}
+		return result;
+	}
+	
+	public Collection<Folder> findActorFoldersById(int actorId){
+		Collection<Folder> result;
+		result=actorRepository.findActorFoldersById(actorId);
 		return result;
 	}
 }
