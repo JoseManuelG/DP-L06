@@ -246,6 +246,7 @@ public class RecipeController extends AbstractController {
 		ModelAndView result;
 		Recipe recipe = recipeService.findOne(recipeId);
 		Collection<Qualification> qualifications = qualificationService.findQualificationsByRecipe(recipe);
+		//TODO pa un servicio
 		int likes =0;
 		int dislikes =0;
 		for(Qualification q: qualifications){
@@ -276,6 +277,7 @@ public class RecipeController extends AbstractController {
 		result.addObject("banner",banner);
 		Integer like = 1;
 		Customer customer = customerService.findActorByPrincial();
+		//TODO pa servicio?
 		if(customer!=null){
 			for (Qualification q: recipe.getQualifications()){
 				if (q.getCustomer().equals(customer) && q.getOpinion()==true) {
@@ -306,10 +308,12 @@ public class RecipeController extends AbstractController {
 		Recipe recipe;
 
 		recipe = recipeService.create();
+		//TODO pa servicio
 		recipe.setAuthorMoment(new Date(System.currentTimeMillis()-1000));
 		recipe.setLastUpdate(new Date(System.currentTimeMillis()-1000));
 		recipe.setTicker(recipeService.createTicker());
 		recipe.setUser(userService.findByPrincipal());
+		//fin de pa servicio
 		result = createEditModelAndView(recipe);
 		result.addObject("requestURI","recipe/user/edit.do");
 
@@ -323,6 +327,7 @@ public class RecipeController extends AbstractController {
 		Recipe recipe;
 		recipe = recipeService.findOne(recipeId);
 		Collection<Qualification> qualifications = qualificationService.findQualificationsByRecipe(recipe);
+		//Pa servicio
 		int likes =0;
 		int dislikes =0;
 		for(Qualification q: qualifications){
@@ -332,13 +337,17 @@ public class RecipeController extends AbstractController {
 				dislikes++;
 			}
 		}
+		//fin de pa servicio
 		Collection<String> pictures =recipe.getPictures();
 		Collection<Quantity> quantities = quantityService.findQuantitiesForRecipe(recipe);
 		Collection<Belongs> belongs =belongsService.findBelongsByRecipe(recipe);
 		Collection<Step> steps = stepService.findStepsByRecipe(recipe);
 		Collection<RecipeHint> recipeHints = recipeHintService.findRecipeHintsByRecipe(recipe);
-		 List<Integer> uno =new ArrayList<Integer>();
+		
+		//TODO ??
+		List<Integer> uno =new ArrayList<Integer>();
 		    uno.add(5);
+		//fin de ??
 		Assert.notNull(recipe);
 		result = createEditModelAndView(recipe);
 		result.addObject("uno",uno);
@@ -365,6 +374,7 @@ public class RecipeController extends AbstractController {
 		Qualification qualification = null;
 		List<Qualification> everyQualificationOfRecipe = new ArrayList<Qualification>(qualificationService.findQualificationsByRecipe(recipe));
 		List<Qualification> qualifications = new ArrayList<Qualification>();
+		//TODO  un Servicio???
 		for(Qualification q: everyQualificationOfRecipe){
 			if(q.getCustomer().equals(customerService.findActorByPrincial()))
 				qualifications.add(q);
@@ -377,6 +387,7 @@ public class RecipeController extends AbstractController {
 			qualification.setRecipe(recipe);
 		}
 		qualification.setOpinion(true);
+		//me quiero morir ya
 		qualificationService.save(qualification);
 		result = new ModelAndView("redirect:../view.do?recipeId="+recipeId);
 		result.addObject("requestURI","recipe/user/like.do");
@@ -394,6 +405,7 @@ public class RecipeController extends AbstractController {
 		Qualification qualification = null;
 		List<Qualification> everyQualificationOfRecipe = new ArrayList<Qualification>(qualificationService.findQualificationsByRecipe(recipe));
 		List<Qualification> qualifications = new ArrayList<Qualification>();
+		//TODO PA UN SERVICIO NO?
 		for(Qualification q: everyQualificationOfRecipe){
 			if(q.getCustomer().equals(customerService.findActorByPrincial()))
 				qualifications.add(q);
@@ -423,6 +435,7 @@ public class RecipeController extends AbstractController {
 			result = createEditModelAndView(recipe);
 		} else {
 			try {
+				//TODO PA EL SERVICIO LA FECHA
 				recipe.setLastUpdate(new Date(System.currentTimeMillis()-100));
 				recipeService.save(recipe);		
 				result = new ModelAndView("redirect:myRecipes.do");
@@ -458,6 +471,7 @@ public class RecipeController extends AbstractController {
 	public ModelAndView createpicture(String recipeId) {
 		ModelAndView result;
 		PictureForm pf = new PictureForm();
+		//TODO PA PLACE HOLDER
 		pf.setText("your pic url here");
 		Recipe recipe = recipeService.findOne(Integer.valueOf(recipeId));
 		pf.setRecipe(recipe);
@@ -473,6 +487,7 @@ public class RecipeController extends AbstractController {
 			System.out.println(binding.getAllErrors());
 			result = createEditModelAndView(pictureForm.getRecipe());	
 		} else {
+			//TODO ESTO PA UN SERVICIO
 		Recipe recipe = pictureForm.getRecipe();
 		List<String> pictures = new ArrayList<String>();
 		pictures.addAll(recipe.getPictures());
@@ -494,7 +509,7 @@ public class RecipeController extends AbstractController {
 		ModelAndView result;
 		Recipe recipe = recipeService.findOne(Integer.valueOf(recipeId));
 		try {
-			
+			//TODO PA UN SERVICIO
 			List<String> pictures = new LinkedList<String>();
 			pictures.addAll(recipe.getPictures());
 			String pictureToDelete= pictures.get(Integer.valueOf(pictureIndex));

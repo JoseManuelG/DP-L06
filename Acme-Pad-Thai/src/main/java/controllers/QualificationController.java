@@ -107,9 +107,11 @@ public class QualificationController extends AbstractController {
 		List<String> options = new ArrayList<String>();
 		options.add(String.valueOf(Boolean.TRUE));
 		options.add(String.valueOf(Boolean.FALSE));
+		//TODO pa servicio
 		qualification.setRecipe(recipe);
 		User user = userService.findByPrincipal();
 		qualification.setCustomer(user);
+		// fin de servicio
 		result = createEditModelAndView(qualification);
 		result.addObject("qualification",qualification);
 		result.addObject("options",options);
@@ -127,7 +129,9 @@ public class QualificationController extends AbstractController {
 		} else {
 			try {
 				Customer customer = customerService.findActorByPrincial();
+				// TODO Pa servicio
 				qualification.setCustomer(customer);
+				// fin de servicio
 				qualificationService.save(qualification);		
 				result = new ModelAndView("redirect:../recipe/list.do");
 			} catch (Throwable oops) {

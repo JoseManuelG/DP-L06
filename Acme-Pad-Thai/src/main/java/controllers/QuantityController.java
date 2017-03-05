@@ -94,8 +94,9 @@ public class QuantityController extends AbstractController {
 		Collection<Ingredient> ingredients = ingredientService.findAll();
 		Collection<Ingredient> ingredientsAdded =ingredientService.findIngredentsByRecipe(recipe);
 		ingredients.removeAll(ingredientsAdded);
-		
+		//TODO pa servicio
 		quantity.setRecipe(recipe);
+		// fin de servicio
 		result = createEditModelAndView(quantity);
 		result.addObject("ingredients",ingredients);
 		result.addObject("ingredient",quantity.getIngredient());
@@ -157,16 +158,18 @@ public class QuantityController extends AbstractController {
 		if (binding.hasErrors()) {
 			Collection<String> units =new ArrayList<String>();
 			System.out.println(binding.getAllErrors());
+			//TODO Pa servicios
 			String[] unitsArray = { "grams","kilograms","ounces", "pounds", "millilitres", "litres", "spoons", "cups", "pieces" };
 			for(int i =  0; i < unitsArray.length; i++){
 				units.add(unitsArray[i]);  
 			}
+			// fin de servicio
 			result = createEditModelAndView(quantity, "quantity.commit.error");
 			result.addObject("units",units);
 		} else {
 			try {
 				Assert.isTrue(!quantity.getRecipe().getIsCopy());
-				quantityService.save(quantity);		
+				quantityService.save(quantity);
 				result = new ModelAndView("redirect:/recipe/user/myRecipes.do");
 			} catch (Throwable oops) {
 				result = createEditModelAndView(quantity, "quantity.commit.error");				
@@ -209,7 +212,7 @@ public class QuantityController extends AbstractController {
 		
 		protected ModelAndView createEditModelAndView(Quantity quantity, String message) {
 			ModelAndView result;
-			
+			//TODO Pa servicios
 			User user = userService.findByPrincipal();
 			Collection<Ingredient> ingredients = ingredientService.findAll();
 			Collection<Ingredient> ingredientsAdded =ingredientService.findIngredentsByRecipe(quantity.getRecipe());
@@ -219,6 +222,7 @@ public class QuantityController extends AbstractController {
 			for(int i =  0; i < unitsArray.length; i++){
 				units.add(unitsArray[i]);  
 			}
+			//fin todo
 			result = new ModelAndView("quantity/user/edit");
 			result.addObject("units",units);
 			result.addObject("user",user);
