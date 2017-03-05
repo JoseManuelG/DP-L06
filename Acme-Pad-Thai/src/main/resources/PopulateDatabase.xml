@@ -1654,7 +1654,7 @@
 	</bean>
 	
 	<bean id="attend9" class="domain.Attend">
-		<property name="actor" ref="cook2" />
+		<property name="actor" ref="cook3" />
 		<property name="masterClass" ref="masterClass2" />
 	</bean>
 	
