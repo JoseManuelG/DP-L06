@@ -33,8 +33,8 @@
 <br>
 <spring:message code="user.followeds" />: 
 <br>
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="followeds" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="user/view.do"
+	name="followeds" uid="followed">
 	<!-- Attributes -->
 	<spring:message code="user.name" var="followedsHeader" />
 	<display:column property="followed.name" title="${followedsHeader}" sortable="true" />
@@ -42,8 +42,8 @@
 <br>
 <br>
 <spring:message code="user.followers" />: 
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="followers" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="user/view.do"
+	name="followers" uid="follower">
 	<!-- Attributes -->
 	<spring:message code="user.name" var="followersHeader" />
 	<display:column property="follower.name" title="${followersHeader}" sortable="true" />
@@ -69,8 +69,8 @@
 	<spring:message  code="user.recipes" />
 </jstl:if>
 <!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="false"
-		name="recipes" requestURI="recipe/listByUser" id="row">
+	<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="user/view.do"
+		name="recipes"  uid="recipe">
 		
 		<!-- Action links -->
 		<spring:message code="recipe.view.title" var="viewTitleHeader" />
@@ -101,19 +101,19 @@
 <br>
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="socialIdentities" requestURI= "user/view.do" id="row">
+	name="socialIdentities" requestURI= "user/view.do" uid="social">
 	
 	<!-- Action links -->
 	<!-- tendremos acceso al curriculum y al usuario -->
 	
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${row.id}">
+			<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
 				<spring:message	code="socialIdentity.view" />
 			</a>
 	</display:column>			
 	<jstl:if test="${principal}">
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${row.id}">
+			<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
 				<spring:message	code="socialIdentity.edit" />
 			</a>
 	</display:column>			

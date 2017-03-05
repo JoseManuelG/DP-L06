@@ -20,7 +20,7 @@
 
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="recipes" requestURI="category/listrecipe.do" id="row">
+	name="recipes" requestURI="category/listrecipefinal.do" id="row">
 	
 	<!-- Action links -->
 	<spring:message code="category.edit" var="categoryEditHeader" />

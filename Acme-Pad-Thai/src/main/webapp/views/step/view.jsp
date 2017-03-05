@@ -16,7 +16,7 @@
 <br/>
 <img  height="200px" width="250px" alt="La imagen no está disponible" src="<jstl:out value="${step.picture}"/>" />
 
-<display:table pagesize="5" class="displaytag" keepStatus="false"
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="step/view.do)"
 	name="stepHints"  id="row">
 	
 	<!-- Action links -->

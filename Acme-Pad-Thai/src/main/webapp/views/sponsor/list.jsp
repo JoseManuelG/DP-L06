@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <!-- Listing grid -->
-<display:table pagesize="5" class="displaytag" keepStatus="false"
+<display:table pagesize="5" class="displaytag" keepStatus="false" 
 	name="sponsors" requestURI="${requestURI}" id="row">
 	
 	<!-- Action links -->

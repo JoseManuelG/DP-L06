@@ -21,7 +21,7 @@
 <spring:message code="curriculum.hobbies" />:<jstl:out value="${curriculum.hobbiesSection}"/>
 <br/>
 
-<display:table pagesize="5" class="displaytag" keepStatus="false"
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="socialIdentity/view.do"
 	name="endorsers" id="row">
 	
 	<!-- Action links -->

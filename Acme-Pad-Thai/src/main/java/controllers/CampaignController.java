@@ -143,7 +143,7 @@ public class CampaignController extends AbstractController {
 			result = new ModelAndView("campaign/sponsor/view");
 			result.addObject("campaign",campaign);
 			result.addObject("banners",campaign.getBannerList());
-			
+			result.addObject("requestURI","campaign/sponsor/view.do");
 			return result;
 		}
 		

@@ -36,7 +36,7 @@
 </jstl:if>
 <!-- Listing grid -->
 	<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="masterclasses">
+	name="masterclasses" requestURI="cook/view.do" id="row">>
 	
 	<!-- Action links -->
 	

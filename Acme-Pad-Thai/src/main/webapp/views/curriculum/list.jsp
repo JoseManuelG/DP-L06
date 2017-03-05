@@ -18,7 +18,7 @@
 <!-- Listing grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="nutritionists" requestURI="curriculums/list.do" id="row">
+	name="nutritionists" requestURI="curriculum/list.do" id="row">
 	
 	<!-- Action links -->
 	<!-- tendremos acceso al curriculum y al usuario -->

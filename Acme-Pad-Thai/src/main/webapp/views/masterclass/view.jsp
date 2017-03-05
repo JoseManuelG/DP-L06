@@ -18,7 +18,7 @@
 <br/>
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="learningmaterials"  id="row">
+	name="learningmaterials"  id="row" requestURI="masterClass/view.do">
 	
 	<!-- Action links -->
 	

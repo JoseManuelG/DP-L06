@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="masterClasses" requestURI="/masterclass/list.do" id="row">
+	name="masterClasses" requestURI="masterclass/list.do" id="row">
 
 	<!-- Action links -->
 	<jstl:if test="${requestURI }">

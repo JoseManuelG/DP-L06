@@ -23,7 +23,7 @@
 <jstl:if test="${not empty curriculum.hobbiesSection }">
 <spring:message code="curriculum.endorser" />
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="endorsers" id="row">
+	name="endorsers" id="row" requestURI="curriculum/nutritionist/view.do">
 	
 	<!-- Action links -->
 	

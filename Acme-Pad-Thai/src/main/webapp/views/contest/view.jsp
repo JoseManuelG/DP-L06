@@ -26,7 +26,7 @@
 <spring:message  code="contest.closingTime" />: <fmt:formatDate pattern="yyyy-MM-dd"  value="${contest.closingTime}" />
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="qualifieds" requestURI="contest/view.do?contestId=${row.id}" id="row">
+	name="qualifieds" requestURI="contest/view.do" id="row">
 	
 	<!-- Action links -->
 

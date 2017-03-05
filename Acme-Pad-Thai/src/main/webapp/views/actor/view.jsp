@@ -30,7 +30,7 @@
 <!-- Listing grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="recipes" requestURI="recipe/listByUser" id="row">
+	name="recipes" requestURI="recipe/listByUser.do" id="row">
 	
 	<!-- Action links -->
 	<spring:message code="recipe.view.title" var="viewTitleHeader" />

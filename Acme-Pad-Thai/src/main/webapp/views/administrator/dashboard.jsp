@@ -39,7 +39,7 @@
 <!-- Listing grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="listOfCooksByPromotedMasterClass" requestURI="/administrator/dashboard.do" id="row">
+	name="listOfCooksByPromotedMasterClass" requestURI="/administrator/dashboard.do" uid="cooks">
 	
 	<!-- Attributes -->
 	
@@ -110,7 +110,7 @@
 </table>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="sponsorsWithNoCampaignOnThreeMonths" requestURI="/administrator/dashboard.do" id="row">
+	name="sponsorsWithNoCampaignOnThreeMonths" requestURI="/administrator/dashboard.do" uid="sponsors">
 	
 	<!-- Attributes -->
 	
@@ -184,7 +184,7 @@
 <spring:message  code="administrator.avgOfCampaignperSponsor" />: <jstl:out value="${avgOfCampaignperSponsor}"/>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="usersForPopularityOfTheirRecipes" requestURI="/administrator/dashboard.do" id="row">
+	name="usersForPopularityOfTheirRecipes" requestURI="/administrator/dashboard.do" uid="users">
 	
 	<!-- Attributes -->
 	
@@ -194,7 +194,7 @@
 </display:table>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="usersForPoplarityDesc" requestURI="/administrator/dashboard.do" id="row">
+	name="usersForPoplarityDesc" requestURI="/administrator/dashboard.do" uid="users2">
 	
 	<!-- Attributes -->
 	
@@ -212,7 +212,7 @@
 <spring:message  code="administrator.avgOfStepsForRecipes" />: <jstl:out value="${avgOfStepsForRecipes}"/>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="contestsWithMoreRecipes" requestURI="/administrator/dashboard.do" id="row">
+	name="contestsWithMoreRecipes" requestURI="/administrator/dashboard.do" uid="contests">
 	
 	<!-- Attributes -->
 	
@@ -228,7 +228,7 @@
 <spring:message  code="administrator.avgRecipesForContests" />: <jstl:out value="${avgRecipesForContests}"/>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="usersWithMoreRecipes" requestURI="/administrator/dashboard.do" id="row">
+	name="usersWithMoreRecipes" requestURI="/administrator/dashboard.do" uid="users4">
 	
 	<!-- Attributes -->
 	

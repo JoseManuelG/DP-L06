@@ -42,8 +42,8 @@
 
 <!-- Followeds -->
 <jstl:if test="${followeds ne '[]'}">
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="followeds" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="${requestURI}"
+	name="followeds" uid="followed">
 	<!-- Attributes -->
 	<spring:message code="user.name" var="followedsHeader" />
 	<display:column property="followed.name" title="${followedsHeader}" sortable="true" />
@@ -58,8 +58,8 @@
 <spring:message code="user.followers" />: 
 
 <jstl:if test="${followers ne '[]'}">
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="followers" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="${requestURI}"
+	name="followers" uid="followers">
 	<!-- Attributes -->
 	<spring:message code="user.name" var="followersHeader" />
 	<display:column property="follower.name" title="${followersHeader}" sortable="true" />
@@ -93,20 +93,19 @@
 
 <br>
 <jstl:if test="${nutritionist.socialIdentities ne '[]'}">
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="socialIdentities" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="${requestURI}"
+	name="socialIdentities" uid="social">
 	
 	<!-- Action links -->
 	<!-- tendremos acceso al curriculum y al usuario -->
 	
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${row.id}">
+			<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
 				<spring:message	code="socialIdentity.view" />
 			</a>
 	</display:column>			
 	<jstl:if test="${principal}">
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${row.id}">
 				<spring:message	code="socialIdentity.edit" />
 			</a>
 	</display:column>			
@@ -145,8 +144,8 @@ Curriculum:
 <br/>
 <spring:message code="nutritionist.curriculum.hobbies" />:<jstl:out value="${curriculum.hobbiesSection}"/>
 <br/>
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="endorsers" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="${requestURI}"
+	name="endorsers" uid="endorser">
 	
 	<!-- Attributes -->
 	

@@ -32,7 +32,7 @@
 	<br />
 	
 	<jstl:if test="${not empty cooks}">
-		<display:table pagesize="5" class="displaytag" keepStatus="false" name="cooks" requestURI="cook/search" id="row">
+		<display:table pagesize="5" class="displaytag" keepStatus="false" name="cooks" requestURI="cook/search.do" id="row">
 		
 		<!-- Action links -->
 		<spring:message code="cook.view.title" var="viewTitleHeader" />
