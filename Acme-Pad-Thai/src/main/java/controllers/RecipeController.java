@@ -263,7 +263,9 @@ public class RecipeController extends AbstractController {
 		Collection<RecipeHint> recipeHints = recipeHintService.findRecipeHintsByRecipe(recipe);
 		Collection<String> pictures =recipe.getPictures();
 		Banner banner = bannerService.randomBanner();
-		campaignService.bannerDisplayed(banner);
+		if(banner!=null){
+			campaignService.bannerDisplayed(banner);
+		}
 		result = new ModelAndView("recipe/view");
 		result.addObject("likes",likes);
 		result.addObject("dislikes",dislikes);

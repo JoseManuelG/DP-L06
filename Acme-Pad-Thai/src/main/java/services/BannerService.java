@@ -70,15 +70,7 @@ public class BannerService {
 
 	
 	//Other business methods--------------------------
-	
-	public Boolean isActive(Banner banner){
-	    Boolean result=null;
-	    Date start=banner.getCampaign().getDateOfStart();
-	    Date end=banner.getCampaign().getDateOfStart();
-	    Date current=new Date(System.currentTimeMillis()-1000);
-	    result=start.before(current)&&end.after(current);
-	    return result;
-	  }
+
 	public Banner randomBanner(){
 		Banner result=null;
 		List<Banner> banners=(List<Banner>) bannerRepository.activeBanners();

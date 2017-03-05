@@ -60,7 +60,9 @@ public class WelcomeController extends AbstractController {
 		SimpleDateFormat formatter;
 		String moment;
 		Banner banner = bannerService.randomStarBanner();
-		campaignService.bannerDisplayed(banner);
+		if(banner!=null){
+			campaignService.bannerDisplayed(banner);
+		}
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 		Collection<MasterClass> promotedMasterClasses = masterClassService.findPromotedMasterClasses();
