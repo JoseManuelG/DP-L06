@@ -79,28 +79,26 @@ public class BannerService {
 	    result=start.before(current)&&end.after(current);
 	    return result;
 	  }
-	  public Banner randomBanner(){
-	    Banner result=null;
-	    List<Banner> banners=bannerRepository.findAll();
-	    Random randomIndex=new Random();
-	    Integer index=randomIndex.nextInt(banners.size());
-	    result=banners.get(index);
-	    while(isActive(result)){
-	      index=randomIndex.nextInt(banners.size());
-	      result=banners.get(index);
-	    }
-	    return result;
-	  }
-	  public Banner randomStarBanner(){
-	    Banner result=null;
-	    List<Banner> banners=bannerRepository.findAll();
-	    Random randomIndex=new Random();
-	    Integer index=randomIndex.nextInt(banners.size());
-	    result=banners.get(index);
-	    while(isActive(result)&&result.getCampaign().getStarCampaign()){
-	      index=randomIndex.nextInt(banners.size());
-	      result=banners.get(index);
-	    }
-	    return result;
-	  }	
+	public Banner randomBanner(){
+		Banner result=null;
+		List<Banner> banners=(List<Banner>) bannerRepository.activeBanners();
+		if(!banners.isEmpty()){
+			Random randomIndex=new Random();
+			Integer index=randomIndex.nextInt(banners.size());
+			result=banners.get(index);
+		}
+		return result;
+	}
+		
+	public Banner randomStarBanner(){
+		Banner result=null;
+		List<Banner> banners=(List<Banner>) bannerRepository.activeStarBanners();
+		if(!banners.isEmpty()){
+			Random randomIndex=new Random();
+			Integer index=randomIndex.nextInt(banners.size());
+			result=banners.get(index);
+		}
+		return result;
+	}
+
 }
