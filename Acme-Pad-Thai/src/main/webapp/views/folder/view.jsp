@@ -13,7 +13,7 @@
 
 <spring:message	code="folder.name" />: &nbsp; <jstl:out value="${folder.name}" />
 <br>
-<display:table pagesize="5" class="displaytag" keepStatus="false"
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="folder/view.do"
 	name="messages" id="row">
 	
 	<!-- Action links -->

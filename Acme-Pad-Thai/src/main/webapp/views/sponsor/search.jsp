@@ -32,7 +32,7 @@
 	<br />
 	
 	<jstl:if test="${not empty sponsors}">
-		<display:table pagesize="5" class="displaytag" keepStatus="false" name="sponsors" requestURI="sponsor/search" id="row">
+		<display:table pagesize="5" class="displaytag" keepStatus="false" name="sponsors" requestURI="sponsor/search.do" id="row">
 		
 		<!-- Action links -->
 		<spring:message code="sponsor.view.title" var="viewTitleHeader" />

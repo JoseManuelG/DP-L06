@@ -108,7 +108,7 @@
 <spring:message  code="recipe.comments" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="comments" requestURI="recipe/view.do" id="row">
+	name="comments" requestURI="recipe/view.do" uid="comment">
 	
 	<!-- Attributes -->
 
@@ -136,7 +136,7 @@
 <spring:message  code="recipe.quantities" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="quantities" requestURI="recipe/view.do" id="row">
+	name="quantities" requestURI="recipe/view.do" uid="quantity">
 	
 	<!-- Attributes -->
 
@@ -154,7 +154,7 @@
 <spring:message  code="recipe.belongs" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="belongs" requestURI="recipe/view.do" id="row">
+	name="belongs" requestURI="recipe/view.do" uid="belong">
 	
 	<!-- Attributes -->
 
@@ -166,12 +166,12 @@
 <spring:message  code="recipe.steps" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="steps" requestURI="recipe/view.do" id="row">
+	name="steps" requestURI="recipe/view.do" uid="step">
 	
 	<!-- Action links -->
 			<spring:message code="recipe.view.step" var="viewHeader" />
 			<display:column title="${viewHeader}">
-				<a href="step/view.do?stepId=${row.id}">
+				<a href="step/view.do?stepId=${step.id}">
 				<spring:message	code="recipe.view" />
 				</a>
 				
@@ -188,7 +188,7 @@
 <spring:message  code="recipe.recipeHints" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="recipeHints" requestURI="recipe/view.do" id="row">
+	name="recipeHints" requestURI="recipe/view.do" uid="recipeHint">
 	
 	<!-- Attributes -->
 

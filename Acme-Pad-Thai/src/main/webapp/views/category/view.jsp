@@ -52,14 +52,14 @@
 <br>
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="subCategory" requestURI="category/view.do" id="row">
+	name="subCategory" requestURI="category/view.do" uid="subCategory">
 	
 	<!-- Attributes -->
 
 	<spring:message code="category.subCategory" var="subCategoryHeader" />
 	<display:column property="name" title="${subCategoryHeader}" sortable="true" />
 	<display:column>
-			<a href="category/view.do?categoryId=${row.id}">
+			<a href="category/view.do?categoryId=${subCategory.id}">
 				<spring:message	code="category.subcategory.view" />
 			</a>
 		</display:column>		
@@ -67,7 +67,7 @@
 	</display:table>
 
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="recipes" requestURI="category/view.do" id="row">
+	name="recipes" requestURI="category/view.do" uid="recipe">
 	
 	<!-- Attributes -->
 
@@ -75,7 +75,7 @@
 	<display:column property="title" title="${recipeHeader}" sortable="true" />
 	
 		<display:column>
-			<a href="recipe/view.do?recipeId=${row.id}">
+			<a href="recipe/view.do?recipeId=${recipe.id}">
 				<spring:message	code="category.view.recipe" />
 			</a>
 		</display:column>		

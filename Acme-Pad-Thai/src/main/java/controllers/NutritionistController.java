@@ -150,7 +150,7 @@ public class NutritionistController extends AbstractController {
 		result.addObject("nutritionist",nutritionist);
 		result.addObject("curriculum",curriculum);
 		result.addObject("endorsers",curriculum.getEndorsers());
-		
+		result.addObject("requestURI","nutritionist/view.do");
 		result.addObject("endosers",endorsers);
 		result.addObject("follow",follow);
 		result.addObject("followers",nutritionist.getFollowers());

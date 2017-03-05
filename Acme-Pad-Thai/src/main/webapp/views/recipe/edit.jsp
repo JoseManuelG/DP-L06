@@ -111,12 +111,12 @@
 <spring:message  code="recipe.quantities" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="quantities" requestURI="recipe/view.do" id="row">
+	name="quantities" requestURI="recipe/view.do" uid="quantity">
 	
 	<!-- Action links -->
 			<spring:message code="recipe.edit.quantity" var="editHeader" />
 			<display:column title="${editHeader}">
-				<a href="quantity/user/edit.do?quantityId=${row.id}">
+				<a href="quantity/user/edit.do?quantityId=${quantity.id}">
 				<spring:message	code="recipe.edit" />
 				</a>
 				
@@ -143,11 +143,11 @@
 <spring:message  code="recipe.belongs" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="belongs" requestURI="recipe/view.do" id="row">
+	name="belongs" requestURI="recipe/view.do" uid="brlong">
 	<!-- Action links -->
 			<spring:message code="recipe.edit.belongs" var="editHeader" />
 			<display:column title="${editHeader}">
-				<a href="belongs/user/edit.do?belongsId=${row.id}">
+				<a href="belongs/user/edit.do?belongsId=${brlong.id}">
 				<spring:message	code="recipe.edit" />
 				</a>
 				
@@ -168,11 +168,11 @@
 <spring:message  code="recipe.steps" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="steps" requestURI="recipe/view.do" id="row">
+	name="steps" requestURI="recipe/view.do" uid="step">
 	<!-- Action links -->
 			<spring:message code="recipe.edit.step" var="editHeader" />
 			<display:column title="${editHeader}">
-				<a href="step/user/edit.do?stepId=${row.id}">
+				<a href="step/user/edit.do?stepId=${step.id}">
 				<spring:message	code="recipe.edit" />
 				</a>
 				
@@ -198,11 +198,11 @@
 <spring:message  code="recipe.recipeHints" />:
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="recipeHints" requestURI="recipe/view.do" id="row">
+	name="recipeHints" requestURI="recipe/view.do" uid="recipeHint">
 	<!-- Action links -->
 			<spring:message code="recipe.edit.recipeHint" var="editHeader" />
 			<display:column title="${editHeader}">
-				<a href="recipehint/user/edit.do?recipeHintId=${row.id}">
+				<a href="recipehint/user/edit.do?recipeHintId=${recipeHint.id}">
 				<spring:message	code="recipe.edit" />
 				</a>
 				

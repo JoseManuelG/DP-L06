@@ -43,7 +43,7 @@
 <spring:message  code="recipe.user.name" />: <jstl:out value="${recipe.user.name}"/>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="quantities" requestURI="recipe/view.do" id="row">
+	name="quantities" requestURI="recipe/view.do" uid="ingredient">
 	
 	<!-- Attributes -->
 
@@ -59,7 +59,7 @@
 </display:table>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="belongs" requestURI="recipe/view.do" id="row">
+	name="belongs" requestURI="recipe/view.do" uid="belongs">
 	
 	<!-- Attributes -->
 
@@ -70,7 +70,7 @@
 <br>
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="steps" requestURI="recipe/view.do" id="row">
+	name="steps" requestURI="recipe/view.do" uid="step">
 	
 	<!-- Attributes -->
 
@@ -82,7 +82,7 @@
 </display:table>
 <br>
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="recipeHints" requestURI="recipe/view.do" id="row">
+	name="recipeHints" requestURI="recipe/view.do" uid="recipeHits">
 	
 	<!-- Attributes -->
 

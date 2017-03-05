@@ -40,8 +40,8 @@
 	<spring:message  code="sponsor.campaigns" />
 
 <!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="false"
-  name="campaigns" id="row">
+	<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="sponsor/view.do"
+  name="campaigns" uid="campaign">
   
   
   <spring:message code="sponsor.campaign.dateOfStart" var="dateOfStartHeader" />
@@ -62,13 +62,13 @@
 </display:table>
 </jstl:if>
 <!-- Listing grid -->
-	<display:table pagesize="5" class="displaytag" keepStatus="false"
-  name="creditCards" id="row">
+	<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="sponsor/view.do"
+  name="creditCards" uid="creditCard">
   <jstl:if test="${sponsor.creditCards!= '[]'}">
 	<spring:message  code="sponsor.creditCards" />
 	</jstl:if>
  		<display:column>
-			<a href="creditCard/sponsor/edit.do?creditCardId=${row.id}">
+			<a href="creditCard/sponsor/edit.do?creditCardId=${creditCard.id}">
 				<spring:message	code="folder.edit" />
 			</a>
 		</display:column>	
@@ -103,20 +103,20 @@
 </jstl:if>
 <br>
 
-<display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="socialIdentities" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="sponsor/view.do"
+	name="socialIdentities" uid="social">
 	
 	<!-- Action links -->
 	<!-- tendremos acceso al curriculum y al usuario -->
 	
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${row.id}">
+			<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
 				<spring:message	code="socialIdentity.view" />
 			</a>
 	</display:column>			
 	<jstl:if test="${principal}">
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${row.id}">
+			<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
 				<spring:message	code="socialIdentity.edit" />
 			</a>
 	</display:column>			

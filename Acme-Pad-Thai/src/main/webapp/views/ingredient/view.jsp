@@ -19,7 +19,7 @@
 <spring:message code="ingredient.description" />:<jstl:out value="${ingredient.description}"/>
 <br/>
 <spring:message code="ingredient.propertyValues" />
-<display:table pagesize="5" class="displaytag" keepStatus="false"
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="ingredient/nutritionist/view.do"
 	name="propertyValues" id="row">
 	
 	<!-- Action links -->
