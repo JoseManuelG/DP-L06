@@ -63,17 +63,21 @@ public class CreditCardController extends AbstractController {
 				
 			}else{
 				
-				if(creditCard.getId()==0){
-					creditCard=creditCardService.save(creditCard);
-					//No se si debe ir a servicio
-					Sponsor sponsor=sponsorService.findByPrincipal();
-					sponsor.getCreditCards().add(creditCard);
-					//fin del todo
-					sponsorService.save(sponsor);
-				}else{
-					creditCardService.save(creditCard);
+				try{
+					if(creditCard.getId()==0){
+						creditCard=creditCardService.save(creditCard);
+						Sponsor sponsor=sponsorService.findByPrincipal();
+						sponsor.getCreditCards().add(creditCard);
+						sponsorService.save(sponsor);
+					}else{
+						creditCardService.save(creditCard);
+					}
+					result=new ModelAndView("redirect:../../sponsor/view.do");
+
+				}catch (Exception e) {
+					result=createEditModelAndView(creditCard);
 				}
-				result=new ModelAndView("redirect:../../sponsor/view.do");
+
 				
 			}
 
