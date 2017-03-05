@@ -107,7 +107,7 @@
 	<!-- tendremos acceso al curriculum y al usuario -->
 	
 	<display:column>
-			<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
+			<a href="socialIdentity/view.do?socialIdentityId=${social.id}">
 				<spring:message	code="socialIdentity.view" />
 			</a>
 	</display:column>			

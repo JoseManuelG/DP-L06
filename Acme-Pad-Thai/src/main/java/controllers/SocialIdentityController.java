@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,10 @@ import security.Authority;
 import security.LoginService;
 import services.ActorService;
 import services.SocialIdentityService;
+import domain.Curriculum;
+import domain.Endorser;
+import domain.Folder;
+import domain.Nutritionist;
 import domain.SocialIdentity;
 
 @Controller
@@ -35,6 +40,18 @@ public class SocialIdentityController extends AbstractController {
 	public SocialIdentityController () {
 		super();
 	}
+	//View ------------------------------------------------------------------
+	@RequestMapping(value="/view",method=RequestMethod.GET,params="socialIdentityId")
+	public ModelAndView view(int socialIdentityId) {
+		ModelAndView result;
+		SocialIdentity socialId =socialIdentityService.findOne(socialIdentityId);
+		
+		result = new ModelAndView("socialIdentity/view");
+		result.addObject("socialIdentity",socialId);
+		
+		return result;
+	}
+	
 	// create-----------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public @ResponseBody ModelAndView save() {

@@ -25,6 +25,11 @@
 		<put-attribute name="title" value="Editar una identidad social" />
 		<put-attribute name="body" value="/views/socialIdentity/edit.jsp" />
 	</definition>
+	
+	<definition name="socialIdentity/view" extends="master.page">	
+		<put-attribute name="title" value="Ver identidad social" />
+		<put-attribute name="body" value="/views/socialIdentity/view.jsp" />
+	</definition>
 		
 	
 </tiles-definitions>

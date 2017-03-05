@@ -38,6 +38,13 @@
 	<form:errors cssClass="error" path="link" />
 	<br />
 	
+	<form:label path="picture">
+		<spring:message code="socialIdentity.picture" />:
+	</form:label>
+	<form:input path="picture" />
+	<form:errors cssClass="error" path="picture" />
+	<br />
+	
 
 <input type="submit" name="save"
 		value="<spring:message code="curriculum.save" />" />&nbsp; 

@@ -9,37 +9,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<img src="${curriculum.picture}" alt="<spring:message code="curriculum.notIMG" /> "/>
+
+<spring:message code="socialIdentity.picture" />:
 <br/>
-<spring:message code="curriculum.picture" />:	<jstl:out value="${curriculum.picture}"/>
+<img src="${socialIdentity.picture}" alt="<spring:message code="socialIdentity.notIMG" /> "/>
 <br/>
 
-<spring:message code="curriculum.education" />:	<jstl:out value="${curriculum.educationSection}"/>
-<br/>
-<spring:message code="curriculum.experience" />:<jstl:out value="${curriculum.experienceSection}"/>
-<br/>
-<spring:message code="curriculum.hobbies" />:<jstl:out value="${curriculum.hobbiesSection}"/>
-<br/>
 
-<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="socialIdentity/view.do"
-	name="endorsers" id="row">
-	
-	<!-- Action links -->
-	
-	
-		<display:column>
-			<a href="endorser/nutritionist/edit.do?endorserId=${row.id}">
-				<spring:message	code="curriculum.endorser.edit" />
-			</a>
-		</display:column>		
-		
-	<!-- Attributes -->
-	
-	<spring:message code="curriculum.endorser.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="false" />
-
-	<spring:message code="curriculum.endorser.homepage" var="homepageHeader" />
-	<display:column property="homepage" title="${homepageHeader}" sortable="false" />
-
-	
-</display:table>
+<spring:message code="socialIdentity.nick" />:	<jstl:out value="${socialIdentity.nick}"/>
+<br/>
+<spring:message code="socialIdentity.socialNetwork" />:<jstl:out value="${socialIdentity.socialNetwork}"/>
+<br/>
+<a href="${socialIdentity.link}"><spring:message code="socialIdentity.link" /></a>
