@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+	<definition name="learningmaterial/list" extends="master.page">	
+		<put-attribute name="title" value="Catálogo de materiales de estudio" />
+		<put-attribute name="body" value="/views/learningmaterial/list.jsp" />
+	</definition>
+	
+	<definition name="learningmaterial/view" extends="master.page">	
+		<put-attribute name="title" value="Ver material de estudio" />
+		<put-attribute name="body" value="/views/learningmaterial/view.jsp" />
+	</definition>	
+	
+	<definition name="learningmaterial/create" extends="master.page">	
+		<put-attribute name="title" value="Nuevo material de estudio" />
+		<put-attribute name="body" value="/views/learningmaterial/edit.jsp" />
+	</definition>	
+	
+	<definition name="learningmaterial/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar material de estudio" />
+		<put-attribute name="body" value="/views/learningmaterial/edit.jsp" />
+	</definition>
+	
+	<definition name="learningmaterial/cook/addAttachment" extends="master.page">
+		<put-attribute name="title" value="Nuevo adjunto" />
+		<put-attribute name="body" value="/views/learningmaterial/addAttachment.jsp" />
+	</definition>	
+</tiles-definitions>

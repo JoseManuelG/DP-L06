@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+		<definition name="masterclass/list" extends="master.page">	
+		<put-attribute name="title" value="Masterclass catalogue" />
+		<put-attribute name="body" value="/views/masterclass/list.jsp"  />
+	</definition>
+	
+	<definition name="masterclass/listByCook" extends="master.page">	
+		<put-attribute name="title" value="Cooks masterclasses " />
+		<put-attribute name="body" value="/views/masterclass/list.jsp"  />
+	</definition>
+	
+	<definition name="masterclass/cook/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit masterclass" />
+		<put-attribute name="body" value="/views/masterclass/edit.jsp"  />
+	</definition>
+	
+	<definition name="masterclass/cook/create" extends="master.page">	
+		<put-attribute name="title" value="New masterclass" />
+		<put-attribute name="body" value="/views/masterclass/edit.jsp"  />
+	</definition>
+
+	<definition name="masterclass/view" extends="master.page">	
+		<put-attribute name="title" value="View masterclass" />
+		<put-attribute name="body" value="/views/masterclass/view.jsp"  />
+	</definition>
+	
+</tiles-definitions>

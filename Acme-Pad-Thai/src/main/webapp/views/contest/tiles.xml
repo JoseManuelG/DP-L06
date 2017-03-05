@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+<definition name="contest/list" extends="master.page">	
+		<put-attribute name="title" value="Contest catalogue" />
+		<put-attribute name="body" value="/views/contest/list.jsp" />
+	</definition>
+	
+	<definition name="contest/view" extends="master.page">	
+		<put-attribute name="title" value="View contest" />
+		<put-attribute name="body" value="/views/contest/view.jsp" />
+	</definition>
+	
+	<definition name="contest/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit contest" />
+		<put-attribute name="body" value="/views/contest/edit.jsp" />
+	</definition>
+	
+	<definition name="contest/administrator/compute" extends="master.page">	
+		<put-attribute name="title" value="Compute winners" />
+		<put-attribute name="body" value="/views/contest/compute.jsp" />
+	</definition>
+	
+	<definition name="contest/administrator/create" extends="master.page">	
+		<put-attribute name="title" value="Create contest" />
+		<put-attribute name="body" value="/views/contest/create.jsp" />
+	</definition>
+	
+	<definition name="contest/submit" extends="master.page">	
+		<put-attribute name="title" value="Submit contest" />
+		<put-attribute name="body" value="/views/contest/submit.jsp" />
+	</definition>
+	
+	<definition name="contest/submitfinal" extends="master.page">	
+		<put-attribute name="title" value="Sumbit a recipe for a contest" />
+		<put-attribute name="body" value="/views/contest/submit.jsp" />
+	</definition>
+</tiles-definitions>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="category/list" extends="master.page">	
+		<put-attribute name="title" value="Category catalogue" />
+		<put-attribute name="body" value="/views/category/list.jsp" />
+	</definition>
+	
+	<definition name="category/listrecipe" extends="master.page">	
+		<put-attribute name="title" value="Catalogue of categories grouped by recipe" />
+		<put-attribute name="body" value="/views/category/listrecipe.jsp" />
+	</definition>
+	
+	<definition name="category/listrecipefinal" extends="master.page">	
+		<put-attribute name="title" value="Catalogue of categories grouped by recipe" />
+		<put-attribute name="body" value="/views/category/listrecipefinal.jsp" />
+	</definition>
+
+	<definition name="category/view" extends="master.page">	
+		<put-attribute name="title" value="View category" />
+		<put-attribute name="body" value="/views/category/view.jsp" />
+	</definition>
+	
+	<definition name="category/administrator/create" extends="master.page">	
+		<put-attribute name="title" value="Create category" />
+		<put-attribute name="body" value="/views/category/create.jsp" />
+	</definition>
+	
+		<definition name="category/administrator/createtag" extends="master.page">	
+		<put-attribute name="title" value="Create tag for category" />
+		<put-attribute name="body" value="/views/category/createtag.jsp" />
+	</definition>
+	
+	<definition name="category/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit category" />
+		<put-attribute name="body" value="/views/category/edit.jsp" />
+	</definition>
+	
+</tiles-definitions>

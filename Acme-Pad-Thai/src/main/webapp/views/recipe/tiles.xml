@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2016 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="recipe/list" extends="master.page">	
+		<put-attribute name="title" value="Recipe catalogue" />
+		<put-attribute name="body" value="/views/recipe/list.jsp" />
+	</definition>
+	
+	<definition name="recipe/user/listcontest" extends="master.page">	
+		<put-attribute name="title" value="Contest's recipes" />
+		<put-attribute name="body" value="/views/recipe/list.jsp" />
+	</definition>
+	<definition name="recipe/search" extends="master.page">	
+		<put-attribute name="title" value="Recipe search" />
+		<put-attribute name="body" value="/views/recipe/search.jsp" />
+	</definition>
+	
+	<definition name="recipe/view" extends="master.page">	
+		<put-attribute name="title" value="View recipe" />
+		<put-attribute name="body" value="/views/recipe/view.jsp" />
+	</definition>
+	
+	<definition name="recipe/user/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit recipe" />
+		<put-attribute name="body" value="/views/recipe/edit.jsp" />
+	</definition>
+	
+	<definition name="recipe/user/create" extends="master.page">	
+		<put-attribute name="title" value="New recipe" />
+		<put-attribute name="body" value="/views/recipe/edit.jsp" />
+	</definition>
+	
+	<definition name="recipe/user/createpicture" extends="master.page">	
+		<put-attribute name="title" value="New picture" />
+		<put-attribute name="body" value="/views/recipe/createpicture.jsp" />
+	</definition>
+	
+</tiles-definitions>
