@@ -47,7 +47,7 @@ public class MessageService {
 	}
 	
 	public Message create(int recipientId){
-		Message result=new Message();
+		Message result=this.create();
 		Date sendingMoment=new Date(System.currentTimeMillis()-100);
 		result.setSendingMoment(sendingMoment);
 		Actor sender=actorService.findActorByPrincial();

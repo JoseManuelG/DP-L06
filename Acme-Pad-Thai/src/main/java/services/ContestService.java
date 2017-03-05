@@ -100,7 +100,8 @@ public class ContestService {
 			Assert.isTrue(oldContest.getTittle().equals(contest.getTittle()),"El titulo no debe variar en un concurso en marcha");
 			
 			Assert.isTrue(oldContest.getOpeningTime().compareTo(contest.getOpeningTime())==0,"La fecha de inicio no debe variar en un concurso en marcha");
-						
+			Assert.isTrue(oldContest.getClosingTime().after(currentMoment),"El concurso no puede estar cerrado");
+		
 			Assert.isTrue(oldContest.getQualifieds().containsAll(contest.getQualifieds()),"Los qualifieds no debe variar en un concurso en marcha");
 			result=true;
 			}

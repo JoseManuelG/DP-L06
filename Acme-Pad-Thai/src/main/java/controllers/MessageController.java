@@ -60,6 +60,8 @@ public class MessageController extends AbstractController {
 			ModelAndView result;
 		
 			Message message=messageService.create(recipientId);
+			
+			
 			result=createCreateModelAndView(message);
 			return result;
 		}

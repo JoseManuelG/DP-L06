@@ -62,3 +62,48 @@
 
 	
 </display:table>
+
+
+
+<!-- socialIdentities -->
+	<spring:message  code="socialIdentity.socialIdentity" />:
+
+<br>
+<jstl:if test="${cook.socialIdentities ne '[]'}">
+<display:table pagesize="5" class="displaytag" keepStatus="false" requestURI="${requestURI}"
+	name="socialIdentities" uid="social">
+	
+	<!-- Action links -->
+	<!-- tendremos acceso al curriculum y al usuario -->
+	
+	<display:column>
+			<a href="socialIdentity/view.do?socialIdentityId=${social.id}">
+				<spring:message	code="socialIdentity.view" />
+			</a>
+	</display:column>			
+	<jstl:if test="${principal}">
+	<display:column>
+	<a href="socialIdentity/edit.do?socialIdentityId=${social.id}">
+				<spring:message	code="socialIdentity.edit" />
+			</a>
+	</display:column>			
+	</jstl:if>
+	
+	<!-- Attributes -->
+	<!-- veremos como propiedad de la tabla el ususario propietario del curriculum -->
+		<spring:message code="socialIdentity.nick" var="nicHeader" />
+		<display:column property="nick" title="${nicHeader}" sortable="false" />
+		<spring:message code="socialIdentity.socialNetwork" var="SocialNetworkHeader" />
+		<display:column property="socialNetwork" title="${SocialNetworkHeader}" sortable="false" />
+		<spring:message code="socialIdentity.link" var="linkHeader" />
+		<display:column property="link" title="${linkHeader}" sortable="false" />
+	</display:table>
+	</jstl:if>
+	<jstl:if test="${principal}">
+	
+	<a href="socialIdentity/create.do">
+			<spring:message	code="socialIdentity.create" />
+	</a>
+	<br>
+	</jstl:if>
+	<br>

@@ -95,11 +95,14 @@ public class CookController extends AbstractController {
 		if(cookId==null){
 			cook =cookService.findByPrincipal();
 			masterClasses= masterClassService.findRecipesByCook(cook);
+			boolean principal = true;
+			result.addObject("principal", principal);
 		}else{
 			cook = cookService.findOne(cookId);
 			masterClasses = masterClassService.findRecipesByCook(cook);
 		}
 		result.addObject("masterclasses",masterClasses);
+		result.addObject("socialIdentities",cook.getSocialIdentities());
 		result.addObject(cook);
 		return result;
 	}

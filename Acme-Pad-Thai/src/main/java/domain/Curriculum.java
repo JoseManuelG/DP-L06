@@ -7,6 +7,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -53,7 +54,7 @@ public class Curriculum extends DomainEntity{
 	//Relationships------
 	
 	private Collection<Endorser> endorsers;
-	
+	@NotNull
 	@OneToMany(mappedBy="curriculum",cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	public Collection<Endorser> getEndorsers() {
 		return endorsers;

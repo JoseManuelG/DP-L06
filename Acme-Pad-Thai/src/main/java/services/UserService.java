@@ -88,7 +88,7 @@ public class UserService {
 		User result;
 
 		result = userRepository.findOne(userId);
-		Assert.notNull(result);
+//		Assert.notNull(result);
 
 		return result;
 	}

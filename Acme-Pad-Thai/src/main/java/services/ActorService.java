@@ -63,29 +63,29 @@ public class ActorService {
 		Actor result=null;
 		
 		try{
-			result=sponsorService.findOne(id);
-		}catch (Exception e) {}
+			result=(Actor)sponsorService.findOne(id);
+		}catch (Throwable oops) {}
 		if(result==null){
 			try{
-				result=userService.findOne(id);
-			}catch (Exception e) {}
+				result=(Actor)userService.findOne(id);
+			}catch (Throwable oops) {}
 		}
 			if(result==null) {
 			try{
-				result=cookService.findOne(id);
-			}catch (Exception e) {}
+				result=(Actor)cookService.findOne(id);
+			}catch (Throwable oops) {}
 		}
 			if(result==null){
 			try{
-				result=administratorService.findOne(id);
-			}catch (Exception e) {}
+				result=(Actor)administratorService.findOne(id);
+			}catch (Throwable oops) {}
 		}
 			if(result==null){
 			try{
-				result=nutritionistService.findOne(id);
-			}catch (Exception e) {}
+				result=(Actor)nutritionistService.findOne(id);
+			}catch (Throwable oops) {}
 		}
-		return result;
+		return (Actor) result;
 	}
 	
 	public Collection<Folder> findActorFoldersById(int actorId){
