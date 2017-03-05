@@ -2,6 +2,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import repositories.LearningMaterialRepository;
 import security.LoginService;
 import domain.LearningMaterial;
 import domain.MasterClass;
+import forms.AttachmentForm;
 
 @Service
 @Transactional
@@ -26,6 +29,13 @@ public class LearningMaterialService {
 		//Simple CRUD methods --------------------------------------
 
 		public LearningMaterial create() {
+			LearningMaterial result;
+			result = new LearningMaterial();
+			
+			result.setAttachments(new ArrayList<String>());
+			return result;
+		}
+		public LearningMaterial create(MasterClass masterClass) {
 			LearningMaterial result;
 			result = new LearningMaterial();
 			
@@ -77,5 +87,34 @@ public class LearningMaterialService {
 				result =attends.isEmpty();
 				return !result;
 		}
-
+		
+		public boolean URLofLearningMaterialIsValid(LearningMaterial learningMaterial){
+			boolean result = false;
+			if(learningMaterial.getType().equals("presentation")){
+				result=learningMaterial.getData().contains("slideshare.net");
+			}else if(learningMaterial.getType().contains("video")){
+				result=learningMaterial.getData().contains("youtube.com");	
+			}else if(learningMaterial.getType().contains("text")){
+				result=true;
+			}
+			return result;
+	}
+		public LearningMaterial addAttachment(LearningMaterial learningMaterial,AttachmentForm attachmentForm){
+			List<String> attachments = new ArrayList<String>();
+			attachments.addAll(learningMaterial.getAttachments());
+			String newAttachment =attachmentForm.getText();
+			attachments.add(newAttachment);
+			learningMaterial.setAttachments(attachments);
+			
+			return learningMaterial;
+		}
+		public LearningMaterial deleteAttachment(LearningMaterial learningMaterial,Integer attachmentIndex){
+			List<String> attachments = new LinkedList<String>();
+			attachments.addAll(learningMaterial.getAttachments());
+			String attachmentToDelete= attachments.get(attachmentIndex);
+			attachments.remove(attachmentToDelete);
+			learningMaterial.setAttachments(attachments);
+			
+			return learningMaterial;
+		}
 }
