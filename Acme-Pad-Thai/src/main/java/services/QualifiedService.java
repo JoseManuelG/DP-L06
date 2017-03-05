@@ -44,6 +44,11 @@ public class QualifiedService {
 	
 	//Simple Crud methods---------------------------------
 	
+	public Qualified create(){
+		Qualified result;
+		result = new Qualified();
+		return result;
+	}
 	public Qualified create(Contest contest,Recipe recipe,Boolean boolean1 ){		
 		Qualified result;
 		result=new Qualified();

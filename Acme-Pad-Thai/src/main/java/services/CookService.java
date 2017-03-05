@@ -33,6 +33,11 @@ public class CookService {
 
 	// Simple CRUD methods --------------------------------------
 
+	public Cook create(){
+		Cook result;
+		result=new Cook();
+		return result;
+	}
 	public Cook create(ActorForm actorForm) {
 		Cook result;
 		result = new Cook();
