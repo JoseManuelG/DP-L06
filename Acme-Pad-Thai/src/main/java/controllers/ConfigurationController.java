@@ -79,12 +79,10 @@ public class ConfigurationController extends AbstractController {
 		public ModelAndView createKeyWord() {
 			ModelAndView result;
 			ConfigurationForm configurationForm = new ConfigurationForm();
-			//TODO FUera de aqui(porque el formulario lleva en su interior el propio objeto?)
 			configurationForm.setText("spam word here");
 		
 			Configuration configuration = configurationService.findOne();
 			configurationForm.setConfiguration(configuration);
-			//Fin del todo	
 			result = new ModelAndView("configuration/admin/createKeyWord");
 			result.addObject("configurationForm",configurationForm);
 			return result;
@@ -93,16 +91,10 @@ public class ConfigurationController extends AbstractController {
 		@RequestMapping(value = "/createKeyWord",method=RequestMethod.POST,params="Accept" )
 		public ModelAndView createKeyWord(ConfigurationForm configurationForm) {
 			ModelAndView result;
-			Configuration configuration = configurationService.findOne();
-			//TODO pa servicios
-			List<String> keyWords = new ArrayList<String>();
-			keyWords.addAll(configuration.getKeyWords());
-			keyWords.add(configurationForm.getText());
-			configuration.setKeyWords(keyWords);
-			//Fin del todo
+			Configuration configuration;
+			configuration=configurationService.setConfiguration(configurationForm);
 			result = new ModelAndView("redirect:edit.do");
-			Configuration savedConfiguration=configurationService.save(configuration);
-			result.addObject(savedConfiguration);
+			result.addObject(configuration);
 			return result;
 		}
 		
@@ -110,16 +102,8 @@ public class ConfigurationController extends AbstractController {
 		@RequestMapping(value = "/deleteKeyWord")
 		public 	ModelAndView deleteKeyWord(Integer keyWordIndex) {
 			ModelAndView result;
-			Configuration configuration = configurationService.findOne();
 			try {
-				//TODO pa Servicio
-				ArrayList<String> keyWords = new ArrayList<String>();
-				keyWords.addAll(configuration.getKeyWords());
-				String keyWordToDelete= keyWords.get(Integer.valueOf(keyWordIndex));
-				keyWords.remove(keyWordToDelete);
-				configuration.setKeyWords(keyWords);
-				//Fin del todo
-				Configuration savedConfiguration=configurationService.save(configuration);
+				Configuration savedConfiguration=configurationService.deleteKeyWord(keyWordIndex);
 				result = new ModelAndView("redirect:edit.do");
 				result.addObject(savedConfiguration);
 				
