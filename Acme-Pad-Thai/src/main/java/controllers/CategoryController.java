@@ -144,20 +144,14 @@ public class CategoryController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Category category;
-//TODO esto en servicio	
-		Collection<String> tags=new LinkedList<String>();
-		Collection<Category> subCategory=new LinkedList<Category>();
-		Collection<Belongs> belongs=new LinkedList<Belongs>();
+
 		category = categoryService.create();
-		category.setTags(tags);
-		category.setSubCategory(subCategory);
-		category.setBelongs(belongs);
+
 		Collection<Category> categories =categoryService.findAll();
-//Fin del todo
 		result = createEditModelAndView(category);
 		result.addObject("requestURI","category/administrator/edit.do");
 		result.addObject("category", category);
-		result.addObject("subCategory", subCategory);
+
 		result.addObject("categories", categories);
 
 		return result;
@@ -168,13 +162,14 @@ public class CategoryController extends AbstractController {
 	public ModelAndView edit(@RequestParam int categoryId){
 		ModelAndView result;
 		Category category;
-//TODO Todo esto a un servicio
+
 		category = categoryService.findOne(categoryId);
 		Collection<Category> subCategory= category.getSubCategory();
 		Collection<Belongs> belongs= category.getBelongs();
+		
 		Collection<Category> categories =categoryService.getCategoriesNoCicle(category);
-		categories.remove(category);
-//Fin del todo		
+		
+	
 		result = createEditModelAndView(category);
 		
 		result.addObject("requestURI","category/administrator/edit.do");
@@ -243,12 +238,13 @@ public class CategoryController extends AbstractController {
 	@RequestMapping("/administrator/createtag")
 	public ModelAndView createtag(String categoryId) {
 		ModelAndView result;
-		TagForm tf = new TagForm();
-//TODO estos sets duera de aqui		
-		tf.setText("your tag here");
+	
+		
 		Category category = categoryService.findOne(Integer.valueOf(categoryId));
-		tf.setCategory(category);
-//Fin del todo
+		TagForm tf = new TagForm(category);
+
+		
+
 		result = new ModelAndView("category/administrator/createtag");
 		result.addObject("tagForm",tf);
 		return result;
@@ -258,13 +254,9 @@ public class CategoryController extends AbstractController {
 	public ModelAndView createtag(TagForm tagForm) {
 		ModelAndView result;
 		Category category = tagForm.getCategory();
-		//TODO en un servicio
-		List<String> tags = new ArrayList<String>();
-		tags.addAll(category.getTags());
-		String tagToAdd =tagForm.getText();
-		tags.add(tagToAdd);
-		category.setTags(tags);
-		//Fin del todo
+		
+		category=(categoryService.addTag(category, tagForm.getText()));
+			
 		categoryService.save(category);
 		result = new ModelAndView("redirect:../administrator/edit.do?categoryId="+category.getId());
 		return result;
@@ -276,13 +268,8 @@ public class CategoryController extends AbstractController {
 		ModelAndView result;
 		Category category = categoryService.findOne(Integer.valueOf(categoryId));
 		try {
-			//TODO en el servicio
-			List<String> tags = new LinkedList<String>();
-			tags.addAll(category.getTags());
-			String tagToDelete= tags.get(Integer.valueOf(tagIndex));
-			tags.remove(tagToDelete);
-			category.setTags(tags);
-			//Fin del todo
+			category=categoryService.removeTag(category, tagIndex);
+			
 			categoryService.save(category);
 			result = new ModelAndView("redirect:../administrator/edit.do?categoryId="+category.getId());
 		} catch (Throwable oops) {
