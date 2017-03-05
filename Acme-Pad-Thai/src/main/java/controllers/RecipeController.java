@@ -11,11 +11,8 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -117,19 +114,12 @@ public class RecipeController extends AbstractController {
 	// List ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-//		ModelAndView result;
-//		Collection<Recipe> recipes;
-//		recipes = recipeService.findOriginalRecipes();
-//		result = new ModelAndView("recipe/list");
-//		result.addObject("requestURI","recipe/list.do");
-//		result.addObject("recipes",recipes);
-//		
+	public ModelAndView list() {	
 		ModelAndView result;
-		Collection<Category> categories;
+		
+		Collection<Category> categories = categoryService.findAll();
 		Collection<Recipe> recipes = recipeService.findOriginalRecipes();
 		CategoryForm categoryForm= new CategoryForm();
-		categories = categoryService.findAll();
 		
 		result = new ModelAndView("category/listrecipe");
 		result.addObject("requestURI","category/listrecipefinal.do");
@@ -139,25 +129,7 @@ public class RecipeController extends AbstractController {
 		
 		return result;
 	}
-	
-//	@RequestMapping(value = "/listByUser", method = RequestMethod.GET)
-//	public ModelAndView list(@RequestParam(required = false) Integer userId) {
-//		ModelAndView result;
-//		Collection<Recipe> recipes;
-//		if(userId == null){
-//			User user = userService.findByPrincipal();
-//			recipes = recipeService.findRecipesByUser(user);
-//		}else{
-//			User user = userService.findOne(userId);
-//			recipes = recipeService.findRecipesByUser(user);
-//		}
-//		result = new ModelAndView("recipe/list");
-//		result.addObject("requestURI","recipe/list.do");
-//		result.addObject("recipes",recipes);
-//		
-//		return result;
-//	}
-//	
+
 	@RequestMapping(value = "/user/listcontest", method = RequestMethod.GET)
 	public ModelAndView listcontest() {
 		ModelAndView result;
@@ -192,14 +164,12 @@ public class RecipeController extends AbstractController {
 	  public ModelAndView myRecipes() {
 	    ModelAndView result;
 	    Collection<Recipe> recipes;
-	    int id =0;
 	    User user = userService.findByPrincipal();
 	   
 	    recipes = recipeService.findRecipesByUser(user);
 	    result = new ModelAndView("recipe/list");
 	    result.addObject("requestURI","recipe/user/myRecipes.do");
 	    result.addObject("recipes",recipes);
-	    result.addObject("id",id);
 	    return result;
 	  }
 	
@@ -235,6 +205,7 @@ public class RecipeController extends AbstractController {
 		String text= stringForm.getText();
 		Collection<Recipe> recipesReturned = recipeService.searchForRecipe(text);
 		result = new ModelAndView("recipe/list");
+		result.addObject("requestURI","recipe/search.do");
 		result.addObject("recipes",recipesReturned);
 		return result;
 	}
@@ -246,16 +217,9 @@ public class RecipeController extends AbstractController {
 		ModelAndView result;
 		Recipe recipe = recipeService.findOne(recipeId);
 		Collection<Qualification> qualifications = qualificationService.findQualificationsByRecipe(recipe);
-		//TODO pa un servicio
-		int likes =0;
-		int dislikes =0;
-		for(Qualification q: qualifications){
-			if(q.getOpinion()==Boolean.TRUE){
-				likes++;
-			}else{
-				dislikes++;
-			}
-		}
+		int likes = qualificationService.calculateLikesForRecipe(qualifications);
+		int dislikes = qualificationService.calculateDislikesForRecipe(qualifications);
+		
 		Collection<Comment> comments =commentService.findCommentsForRecipe(recipe);
 		Collection<Quantity> quantities = quantityService.findQuantitiesForRecipe(recipe);
 		Collection<Belongs> belongs =belongsService.findBelongsByRecipe(recipe);
@@ -277,27 +241,11 @@ public class RecipeController extends AbstractController {
 		result.addObject("recipeHints",recipeHints);
 		result.addObject("pictures",pictures);
 		result.addObject("banner",banner);
-		Integer like = 1;
 		Customer customer = customerService.findActorByPrincial();
-		//TODO pa servicio?
-		if(customer!=null){
-			for (Qualification q: recipe.getQualifications()){
-				if (q.getCustomer().equals(customer) && q.getOpinion()==true) {
-					like = 2;
-					break;
-				}else if(q.getCustomer().equals(customer) && q.getOpinion()==false){
-					like=3;
-					break;
-				}
-			}
-		}
+		Integer like = qualificationService.likeButtonsToShow(customer, recipe);
+		
 		result.addObject("like",like);
-		boolean esMiReceta;
-		if(customerService.findActorByPrincial()!=null){
-			esMiReceta= customerService.findActorByPrincial().equals(recipe.getUser());
-		}else{
-			esMiReceta = true;
-		}
+		boolean esMiReceta = recipeService.checkIfRecipeIsMine(recipe);
 		result.addObject("esMiReceta",esMiReceta);
 		return result;
 	}
@@ -310,12 +258,6 @@ public class RecipeController extends AbstractController {
 		Recipe recipe;
 
 		recipe = recipeService.create();
-		//TODO pa servicio
-		recipe.setAuthorMoment(new Date(System.currentTimeMillis()-1000));
-		recipe.setLastUpdate(new Date(System.currentTimeMillis()-1000));
-		recipe.setTicker(recipeService.createTicker());
-		recipe.setUser(userService.findByPrincipal());
-		//fin de pa servicio
 		result = createEditModelAndView(recipe);
 		result.addObject("requestURI","recipe/user/edit.do");
 
@@ -329,30 +271,17 @@ public class RecipeController extends AbstractController {
 		Recipe recipe;
 		recipe = recipeService.findOne(recipeId);
 		Collection<Qualification> qualifications = qualificationService.findQualificationsByRecipe(recipe);
-		//Pa servicio
-		int likes =0;
-		int dislikes =0;
-		for(Qualification q: qualifications){
-			if(q.getOpinion()==Boolean.TRUE){
-				likes++;
-			}else{
-				dislikes++;
-			}
-		}
-		//fin de pa servicio
+		int likes = qualificationService.calculateLikesForRecipe(qualifications);
+		int dislikes = qualificationService.calculateDislikesForRecipe(qualifications);
 		Collection<String> pictures =recipe.getPictures();
 		Collection<Quantity> quantities = quantityService.findQuantitiesForRecipe(recipe);
 		Collection<Belongs> belongs =belongsService.findBelongsByRecipe(recipe);
 		Collection<Step> steps = stepService.findStepsByRecipe(recipe);
 		Collection<RecipeHint> recipeHints = recipeHintService.findRecipeHintsByRecipe(recipe);
 		
-		//TODO ??
-		List<Integer> uno =new ArrayList<Integer>();
-		    uno.add(5);
-		//fin de ??
+
 		Assert.notNull(recipe);
 		result = createEditModelAndView(recipe);
-		result.addObject("uno",uno);
 		result.addObject("qualifications",qualifications);
 		result.addObject("likes",likes);
 		result.addObject("dislikes",dislikes);
@@ -370,27 +299,8 @@ public class RecipeController extends AbstractController {
 	
 	@RequestMapping(value="/user/like", method=RequestMethod.GET)
 	public ModelAndView like(@RequestParam int recipeId){
+		qualificationService.like(recipeId);
 		ModelAndView result;
-		Recipe recipe;
-		recipe = recipeService.findOne(recipeId);
-		Qualification qualification = null;
-		List<Qualification> everyQualificationOfRecipe = new ArrayList<Qualification>(qualificationService.findQualificationsByRecipe(recipe));
-		List<Qualification> qualifications = new ArrayList<Qualification>();
-		//TODO  un Servicio???
-		for(Qualification q: everyQualificationOfRecipe){
-			if(q.getCustomer().equals(customerService.findActorByPrincial()))
-				qualifications.add(q);
-		}
-		if(qualifications.size()==1){
-			qualification=qualifications.get(0);
-		}else if(qualifications.size()==0){
-			qualification=qualificationService.create();
-			qualification.setCustomer(customerService.findActorByPrincial());
-			qualification.setRecipe(recipe);
-		}
-		qualification.setOpinion(true);
-		//me quiero morir ya
-		qualificationService.save(qualification);
 		result = new ModelAndView("redirect:../view.do?recipeId="+recipeId);
 		result.addObject("requestURI","recipe/user/like.do");
 		
@@ -401,27 +311,8 @@ public class RecipeController extends AbstractController {
 	
 	@RequestMapping(value="/user/dislike", method=RequestMethod.GET)
 	public ModelAndView dislike(@RequestParam int recipeId){
+		qualificationService.dislike(recipeId);
 		ModelAndView result;
-		Recipe recipe;
-		recipe = recipeService.findOne(recipeId);
-		Qualification qualification = null;
-		List<Qualification> everyQualificationOfRecipe = new ArrayList<Qualification>(qualificationService.findQualificationsByRecipe(recipe));
-		List<Qualification> qualifications = new ArrayList<Qualification>();
-		//TODO PA UN SERVICIO NO?
-		for(Qualification q: everyQualificationOfRecipe){
-			if(q.getCustomer().equals(customerService.findActorByPrincial()))
-				qualifications.add(q);
-		}
-		if(qualifications.size()==1){
-			qualification=qualifications.get(0);
-		}else if(qualifications.size()==0){
-			qualification=qualificationService.create();
-			qualification.setCustomer(customerService.findActorByPrincial());
-			qualification.setRecipe(recipe);
-		}
-		qualification.setOpinion(false);
-		qualificationService.save(qualification);
-
 		result = new ModelAndView("redirect:../view.do?recipeId="+recipeId);
 		result.addObject("requestURI","recipe/user/dislike.do");
 		
@@ -437,8 +328,7 @@ public class RecipeController extends AbstractController {
 			result = createEditModelAndView(recipe);
 		} else {
 			try {
-				//TODO PA EL SERVICIO LA FECHA
-				recipe.setLastUpdate(new Date(System.currentTimeMillis()-100));
+				
 				recipeService.save(recipe);		
 				result = new ModelAndView("redirect:myRecipes.do");
 			} catch (Throwable oops) {
@@ -473,8 +363,6 @@ public class RecipeController extends AbstractController {
 	public ModelAndView createpicture(String recipeId) {
 		ModelAndView result;
 		PictureForm pf = new PictureForm();
-		//TODO PA PLACE HOLDER
-		pf.setText("your pic url here");
 		Recipe recipe = recipeService.findOne(Integer.valueOf(recipeId));
 		pf.setRecipe(recipe);
 		result = new ModelAndView("recipe/user/createpicture");
@@ -489,17 +377,8 @@ public class RecipeController extends AbstractController {
 			System.out.println(binding.getAllErrors());
 			result = createEditModelAndView(pictureForm.getRecipe());	
 		} else {
-			//TODO ESTO PA UN SERVICIO
-		Recipe recipe = pictureForm.getRecipe();
-		List<String> pictures = new ArrayList<String>();
-		pictures.addAll(recipe.getPictures());
-		String pictureToAdd =pictureForm.getText();
-		pictures.add(pictureToAdd);
-		recipe.setPictures(pictures);
-		Date currentTime=new Date(System.currentTimeMillis()-10000);
-		recipe.setLastUpdate(currentTime);
-		recipeService.save(recipe);
-		result = new ModelAndView("redirect:../user/edit.do?recipeId="+recipe.getId());
+			recipeService.createpicture(pictureForm);
+		result = new ModelAndView("redirect:../user/edit.do?recipeId="+pictureForm.getRecipe().getId());
 		
 		}
 		return result;
@@ -509,18 +388,10 @@ public class RecipeController extends AbstractController {
 	@RequestMapping(value = "/user/deletePicture")
 	public 	ModelAndView deletePicture(String recipeId, Integer pictureIndex) {
 		ModelAndView result;
-		Recipe recipe = recipeService.findOne(Integer.valueOf(recipeId));
+		
 		try {
-			//TODO PA UN SERVICIO
-			List<String> pictures = new LinkedList<String>();
-			pictures.addAll(recipe.getPictures());
-			String pictureToDelete= pictures.get(Integer.valueOf(pictureIndex));
-			pictures.remove(pictureToDelete);
-			recipe.setPictures(pictures);
-			Date currentTime=new Date(System.currentTimeMillis()-10000);
-			recipe.setLastUpdate(currentTime);
-			recipeService.save(recipe);
-			result = new ModelAndView("redirect:../user/edit.do?recipeId="+recipe.getId());
+			recipeService.deletePicture(recipeId,pictureIndex);
+			result = new ModelAndView("redirect:../user/edit.do?recipeId="+recipeId);
 		} catch (Throwable oops) {
 			result = new ModelAndView("recipe.commit.error");
 		}

@@ -171,8 +171,6 @@ public class UserService {
 		Recipe copyOfRecipe =recipeService.createCopyOfRecipe(recipe);	
 		Recipe copyOfRecipeSaved = recipeService.save(copyOfRecipe);
 		qualified = qualifiedService.create(contest,copyOfRecipeSaved,false);
-		//qualified.setContest(contest);
-		//qualified.setRecipe(copyOfRecipeSaved);
 		qualifiedSaved =qualifiedService.save(qualified);
 		
 				
@@ -236,24 +234,5 @@ public class UserService {
 		save(user);
 		
 	}
-//	public Collection<Recipe> getWinnerRecipes(Collection<Recipe> recipes){
-//	int index = 0;
-//	int index2 = 0;
-//	Collection<Recipe> result = new LinkedList<Recipe>();
-//	Recipe arrayRecipes[]=new Recipe[recipes.size()];
-//	arrayRecipes=recipes.toArray(arrayRecipes);
-//	
-//	
-//	int score=0;
-//	for(;index2<3&&index<3;index2++){
-//		score=arrayRecipes[index].getScore();
-//		for(;index<=arrayRecipes.length;index++){
-//			if(arrayRecipes[index].getScore()==score){
-//				result.add(arrayRecipes[index]);
-//			}
-//		}
-//		index++;
-//	}
-//	return result;
-//}
+
 }

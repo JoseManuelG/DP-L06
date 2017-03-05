@@ -21,7 +21,7 @@
 	<form:label path="text">
 		<spring:message code="recipe.picture.create" />:
 	</form:label>
-	<form:input path="text" />
+	<form:input path="text" placeholder="yourpicturehere"/>
 	<form:errors cssClass="error" path="text" />
 	<br />
 

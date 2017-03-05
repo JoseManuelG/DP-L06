@@ -101,8 +101,10 @@
 
 <security:authorize access="hasRole('USER')">
 	<jstl:if test="${requestURI != 'recipe/latestRecipes.do'}">
-		<a href="recipe/user/create.do"><spring:message  code="recipe.create" /></a>
-		<br>
+		<jstl:if test="${requestURI !='recipe/search.do' }">
+			<a href="recipe/user/create.do"><spring:message  code="recipe.create" /></a>
+			<br>
+		</jstl:if>
 	</jstl:if>
 </security:authorize>
 

@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	//The average of recipes per user
 	@Query("select avg(u.recipes.size) from User u")
-	public int findAvgRecipesForUsers();
+	public double findAvgRecipesForUsers();
 	
 	//The maximum of recipes per user
 	@Query("select max(u.recipes.size) from User u")

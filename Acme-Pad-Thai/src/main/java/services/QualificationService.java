@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.QualificationRepository;
 import security.LoginService;
+import domain.Customer;
 import domain.Qualification;
 import domain.Recipe;
 import domain.User;
@@ -33,7 +34,8 @@ public class QualificationService {
 	private LoginService loginService;
 	@Autowired
 	private RecipeService recipeService;
-	
+	@Autowired
+	private CustomerService customerService;
 	//Constructors------------------------------------
 	
 	public QualificationService(){
@@ -136,5 +138,87 @@ public class QualificationService {
 	public Collection<Qualification> findQualificationsByRecipe(Recipe recipe){
 		Collection<Qualification> result = qualificationRepository.findQualificationsByRecipeId(recipe.getId());
 		return result;
+	}
+	public int calculateLikesForRecipe(Collection<Qualification> qualifications){
+		int likes =0;
+		for(Qualification q: qualifications){
+			if(q.getOpinion()==Boolean.TRUE){
+				likes++;
+			}
+		}
+		return likes;
+	}
+	
+	public int calculateDislikesForRecipe(Collection<Qualification> qualifications){
+		int dislikes =0;
+		for(Qualification q: qualifications){
+			if(q.getOpinion()==Boolean.FALSE){
+				dislikes++;
+			}
+		}
+		return dislikes;
+	}
+
+	public Integer likeButtonsToShow(Customer customer, Recipe recipe) {
+		Integer like = 1;
+		
+		if(customer!=null){
+			for (Qualification q: recipe.getQualifications()){
+				if (q.getCustomer().equals(customer) && q.getOpinion()==true) {
+					like = 2;
+					break;
+				}else if(q.getCustomer().equals(customer) && q.getOpinion()==false){
+					like=3;
+					break;
+				}
+			}
+		}
+		return like;
+	}
+	
+	public void like(int recipeId){
+		Recipe recipe;
+		recipe = recipeService.findOne(recipeId);
+		Qualification qualification = null;
+		List<Qualification> everyQualificationOfRecipe = new ArrayList<Qualification>(findQualificationsByRecipe(recipe));
+		List<Qualification> qualifications = new ArrayList<Qualification>();
+		for(Qualification q: everyQualificationOfRecipe){
+			if(q.getCustomer().equals(customerService.findActorByPrincial()))
+				qualifications.add(q);
+		}
+		if(qualifications.size()==1){
+			qualification=qualifications.get(0);
+		}else if(qualifications.size()==0){
+			qualification=create();
+			qualification.setCustomer(customerService.findActorByPrincial());
+			qualification.setRecipe(recipe);
+		}
+		qualification.setOpinion(true);
+
+		save(qualification);
+		
+	}
+	
+	public void dislike(int recipeId){
+		Recipe recipe;
+		recipe = recipeService.findOne(recipeId);
+		Qualification qualification = null;
+		List<Qualification> everyQualificationOfRecipe = new ArrayList<Qualification>(findQualificationsByRecipe(recipe));
+		List<Qualification> qualifications = new ArrayList<Qualification>();
+		for(Qualification q: everyQualificationOfRecipe){
+			if(q.getCustomer().equals(customerService.findActorByPrincial()))
+				qualifications.add(q);
+		}
+		if(qualifications.size()==1){
+			qualification=qualifications.get(0);
+		}else if(qualifications.size()==0){
+			qualification=create();
+			qualification.setCustomer(customerService.findActorByPrincial());
+			qualification.setRecipe(recipe);
+		}
+		qualification.setOpinion(false);
+
+		save(qualification);
+		
 	}
 }

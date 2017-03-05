@@ -67,7 +67,7 @@ public class AdministratorController extends AbstractController {
 		//The minimum, the average, and the maximum number of recipes per user.
 		Integer maxRecipesForUsers= userService.findMaxRecipesForUsers();
 		Integer minRecipesForUsers= userService.findMinRecipesForUsers();
-		Integer avgRecipesForUsers= userService.findAvgRecipesForUsers();
+		Double avgRecipesForUsers= userService.findAvgRecipesForUsers();
 		//The user/s who has/have authored more recipes.
 		Collection<User> usersWithMoreRecipes= userService.findUsersWithMoreRecipes();
 		//The minimum, the average, and the maximum number of recipes that have qualified for a contest.

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import domain.Recipe;
 import domain.RecipeHint;
 import domain.Step;
 import domain.User;
+import forms.PictureForm;
 
 @Service
 @Transactional
@@ -47,6 +49,12 @@ public class RecipeService {
 	private StepService stepService;
 	
 	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private RecipeHintService recipeHintService;
 	
 	@Autowired
@@ -66,6 +74,10 @@ public class RecipeService {
 	public Recipe create() {
 		Recipe result;
 		result = new Recipe();
+		result.setAuthorMoment(new Date(System.currentTimeMillis()-1000));
+		result.setLastUpdate(new Date(System.currentTimeMillis()-1000));
+		result.setTicker(createTicker());
+		result.setUser(userService.findByPrincipal());
 
 		return result;
 	}
@@ -100,8 +112,7 @@ public class RecipeService {
 		Assert.isTrue(!recipe.getIsCopy()||recipe.getId()==0,"El boolean iscopy debe ser true o false");
 		Assert.notNull(recipe.getUser().getUserAccount(),"La useraccount no puede ser nula");
 		Assert.notNull(loginService.getPrincipal(),"El getprincipal no puede ser nulo");
-		
-		//Assert.isTrue(recipe.getUser().getUserAccount()==loginService.getPrincipal(),"Solo el propietario puede realizar operaciones");
+		recipe.setLastUpdate(new Date(System.currentTimeMillis()-100));
 		Recipe result;
 
 		result = recipeRepository.save(recipe);
@@ -311,6 +322,41 @@ public class RecipeService {
 	public Collection<Recipe> findFollowedsLastRecipes(Customer customer){
 		Collection<Recipe> result = recipeRepository.findFollowedsLastRecipes(customer.getId());
 		return result;
+	}
+
+	public boolean checkIfRecipeIsMine(Recipe recipe) {
+		boolean esMiReceta;
+		if(customerService.findActorByPrincial()!=null){
+			esMiReceta= customerService.findActorByPrincial().equals(recipe.getUser());
+		}else{
+			esMiReceta = true;
+		}
+		return esMiReceta;
+	}
+	
+	public void createpicture(PictureForm pictureForm){
+		Recipe recipe = pictureForm.getRecipe();
+		List<String> pictures = new ArrayList<String>();
+		pictures.addAll(recipe.getPictures());
+		String pictureToAdd =pictureForm.getText();
+		pictures.add(pictureToAdd);
+		recipe.setPictures(pictures);
+		Date currentTime=new Date(System.currentTimeMillis()-10000);
+		recipe.setLastUpdate(currentTime);
+		save(recipe);
+	}
+
+	public void deletePicture(String recipeId, Integer pictureIndex) {
+		Recipe recipe = findOne(Integer.valueOf(recipeId));
+		List<String> pictures = new LinkedList<String>();
+		pictures.addAll(recipe.getPictures());
+		String pictureToDelete= pictures.get(Integer.valueOf(pictureIndex));
+		pictures.remove(pictureToDelete);
+		recipe.setPictures(pictures);
+		Date currentTime=new Date(System.currentTimeMillis()-10000);
+		recipe.setLastUpdate(currentTime);
+		save(recipe);
+		
 	}
 
 }
