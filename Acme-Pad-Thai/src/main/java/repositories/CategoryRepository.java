@@ -17,8 +17,6 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 	Collection<Category> findSubCategoryId(int id);
 
 	//Select categories for a given recipe
-	@Query("select b.category from Recipe r join r.belongs b where r.id = ?1")
-	Collection<Category> findCategoriesForRecipeId(int recipeId);
 	
 	@Query("select distinct b.category from Belongs b where b.recipe.id=?1")
 	public Collection<Category> findCategoriesByRecipe(int recipeId);
