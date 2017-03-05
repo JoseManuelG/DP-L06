@@ -59,18 +59,7 @@ public class MessageController extends AbstractController {
 		public ModelAndView create(int recipientId) {
 			ModelAndView result;
 		
-			Message message=messageService.create();
-			//TODO en el servicio
-			Assert.notNull(message);
-			Actor sender=actorService.findActorByPrincial();
-			Assert.notNull(sender);
-			Actor recipient=actorService.findOne(recipientId);
-			Assert.notNull(recipient);
-			Folder folder=folderService.findFolderOfActor(recipient,"inbox");
-			message.setFolder(folder);
-			message.setSender(sender.getName());
-			message.setRecipient(recipient.getName());
-			//fin del todo
+			Message message=messageService.create(recipientId);
 			result=createCreateModelAndView(message);
 			return result;
 		}

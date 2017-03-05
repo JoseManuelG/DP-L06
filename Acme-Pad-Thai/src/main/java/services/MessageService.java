@@ -32,6 +32,9 @@ public class MessageService {
 	private ConfigurationService configurationService;
 	
 	@Autowired
+	private ActorService actorService;
+	
+	@Autowired
 	private LoginService loginService;
 	//Constructors------------------------------------
 	
@@ -40,6 +43,20 @@ public class MessageService {
 		Message result=new Message();
 		Date sendingMoment=new Date(System.currentTimeMillis()-100);
 		result.setSendingMoment(sendingMoment);
+		return result;
+	}
+	
+	public Message create(int recipientId){
+		Message result=new Message();
+		Date sendingMoment=new Date(System.currentTimeMillis()-100);
+		result.setSendingMoment(sendingMoment);
+		Actor sender=actorService.findActorByPrincial();
+		Actor recipient=actorService.findOne(recipientId);
+		Assert.notNull(recipient);
+		Folder folder=folderService.findFolderOfActor(recipient,"inbox");
+		result.setFolder(folder);
+		result.setSender(sender.getName());
+		result.setRecipient(recipient.getName());
 		return result;
 	}
 
