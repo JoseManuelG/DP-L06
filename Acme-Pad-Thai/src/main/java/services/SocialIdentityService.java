@@ -24,6 +24,8 @@ public class SocialIdentityService {
 
 		@Autowired
 		private LoginService loginService;
+		@Autowired
+		private ActorService actorService;
 		
 		//Constructors----------------------------------------
 		
@@ -36,9 +38,12 @@ public class SocialIdentityService {
 			SocialIdentity result;
 			
 			result=new SocialIdentity();
-			
+			result.setActor(actorService.findActorByPrincial());
+
 			return result;
 		}
+		
+	
 		
 		public Collection<SocialIdentity> findAll(){
 			Collection<SocialIdentity> result;

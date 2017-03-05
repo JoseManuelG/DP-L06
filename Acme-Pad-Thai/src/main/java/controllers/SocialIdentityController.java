@@ -39,9 +39,7 @@ public class SocialIdentityController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public @ResponseBody ModelAndView save() {
 		ModelAndView result= new ModelAndView("socialIdentity/create");
-		//TODO pa servicio
 		SocialIdentity socialIdentity= socialIdentityService.create();
-		socialIdentity.setActor(actorService.findActorByPrincial());
 		result.addObject("socialIdentity",socialIdentity);
 		ArrayList<Authority> authorities = new ArrayList<Authority>();
 		authorities.addAll(actorService.findActorByPrincial().getUserAccount().getAuthorities());
@@ -55,7 +53,6 @@ public class SocialIdentityController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public @ResponseBody ModelAndView save(int socialIdentityId) {
 		ModelAndView result= new ModelAndView("socialIdentity/edit");
-		//TODO pa servicio
 		SocialIdentity socialIdentity= socialIdentityService.findOne(socialIdentityId);
 		socialIdentity.setActor(actorService.findActorByPrincial());
 		result.addObject("socialIdentity",socialIdentity);
@@ -76,7 +73,6 @@ public class SocialIdentityController extends AbstractController {
 			System.out.println(binding.getAllErrors().toString());
 		} else {
 			try {
-				//TODO pa servicio
 				socialIdentityService.save(socialIdentity);
 				ArrayList<Authority> authorities = new ArrayList<Authority>();
 				authorities.addAll(socialIdentity.getActor().getUserAccount().getAuthorities());

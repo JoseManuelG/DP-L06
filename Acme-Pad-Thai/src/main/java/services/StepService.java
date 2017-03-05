@@ -14,6 +14,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Recipe;
 import domain.Step;
+import domain.StepHint;
 
 @Service
 @Transactional
@@ -44,9 +45,22 @@ public class StepService {
 	//Simple Crud methods---------------------------------
 	public Step create(){
 		Step result;
-		
+		Collection<StepHint> stepHints = new ArrayList<StepHint>();
+
 		result=new Step();
-		
+		result.setStepHints(stepHints);
+
+		return result;
+	}
+	public Step create(Recipe recipe){
+		Step result;
+		Collection<StepHint> stepHints = new ArrayList<StepHint>();
+
+		result=new Step();
+		result.setRecipe(recipe);
+		result.setStepHints(stepHints);
+
+
 		return result;
 	}
 	
@@ -153,5 +167,12 @@ public class StepService {
 	    Collection<Step> result = recipeService.findStepsByRecipe(recipe);
 	    return result;
 	}
-
+	public Collection<Step> renewStepsNumbers(Collection<Step> steps){
+		int index =1;
+		for(Step s:steps){
+			s.setNumber(index);
+			index++;
+		}
+		return steps;
+	}
 }

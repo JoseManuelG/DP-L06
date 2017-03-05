@@ -88,17 +88,14 @@ public class StepController extends AbstractController {
 	@RequestMapping(value = "/user/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam Integer recipeId) {
 		ModelAndView result;
-		Step step = stepService.create();
-		Assert.notNull(step);
 		Recipe recipe = recipeService.findOne(recipeId);
-		Collection<StepHint> stepHints = new ArrayList<StepHint>();
-		//TODO pa servicio
+		Step step = stepService.create(recipe);
+		Assert.notNull(step);
 		step.setRecipe(recipe);
-		step.setStepHints(stepHints);
 		result = createEditModelAndView(step);
 		
 		result.addObject("step", step);
-		result.addObject("stepHints",stepHints);
+		result.addObject("stepHints",step.getStepHints());
 		result.addObject("requestURI","step/user/create.do");
 		result.addObject("urlID",step.getRecipe().getId());
 
@@ -118,9 +115,9 @@ public class StepController extends AbstractController {
 		} else {
 			try {
 				Assert.isTrue(!step.getRecipe().getIsCopy());
-				//TODO pa servicio
-				Collection<StepHint> sh =new ArrayList<StepHint>();
-				step.setStepHints(sh);
+				//TODO pa servicio()revisarlas dos proximas lineas
+				//Collection<StepHint> sh =new ArrayList<StepHint>();
+			//	step.setStepHints(sh);
 				stepService.save(step);
 				result = new ModelAndView("redirect:/recipe/user/edit.do?recipeId=".concat(String.valueOf(step.getRecipe().getId())));
 				result.addObject("step",step);
@@ -195,14 +192,10 @@ public class StepController extends AbstractController {
 			Assert.isTrue(!step.getRecipe().getIsCopy());
 
 			stepService.delete(step);
-			ArrayList<Step> steps = new ArrayList<Step>();
+			Collection<Step> steps = new ArrayList<Step>();
 			steps.addAll(step.getRecipe().getSteps());
-			//TODO pa servicio
-			int index =1;
-			for(Step s:steps){
-				s.setNumber(index);
-				index++;
-			}
+	
+			steps= stepService.renewStepsNumbers(steps);
 			stepService.save(steps);
 			result = new ModelAndView("redirect:/recipe/user/edit.do?recipeId=".concat(String.valueOf(step.getRecipe().getId())));
 			result.addObject("requestURI","step/user/delete.do");
