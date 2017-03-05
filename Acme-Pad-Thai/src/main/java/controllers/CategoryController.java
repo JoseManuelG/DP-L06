@@ -11,11 +11,8 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -241,8 +238,8 @@ public class CategoryController extends AbstractController {
 	
 		
 		Category category = categoryService.findOne(Integer.valueOf(categoryId));
-		TagForm tf = new TagForm(category);
-
+		TagForm tf = new TagForm();
+		tf.setCategory(category);
 		
 
 		result = new ModelAndView("category/administrator/createtag");
