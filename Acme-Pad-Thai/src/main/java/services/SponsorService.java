@@ -7,10 +7,12 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Attend;
@@ -21,6 +23,7 @@ import domain.Folder;
 import domain.Message;
 import domain.SocialIdentity;
 import domain.Sponsor;
+import forms.ActorForm;
 
 @Service
 @Transactional
