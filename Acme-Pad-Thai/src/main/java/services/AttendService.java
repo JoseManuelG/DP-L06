@@ -37,6 +37,7 @@ public class AttendService {
 		result = new Attend();
 		Actor actor= actorService.findActorByPrincial();
 		result.setActor(actor);
+		result.setMasterClass(masterClass);
 		return result;
 	}
 
