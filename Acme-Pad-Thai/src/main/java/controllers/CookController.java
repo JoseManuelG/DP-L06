@@ -10,7 +10,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -25,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
-import security.UserAccount;
 import services.CookService;
 import services.MasterClassService;
 import domain.Cook;

@@ -32,6 +32,7 @@ import services.CustomerService;
 import services.FollowService;
 import services.NutritionistService;
 import services.RecipeService;
+import domain.Cook;
 import domain.Curriculum;
 import domain.Customer;
 import domain.Endorser;
@@ -112,7 +113,6 @@ public class NutritionistController extends AbstractController {
 		result = new ModelAndView("nutritionist/view");
 		Nutritionist nutritionist;
 		Curriculum curriculum;
-		//TODO no se si va a servicio
 		if(nutritionistId==null){
 			nutritionist = nutritionistService.findByPrincipal();
 			result.addObject("principal",true);
@@ -132,7 +132,6 @@ public class NutritionistController extends AbstractController {
 		}else{
 				curriculum= curriculumService.create();
 			}
-		//fin del todo
 		//TODO pal servicio
 		Integer follow =1;
 		if(customerService.findActorByPrincial()==null){
@@ -178,53 +177,22 @@ public class NutritionistController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Nutritionist nutritionist= nutritionistService.findByPrincipal();
-		ActorForm actorForm= new ActorForm();
+		ActorForm actorForm= nutritionistService.fillActorForm(nutritionist);
 		result = new ModelAndView("user/edit");
-		//TODO pal servicio
-		actorForm.setAddress(nutritionist.getAddress());
-		actorForm.setEmail(nutritionist.getEmail());
-		actorForm.setName(nutritionist.getName());
-		actorForm.setPassword(nutritionist.getUserAccount().getPassword());
-		actorForm.setPhone(nutritionist.getPhone());
-		actorForm.setSurname(nutritionist.getSurname());
-		actorForm.setTypeOfActor("NUTRITIONIST");
-		actorForm.setUsername(nutritionist.getUserAccount().getUsername());
-		result.addObject("actorForm", actorForm);
-		result.addObject("typeActor", "nutritionist");
-		//fin del todo
+		
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public @ResponseBody ModelAndView save(@Valid ActorForm actorForm, BindingResult binding) {
 		ModelAndView result;
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		if (binding.hasErrors()) {
 			result = createEditModelAndView(actorForm);
 		} else {
 			try {
-				//TODO Pal servicio
 				Nutritionist nutritionist= nutritionistService.findByPrincipal();
-
-				UserAccount userAccount = nutritionist.getUserAccount();
-				
-				
-				userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
-				userAccount.setUsername(actorForm.getUsername());
-		
-				nutritionist.setName(actorForm.getName());
-				nutritionist.setSurname(actorForm.getSurname());
-				nutritionist.setAddress(actorForm.getAddress());
-				nutritionist.setEmail(actorForm.getEmail());
-				nutritionist.setPhone(actorForm.getPhone());
-				Collection<Authority> authorities = new ArrayList<Authority>();
-				Authority authority = new Authority();
-				authority.setAuthority(actorForm.getTypeOfActor());
-				authorities.add(authority);
-				userAccount.setAuthorities(authorities);
-				nutritionist.setUserAccount(userAccount);
+				nutritionist=nutritionistService.reconstruct(nutritionist, actorForm);
 				
 				nutritionistService.save(nutritionist);	
-				//fin del todo
 				result = this.view(null);
 			} catch (Throwable oops) {
 				result = createEditModelAndView(actorForm, "recipe.commit.error");	
@@ -239,13 +207,11 @@ public class NutritionistController extends AbstractController {
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public ModelAndView follow(@RequestParam int nutritionistId) {
 		ModelAndView result;
-		//TODO Pa Servicios
+		
 		Nutritionist followed = nutritionistService.findOne(nutritionistId);
 		Customer follower = customerService.findActorByPrincial();
-		Follow follow = followService.create();
-		follow.setFollowed(followed);
-		follow.setFollower(follower);
-		//fin del todo
+		Follow follow = followService.create(follower,followed);
+		
 		followService.save(follow);
 		result = new ModelAndView("redirect:/nutritionist/view.do?nutritionistId=" + nutritionistId);
 		return result;
@@ -254,12 +220,10 @@ public class NutritionistController extends AbstractController {
 	@RequestMapping(value = "/unfollow", method = RequestMethod.GET)
 	public ModelAndView unfollow(@RequestParam int nutritionistId) {
 		ModelAndView result;
-		//TODO Pa Servicio
 		Nutritionist followed = nutritionistService.findOne(nutritionistId);
 		Customer follower = customerService.findActorByPrincial();
 		Follow follow = followService.findFollowByFollowedAndFollower(followed,
 				follower);
-		//fin del todo
 		followService.delete(follow);
 		result = new ModelAndView("redirect:/nutritionist/view.do?nutritionistId=" + nutritionistId);
 		return result;

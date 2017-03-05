@@ -29,6 +29,14 @@ public class FollowService {
 			result = new Follow();
 			return result;
 		}
+		public Follow create(Customer follower,Customer followed) {
+			Follow result;
+			result = new Follow();
+			result.setFollowed(followed);
+			result.setFollower(follower);
+			return result;		
+			
+		}
 		public Collection<Follow> findAll() {
 			Collection<Follow> result;
 			Assert.notNull(followRepository);

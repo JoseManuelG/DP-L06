@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.NutritionistRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Attend;
@@ -19,6 +21,7 @@ import domain.Follow;
 import domain.Nutritionist;
 import domain.Qualification;
 import domain.SocialIdentity;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -26,6 +29,8 @@ public class NutritionistService {
 //Managed Repository --------------------------------------
 	@Autowired
 	private NutritionistRepository nutritionistRepository;
+	@Autowired
+	private FolderService folderService;
 	
 
 	//Simple CRUD methods --------------------------------------
@@ -42,6 +47,42 @@ public class NutritionistService {
 		result.setSocialIdentities(new ArrayList<SocialIdentity>());
 	
 		return result;
+	}
+	public ActorForm fillActorForm(Nutritionist nutritionist) {
+		ActorForm actorForm= new ActorForm();
+		actorForm.setAddress(nutritionist.getAddress());
+		actorForm.setEmail(nutritionist.getEmail());
+		actorForm.setName(nutritionist.getName());
+		actorForm.setPassword(nutritionist.getUserAccount().getPassword());
+		actorForm.setPhone(nutritionist.getPhone());
+		actorForm.setSurname(nutritionist.getSurname());
+		actorForm.setTypeOfActor("NUTRITIONIST");
+		actorForm.setUsername(nutritionist.getUserAccount().getUsername());
+		return actorForm;
+		
+	}
+public Nutritionist reconstruct(Nutritionist nutritionist,ActorForm actorForm) {
+		
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		UserAccount userAccount = nutritionist.getUserAccount();
+		
+		
+		userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
+		userAccount.setUsername(actorForm.getUsername());
+
+		nutritionist.setName(actorForm.getName());
+		nutritionist.setSurname(actorForm.getSurname());
+		nutritionist.setAddress(actorForm.getAddress());
+		nutritionist.setEmail(actorForm.getEmail());
+		nutritionist.setPhone(actorForm.getPhone());
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
+		authority.setAuthority(actorForm.getTypeOfActor());
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+		nutritionist.setUserAccount(userAccount);
+		return nutritionist;
+		
 	}
 	public Collection<Nutritionist> findAll() {
 		Collection<Nutritionist> result;
