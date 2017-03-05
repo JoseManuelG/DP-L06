@@ -9,8 +9,10 @@ public class TagForm {
 	private Category category;
 	
 //Constructor
-	public TagForm(){
+	public TagForm(Category category){
 		super();
+		this.text="your tag here";
+		this.category=category;
 	}
 	
 //attributes------------

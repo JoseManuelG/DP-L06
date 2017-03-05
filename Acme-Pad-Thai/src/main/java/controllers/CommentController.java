@@ -33,7 +33,6 @@ import services.CustomerService;
 import services.RecipeService;
 import domain.Comment;
 import domain.Customer;
-import domain.Recipe;
 
 @Controller
 @RequestMapping("/comment")
@@ -41,8 +40,6 @@ public class CommentController extends AbstractController {
 	
 	// Services --------------------------------------------------------------
 	
-	@Autowired
-	private RecipeService recipeService;
 	
 	@Autowired
 	private CustomerService customerService;
@@ -95,16 +92,8 @@ public class CommentController extends AbstractController {
 	public ModelAndView create(@RequestParam Integer recipeId) {
 		ModelAndView result;
 		Comment comment;
-		comment = commentService.create();
-		//TODO pa servicio
-		Recipe recipe = recipeService.findOne(recipeId);
-		comment.setRecipe(recipe);
-		Customer customer = customerService.findActorByPrincial();
-		comment.setCustomer(customer);
-		comment.setDateCreation(new Date(System.currentTimeMillis()-1000));
-		//Fin del todo
-		result = createEditModelAndView(comment);
-		
+		comment = commentService.create(recipeId);
+		result = createEditModelAndView(comment);	
 
 		return result;
 	}

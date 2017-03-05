@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.CategoryRepository;
+import domain.Belongs;
 import domain.Category;
 import domain.Recipe;
 
@@ -38,7 +39,12 @@ public class CategoryService {
 		Category result;
 		
 		result=new Category();
-		
+		Collection<String> tags=new LinkedList<String>();
+		Collection<Category> subCategory=new LinkedList<Category>();
+		Collection<Belongs> belongs=new LinkedList<Belongs>();
+		result.setTags(tags);
+		result.setSubCategory(subCategory);
+		result.setBelongs(belongs);
 		return result;
 	}
 	
@@ -196,6 +202,23 @@ public class CategoryService {
 	public  Collection<Category> findCategoriesForRecipe(Recipe recipe){
 		Collection<Category> result = categoryRepository.findCategoriesForRecipeId(recipe.getId());
 		return result;
+	}
+	public  Category addTag(Category category, String newTag ){
+		ArrayList<String> tags = new ArrayList<String>();
+		
+		tags.addAll(category.getTags());
+		tags.add(newTag);
+		category.setTags(tags);
+		return category;
+	}
+	public  Category removeTag(Category category, Integer tagIndex){
+		ArrayList<String> tags = new ArrayList<String>();
+		
+		tags.addAll(category.getTags());
+		String tagToDelete= tags.get(Integer.valueOf(tagIndex));
+		tags.remove(tagToDelete);
+		category.setTags(tags);
+		return category;
 	}
 	
 

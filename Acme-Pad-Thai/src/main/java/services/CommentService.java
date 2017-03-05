@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.util.Assert;
 import repositories.CommentRepository;
 import security.LoginService;
 import domain.Comment;
+import domain.Customer;
 import domain.Recipe;
 
 @Service
@@ -27,6 +29,12 @@ public class CommentService {
 	@Autowired
 	private LoginService loginService;
 	
+	@Autowired
+	private RecipeService recipeService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
 	//Constructors------------------------------------
 	
 	public CommentService(){
@@ -40,6 +48,18 @@ public class CommentService {
 
 		result = new Comment();
 
+		return result;
+	}
+	public Comment create(int recipeId) {
+		Comment result;
+		
+		result = new Comment();
+		Recipe recipe = recipeService.findOne(recipeId);
+		result.setRecipe(recipe);
+		Customer customer = customerService.findActorByPrincial();
+		result.setCustomer(customer);
+		result.setDateCreation(new Date(System.currentTimeMillis()-1000));
+		
 		return result;
 	}
 
