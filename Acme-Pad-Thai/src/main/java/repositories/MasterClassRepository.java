@@ -44,7 +44,7 @@ public interface MasterClassRepository extends JpaRepository<MasterClass,Integer
 	@Query("select count(c) from MasterClass c where c.promoted = true")
 	Integer numberOfMasterClassesPromoted();
 	@Query("select c from MasterClass c where cook_id = ?1")
-	Collection<MasterClass> findRecipesBycook(int cookId);
+	Collection<MasterClass> findMasterClassesBycook(int cookId);
 	
 	@Query("select mc from MasterClass mc where mc.promoted = true")
 	Collection<MasterClass> findPromotedMasterClasses();

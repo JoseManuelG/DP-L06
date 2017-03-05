@@ -147,7 +147,7 @@ public class MasterClassService {
 	}
 	public Collection<MasterClass> findRecipesByCook(Cook cook){
 		Collection<MasterClass> result;
-		result= masterClassRepository.findRecipesBycook(cook.getId());
+		result= masterClassRepository.findMasterClassesBycook(cook.getId());
 		return result;
 	}
 	public Double avgOfLearningMaterialPerMasterClass() {
