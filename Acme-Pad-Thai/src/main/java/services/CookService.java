@@ -85,7 +85,7 @@ public class CookService {
 		return actorForm;
 		
 	}
-	public Cook Reconstruc(Cook cook,ActorForm actorForm) {
+	public Cook reconstruct(Cook cook,ActorForm actorForm) {
 		
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		UserAccount userAccount = cook.getUserAccount();
