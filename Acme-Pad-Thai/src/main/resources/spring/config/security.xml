@@ -212,7 +212,8 @@
 		
 		
 		<security:intercept-url pattern="/socialIdentity/create.do" access="isAuthenticated()" />  
-		<security:intercept-url pattern="/socialIdentity/edit.do" access="isAuthenticated()" />  
+		<security:intercept-url pattern="/socialIdentity/edit.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/socialIdentity/view.do" access="permitAll" />  
 
 
 		<security:intercept-url pattern="/category/list.do" access="permitAll" />
