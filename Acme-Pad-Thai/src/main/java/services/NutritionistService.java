@@ -151,5 +151,28 @@ public Nutritionist reconstruct(Nutritionist nutritionist,ActorForm actorForm) {
 		Collection<Nutritionist> result = nutritionistRepository.searchForNutritionist(searchTerm);
 		return result;
 	}
-
+	public void newNutritionist(ActorForm actorForm){
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		UserAccount userAccount = new UserAccount();
+		userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
+		userAccount.setUsername(actorForm.getUsername());
+		
+		Nutritionist nutritionist= create();
+		
+		nutritionist.setName(actorForm.getName());
+		nutritionist.setSurname(actorForm.getSurname());
+		nutritionist.setAddress(actorForm.getAddress());
+		nutritionist.setEmail(actorForm.getEmail());
+		nutritionist.setPhone(actorForm.getPhone());
+		
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
+		authority.setAuthority(actorForm.getTypeOfActor());
+		authorities.add(authority);
+		
+		userAccount.setAuthorities(authorities);
+		nutritionist.setUserAccount(userAccount);
+		folderService.createBasicsFolders(nutritionist);
+		save(nutritionist);
+	}
 }

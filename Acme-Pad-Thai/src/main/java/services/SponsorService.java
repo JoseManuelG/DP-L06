@@ -250,4 +250,28 @@ public class SponsorService {
 		Collection<Sponsor> result = sponsorRepository.searchForSponsor(searchTerm);
 		return result;
 	}
+		public void newSponsor(ActorForm actorForm){
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		UserAccount userAccount = new UserAccount();
+		userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
+		userAccount.setUsername(actorForm.getUsername());
+		
+		Sponsor sponsor =create();
+		
+		sponsor.setName(actorForm.getName());
+		sponsor.setSurname(actorForm.getSurname());
+		sponsor.setAddress(actorForm.getAddress());
+		sponsor.setEmail(actorForm.getEmail());
+		sponsor.setPhone(actorForm.getPhone());
+		sponsor.setCompanyName(actorForm.getCompanyName());
+		
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
+		authority.setAuthority(actorForm.getTypeOfActor());
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+		sponsor.setUserAccount(userAccount);
+		folderService.createBasicsFolders(sponsor);
+		save(sponsor);
+	}
 }

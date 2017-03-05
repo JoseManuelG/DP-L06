@@ -210,7 +210,28 @@ public class UserService {
 		Collection<User> result = userRepository.searchForUser(searchTerm);
 		return result;
 	}
-	
+	public void newUser(ActorForm actorForm){
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		UserAccount userAccount = new UserAccount();
+		userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
+		userAccount.setUsername(actorForm.getUsername());
+		
+		User user = create();
+		user.setName(actorForm.getName());
+		user.setSurname(actorForm.getSurname());
+		user.setAddress(actorForm.getAddress());
+		user.setEmail(actorForm.getEmail());
+		user.setPhone(actorForm.getPhone());
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
+		authority.setAuthority(actorForm.getTypeOfActor());
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+		user.setUserAccount(userAccount);
+		folderService.createBasicsFolders(user);
+		save(user);
+		
+	}
 //	public Collection<Recipe> getWinnerRecipes(Collection<Recipe> recipes){
 //	int index = 0;
 //	int index2 = 0;
