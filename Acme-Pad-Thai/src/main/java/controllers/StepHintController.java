@@ -81,12 +81,11 @@ public class StepHintController extends AbstractController {
 	@RequestMapping(value = "/user/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam Integer stepId) {
 		ModelAndView result;
-		StepHint stepHint = stepHintService.create();
 		Step step = stepService.findOne(stepId);
 		Collection<StepHint> stepHints = stepHintService.findAll();
 		
-		//TODO pa servicio
-		stepHint.setStep(step);
+		StepHint stepHint = stepHintService.create(step);
+
 		result = createEditModelAndView(stepHint);
 		result.addObject("stepHints",stepHints);
 		result.addObject("requestURI","stephint/user/create.do");

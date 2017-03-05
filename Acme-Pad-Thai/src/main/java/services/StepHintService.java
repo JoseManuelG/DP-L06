@@ -47,6 +47,15 @@ public class StepHintService {
 		return result;
 	}
 	
+
+	public StepHint create(Step step){
+		StepHint result;
+		
+		result=new StepHint();
+		result.setStep(step);
+		return result;
+	}
+	
 	public Collection<StepHint> findAll(){
 		Collection<StepHint> result;
 		
