@@ -35,7 +35,7 @@ public class ContestServiceTest {
 	//Tests----------------------------------------
 	@Test
 	public void testGetWinners(){
-		Contest contest = contestService.findOne(88);
+		Contest contest = contestService.findOne(128);
 		System.out.println(contest.getQualifieds());
 		Collection<Recipe> winners = contestService.getWinners(contest);
 		for(Recipe r : winners){
@@ -50,7 +50,7 @@ public class ContestServiceTest {
 			Assert.notNull(contest);
 			Assert.isNull(contest.getClosingTime());
 			Assert.isNull(contest.getOpeningTime());
-			Assert.isNull(contest.getQualifieds());
+			Assert.notNull(contest.getQualifieds());
 			Assert.isNull(contest.getTittle());
 			
 		}

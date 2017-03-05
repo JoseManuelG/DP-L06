@@ -43,8 +43,8 @@ public class CreditCardService {
 	public CreditCard save(CreditCard creditCard){
 		UserAccount principal=loginService.getPrincipal();
 		Assert.notNull(creditCard,"La CreditCard no puede ser null");
-		Assert.isTrue(creditCard.getId()==0||principal.equals(
-				sponsorService.sponsorWithCreditCard(creditCard).getUserAccount()),
+		Assert.isTrue(creditCard.getId()==0||principal==
+				sponsorService.sponsorWithCreditCard(creditCard).getUserAccount(),
 				"SAVE: UserAccount no valido");
 		CreditCard result=creditCardRepository.save(creditCard);
 		return result;

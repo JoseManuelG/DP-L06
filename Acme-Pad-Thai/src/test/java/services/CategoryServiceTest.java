@@ -59,13 +59,13 @@ public class CategoryServiceTest extends AbstractTest {
 				Category category;
 				category = categoryService.create();
 				Assert.notNull(category);
-				Assert.isNull(category.getBelongs());
+				Assert.notNull(category.getBelongs());
 				Assert.isNull(category.getDescription());
 				Assert.isNull(category.getName());
 				Assert.isNull(category.getParentCategory());
-				Assert.isNull(category.getSubCategory());
+				Assert.notNull(category.getSubCategory());
 				Assert.isNull(category.getPicture());
-				Assert.isNull(category.getTags());
+				Assert.notNull(category.getTags());
 			}
 			
 			//Tests de saves----------------------------------------

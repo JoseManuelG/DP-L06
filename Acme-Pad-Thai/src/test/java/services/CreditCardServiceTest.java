@@ -71,7 +71,7 @@ public class CreditCardServiceTest extends AbstractTest{
 		creditCard.setCvvCode(200);
 		CreditCard savedCreditCard=creditCardService.save(creditCard);
 		Assert.notNull(savedCreditCard);
-		Sponsor sponsor=sponsorService.findOne(16);
+		Sponsor sponsor=sponsorService.findOne(26);
 		sponsor.getCreditCards().add(savedCreditCard);
 		sponsorService.save(sponsor);
 		super.authenticate(null);
@@ -95,7 +95,7 @@ public class CreditCardServiceTest extends AbstractTest{
 		creditCard.setCvvCode(200);
 		CreditCard savedCreditCard=creditCardService.save(creditCard);
 		Assert.notNull(savedCreditCard);
-		Sponsor sponsor=sponsorService.findOne(16);
+		Sponsor sponsor=sponsorService.findOne(26);
 		sponsor.getCreditCards().add(savedCreditCard);
 		sponsorService.save(sponsor);
 		creditCardService.delete(savedCreditCard);
@@ -113,7 +113,7 @@ public class CreditCardServiceTest extends AbstractTest{
 		creditCard.setCvvCode(200);
 		CreditCard savedCreditCard=creditCardService.save(creditCard);
 		Assert.notNull(savedCreditCard);
-		Sponsor sponsor=sponsorService.findOne(16);
+		Sponsor sponsor=sponsorService.findOne(26);
 		sponsor.getCreditCards().add(savedCreditCard);
 		sponsorService.save(sponsor);
 		super.authenticate(null);

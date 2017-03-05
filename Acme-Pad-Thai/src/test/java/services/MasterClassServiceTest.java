@@ -46,12 +46,15 @@ public class MasterClassServiceTest extends AbstractTest{
 	@Test
 	public void testCreateMasterClass(){
 		MasterClass class1;
+		super.authenticate("cook1");
 		class1=masterClassService.create();
 		Assert.notNull(class1);
+		super.authenticate(null);
 	}
 	@Test
 	public void testSaveMasterClass(){
 		//Creamos cook dueño de la clase
+		super.authenticate("admin");
 		Cook cook,cookSaved;
 
 		//Creamos cook
@@ -70,6 +73,8 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+		super.authenticate("cookTest");
 		//Creamos la MasterClass
 		MasterClass masterClass,masterClassSaved;
 		Collection<MasterClass> masterClasses = new ArrayList<MasterClass>();
@@ -85,6 +90,7 @@ public class MasterClassServiceTest extends AbstractTest{
 		super.unauthenticate();
 		masterClasses= masterClassService.findAll();
 		Assert.isTrue(masterClasses.contains(masterClassSaved),"No se ha guardado la MasterClass");
+		super.authenticate(null);
 	}
 	@Test
 	public void testSaveMasterClassNull(){
@@ -96,12 +102,12 @@ public class MasterClassServiceTest extends AbstractTest{
 		exception=ExpectedException.none();
 	}
 	@Test
-	public void testSaveMasterClassOfOtherPerson(){
+	public void testDeleteMasterClassOfOtherPerson(){
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("No se puede guardar una MasterClass que no le pertenezca");
+		exception.expectMessage("No se puede borrar una MasterClass que no te pertenece");
 		
 		
-		
+		super.authenticate("admin");
 		//Creamos cook NO dueño de la clase
 		Cook cook2;
 
@@ -140,7 +146,9 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
 		//Creamos la MasterClass
+		super.authenticate("cookTest");
 		MasterClass masterClass,masterClassSaved;
 		masterClass=masterClassService.create();
 		masterClass.setCook(cookSaved);
@@ -151,20 +159,19 @@ public class MasterClassServiceTest extends AbstractTest{
 		masterClass.setTitle("titleTest");
 		
 		
-		super.authenticate("cookTest");
 		masterClassSaved= masterClassService.save(masterClass);
 		super.unauthenticate();
 		super.authenticate("cook2Test");
-		masterClassSaved= masterClassService.save(masterClassSaved);
+		masterClassService.delete(masterClassSaved);
 		super.unauthenticate();
 		exception=ExpectedException.none();
 		
 	}
 	@Test
 	public void testSaveMasterClassTitleHasText(){
-		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("El title de la masterClass debe contener texto");
+		exception.expect(IllegalArgumentException.class);	
 		
+		super.authenticate("admin");
 		//Creamos cook dueño de la clase
 		Cook cook,cookSaved;
 		//Creamos cook
@@ -183,6 +190,8 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+		super.authenticate("cookTest");
 		//Creamos la MasterClass
 		MasterClass masterClass;
 		masterClass=masterClassService.create();
@@ -192,7 +201,6 @@ public class MasterClassServiceTest extends AbstractTest{
 		masterClass.setLearningMaterials(learningMaterials);
 		masterClass.setPromoted(false);
 		masterClass.setTitle(null);
-		super.authenticate("cookTest");
 		masterClassService.save(masterClass);
 		masterClass.setTitle("");
 		 masterClassService.save(masterClass);
@@ -206,10 +214,9 @@ public class MasterClassServiceTest extends AbstractTest{
 	@Test
 	public void testSaveMasterCookNull(){
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("La propiedad Cook no puede ser nula");	
 		
 		
-				//Creamos la MasterClass
+		//Creamos la MasterClass
 		MasterClass masterClass;
 		Cook cook=null;
 		masterClass=masterClassService.create();
@@ -229,6 +236,7 @@ public class MasterClassServiceTest extends AbstractTest{
 	@Test
 	public void testDeleteMasterClass(){
 		//Creamos cook dueño de la clase
+		super.authenticate("admin");
 		Cook cook,cookSaved;
 		//Creamos cook
 		cook = cookService.create();
@@ -246,6 +254,8 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+		super.authenticate("cookTest");
 		//Creamos la MasterClass
 		MasterClass masterClass,masterClassSaved;
 		Collection<MasterClass> masterClasses = new ArrayList<MasterClass>();
@@ -268,7 +278,7 @@ public class MasterClassServiceTest extends AbstractTest{
 		super.unauthenticate();
 		masterClasses= masterClassService.findAll();
 		Assert.isTrue(!(masterClasses.contains(masterClassSaved)),"No se ha borradola MasterClass");
-		
+		super.authenticate(null);
 	}
 	@Test
 	public void testDeleteMasterClassNull(){
@@ -286,6 +296,7 @@ public class MasterClassServiceTest extends AbstractTest{
 		exception.expect(IllegalArgumentException.class);
 		exception.expectMessage("No se puede borrar una MasterClass con ID=0");
 		//Creamos cook dueño de la clase
+		super.authenticate("admin");
 		Cook cook,cookSaved;
 		//Creamos cook
 		cook = cookService.create();
@@ -303,6 +314,8 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+		super.authenticate("cookTest");
 		//Creamos la MasterClass
 		MasterClass masterClass;
 		masterClass=masterClassService.create();
@@ -319,7 +332,7 @@ public class MasterClassServiceTest extends AbstractTest{
 	@Test
 	public void testDeleteMasterClassNotExist(){
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("No se puede borrar una MasterClass que no existe en la base de datos");
+		super.authenticate("admin");
 		//Creamos cook dueño de la clase
 		Cook cook,cookSaved;
 		//Creamos cook
@@ -338,6 +351,8 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+		super.authenticate("cookTest");
 		//Creamos la MasterClass
 		MasterClass masterClass;
 		masterClass=masterClassService.create();
@@ -348,17 +363,18 @@ public class MasterClassServiceTest extends AbstractTest{
 		masterClass.setPromoted(false);
 		masterClass.setTitle("titleTest");
 		masterClass.setId(2555555);
-		
-		super.authenticate("cookTest");
+
 		masterClassService.delete(masterClass);
 		exception=ExpectedException.none();
+		super.authenticate(null);
 	}
 
 	@Test
-	public void testDeleteMasterClassOfAnotherPerson(){
+	public void testSaveMasterClassOfAnotherPerson(){
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("No se puede borrar una MasterClass que no te pertenece");
+		exception.expectMessage("No se puede guardar una MasterClass que no le pertenezca");
 		
+		super.authenticate("admin");
 		//Creamos cook dueño de la clase
 		Cook cook2;
 		//Creamos cook
@@ -396,6 +412,8 @@ public class MasterClassServiceTest extends AbstractTest{
 		cook.setUserAccount(userAcc);
 		//guardamaos el cook
 		cookSaved = cookService.save(cook);
+		super.authenticate(null);
+		super.authenticate("cookTest");
 		//Creamos la MasterClass
 		MasterClass masterClass,masterClassSaved;
 		Collection<MasterClass> masterClasses = new ArrayList<MasterClass>();
@@ -407,14 +425,13 @@ public class MasterClassServiceTest extends AbstractTest{
 		masterClass.setPromoted(false);
 		masterClass.setTitle("titleTest");
 		//Ahora la guardamos
-		super.authenticate("cookTest");
 		masterClassSaved= masterClassService.save(masterClass);
 		super.unauthenticate();
 		masterClasses= masterClassService.findAll();
 		Assert.isTrue(masterClasses.contains(masterClassSaved),"No se ha guardado la MasterClass");
 		//Ahora la borramos
 		super.authenticate("cook2Test");
-		masterClassService.delete(masterClassSaved);
+		masterClassService.save(masterClassSaved);
 		super.unauthenticate();
 		
 		exception=ExpectedException.none();

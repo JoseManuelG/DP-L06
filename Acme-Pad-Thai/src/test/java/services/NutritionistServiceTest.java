@@ -230,7 +230,7 @@ public class NutritionistServiceTest extends AbstractTest {
 		nutritionist.setUserAccount(userAcc);
 
 		nutritionistSaved = nutritionistService.save(nutritionist);
-
+		super.authenticate("nutritionistTest");
 		Curriculum curriculum, curriculumSaved;
 		curriculum = curriculumService.create();
 		Collection<Endorser> endorsers = new ArrayList<Endorser>();
@@ -238,7 +238,7 @@ public class NutritionistServiceTest extends AbstractTest {
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		curriculumSaved = curriculumService.save(curriculum);
 		curriculums = curriculumService.findAll();
@@ -248,6 +248,7 @@ public class NutritionistServiceTest extends AbstractTest {
 		nutritionistSaved2 = nutritionistService.save(nutritionistSaved);
 		Nutritionist result = nutritionistService
 				.nutritionistOfCurriculum(curriculumSaved);
+		super.authenticate(null);
 		Assert.isTrue(result.equals(nutritionistSaved2));
 
 	}

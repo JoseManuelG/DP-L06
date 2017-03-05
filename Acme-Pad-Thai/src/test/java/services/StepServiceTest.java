@@ -60,7 +60,7 @@ public class StepServiceTest extends AbstractTest {
 				Assert.isNull(step.getNumber());
 				Assert.isNull(step.getPicture());
 				Assert.isNull(step.getRecipe());
-				Assert.isNull(step.getStepHints());
+				Assert.notNull(step.getStepHints());
 			}
 			
 			//Tests de saves----------------------------------------

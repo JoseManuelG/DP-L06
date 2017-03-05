@@ -114,7 +114,7 @@ public class PropertyValueServiceTest extends AbstractTest {
 		Property property=propertyService.create();
 		property.setName("nombre de prueba");
 		Collection<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
-		PropertyValue existingPropertyValue = propertyValueService.findOne(136);
+		PropertyValue existingPropertyValue = propertyValueService.findOne(349);
 		propertyValues.add(existingPropertyValue);
 		property.setPropertyValues(propertyValues);
 		Property savedProperty=propertyService.save(property);

@@ -77,7 +77,7 @@ public class EndorserServiceTest extends AbstractTest{
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		
 		curriculumSaved= curriculumService.save(curriculum);
@@ -177,7 +177,7 @@ public class EndorserServiceTest extends AbstractTest{
 				curriculum.setEducationSection("educationSectionTest");
 				curriculum.setExperienceSection("experienceSectionTest");
 				curriculum.setHobbiesSection("hobbiesSectionTest");
-				curriculum.setPicture("https//www.pictureTest.org");
+				curriculum.setPicture("https://www.pictureTest.org");
 				curriculum.setEndorsers(endorsers);
 				
 				curriculumSaved= curriculumService.save(curriculum);
@@ -255,7 +255,7 @@ public class EndorserServiceTest extends AbstractTest{
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		
 		curriculumSaved= curriculumService.save(curriculum);
@@ -319,7 +319,7 @@ public class EndorserServiceTest extends AbstractTest{
 		
 		nutritionistSaved=nutritionistService.save(nutritionist);
 		
-		
+		super.authenticate("nutritionistTest");
 		//Creamos el curriculum
 		Curriculum curriculum,curriculumSaved;
 		curriculum= curriculumService.create();
@@ -328,7 +328,7 @@ public class EndorserServiceTest extends AbstractTest{
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		
 		curriculumSaved= curriculumService.save(curriculum);
@@ -351,7 +351,7 @@ public class EndorserServiceTest extends AbstractTest{
 		endorser.setHomepage("https://www.homepageTest.org");
 		endorser.setCurriculum(curriculumSaved);
 
-		super.authenticate("nutritionistTest");
+//		super.authenticate("nutritionistTest");
 		endorserSaved=endorserService.save(endorser);
 		
 		
@@ -401,7 +401,7 @@ public class EndorserServiceTest extends AbstractTest{
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		
 		curriculumSaved= curriculumService.save(curriculum);
@@ -480,7 +480,7 @@ public class EndorserServiceTest extends AbstractTest{
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		
 		curriculumSaved= curriculumService.save(curriculum);
@@ -575,7 +575,7 @@ public class EndorserServiceTest extends AbstractTest{
 		curriculum.setEducationSection("educationSectionTest");
 		curriculum.setExperienceSection("experienceSectionTest");
 		curriculum.setHobbiesSection("hobbiesSectionTest");
-		curriculum.setPicture("https//www.pictureTest.org");
+		curriculum.setPicture("https://www.pictureTest.org");
 		curriculum.setEndorsers(endorsers);
 		
 		curriculumSaved= curriculumService.save(curriculum);
@@ -654,7 +654,7 @@ public class EndorserServiceTest extends AbstractTest{
 			curriculum.setEducationSection("educationSectionTest");
 			curriculum.setExperienceSection("experienceSectionTest");
 			curriculum.setHobbiesSection("hobbiesSectionTest");
-			curriculum.setPicture("https//www.pictureTest.org");
+			curriculum.setPicture("https://www.pictureTest.org");
 			curriculum.setEndorsers(endorsers);
 			
 			curriculumSaved= curriculumService.save(curriculum);
@@ -718,7 +718,7 @@ public class EndorserServiceTest extends AbstractTest{
 			curriculum.setEducationSection("educationSectionTest");
 			curriculum.setExperienceSection("experienceSectionTest");
 			curriculum.setHobbiesSection("hobbiesSectionTest");
-			curriculum.setPicture("https//www.pictureTest.org");
+			curriculum.setPicture("https://www.pictureTest.org");
 			curriculum.setEndorsers(endorsers);
 			
 			curriculumSaved= curriculumService.save(curriculum);

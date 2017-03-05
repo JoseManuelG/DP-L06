@@ -58,7 +58,7 @@ public class PropertyServiceTest extends AbstractTest{
 	}	
 	@Test
 	public void testFindOne(){
-		Property result = propertyService.findOne(134);
+		Property result = propertyService.findOne(340);
 		System.out.println(result.getName());
 	}
 	
@@ -191,8 +191,8 @@ public class PropertyServiceTest extends AbstractTest{
 		
 		exception.expect(IllegalArgumentException.class);
 		exception.expectMessage("La propiedad no puede estar relacionada con un ingrediente");
-		Property asdfa=propertyService.findOne(134);
-		System.out.println(asdfa);
+//		Property asdfa=propertyService.findOne(340);
+//		System.out.println(asdfa);
 		Ingredient ingredient = ingredientService.create();
 		ingredient.setName("Descripcion del ingrediente");
 		ingredient.setDescription("Descripcion del ingrediente");
