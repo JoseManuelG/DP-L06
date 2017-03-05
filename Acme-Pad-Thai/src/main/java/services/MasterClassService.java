@@ -32,6 +32,8 @@ public class MasterClassService {
 	@Autowired
 	private MessageService messageService;
 	@Autowired
+	private CookService cookService;
+	@Autowired
 	private LoginService loginService;
 
 	// Simple CRUD methods --------------------------------------
@@ -41,7 +43,8 @@ public class MasterClassService {
 		Collection<Attend> attends=new ArrayList<Attend>();
 		
 		Collection<LearningMaterial>learningMaterials =new ArrayList<LearningMaterial>();
-		
+		result.setCook(cookService.findByPrincipal());
+
 		result.setAttends(attends);
 		result.setLearningMaterials(learningMaterials);
 		return result;
@@ -187,6 +190,14 @@ public class MasterClassService {
 	}
 	public Collection<MasterClass> findPromotedMasterClasses(){
 		Collection<MasterClass> result = masterClassRepository.findPromotedMasterClasses();
+		return result;
+	}
+
+	public ArrayList<Integer> attendedClassesOfActor(Actor actor) {
+		ArrayList<Integer> result= new ArrayList<Integer>();
+		for(Attend attend:actor.getAttends()){
+			result.add(attend.getMasterClass().getId());
+		}
 		return result;
 	}
 

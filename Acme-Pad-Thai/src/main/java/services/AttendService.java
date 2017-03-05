@@ -21,6 +21,8 @@ public class AttendService {
 	private AttendRepository attendRepository;
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private ActorService actorService;
 	
 	// Supporting Services --------------------------------------
 	// Simple CRUD methods --------------------------------------
@@ -28,6 +30,13 @@ public class AttendService {
 	public Attend create() {
 		Attend result;
 		result = new Attend();
+		return result;
+	}
+	public Attend create(MasterClass masterClass) {
+		Attend result;
+		result = new Attend();
+		Actor actor= actorService.findActorByPrincial();
+		result.setActor(actor);
 		return result;
 	}
 
