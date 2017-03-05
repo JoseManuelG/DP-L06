@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <spring:message  code="user.name" />: <jstl:out value="${user.name}" />
-<br>
+<a href="user/view.do?userId=<jstl:out value='${user.id}' />"><spring:message  code="user.name" /></a><br>
 <spring:message  code="user.surname" />: <jstl:out value="${user.surname}"/>
 <br>
 <spring:message  code="user.email" />: <jstl:out value="${user.email}"/>

@@ -32,6 +32,9 @@
 <spring:message  code="recipe.lastUpdate" />: <jstl:out value="${recipe.lastUpdate}"/>
 <br>
 <spring:message  code="recipe.user.name" />: <jstl:out value="${recipe.user.name}"/>
+
+<a href="user/view.do?userId=<jstl:out value='${recipe.user.id}' />"><spring:message  code="recipe.user.view" /></a><br>
+
 <br>
 <spring:message  code="recipe.pictures" />:
 <br>
