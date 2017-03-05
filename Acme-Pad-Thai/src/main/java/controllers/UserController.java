@@ -116,6 +116,7 @@ public class UserController extends AbstractController {
 			boolean principal = false;
 			result.addObject(principal);
 		}
+		
 		Collection<SocialIdentity> socialIdentities = user
 				.getSocialIdentities();
 		if (socialIdentities != null) {
@@ -125,6 +126,7 @@ public class UserController extends AbstractController {
 			result.addObject("socialIdentities", socialIdentities);
 
 		}
+		//TODO pa servicio
 		Boolean follow = false;
 			Customer customer = customerService.findActorByPrincial();
 			for (Follow f : user.getFollowers()) {
@@ -153,6 +155,7 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
+		//TODO pa servicio
 		User user = userService.findByPrincipal();
 		ActorForm actorForm = new ActorForm();
 		result = new ModelAndView("user/edit");
@@ -178,6 +181,7 @@ public class UserController extends AbstractController {
 			result = createEditModelAndView(actorForm);
 		} else {
 			try {
+				//TODO pa servicio
 				User user = userService.findByPrincipal();
 
 				UserAccount userAccount = user.getUserAccount();
@@ -216,6 +220,7 @@ public class UserController extends AbstractController {
 	public ModelAndView follow(@RequestParam int userId) {
 		ModelAndView result;
 		User followed = userService.findOne(userId);
+		//TODO pa servicio
 		Customer follower = customerService.findActorByPrincial();
 		Follow follow = followService.create();
 		follow.setFollowed(followed);
@@ -228,6 +233,7 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/unfollow", method = RequestMethod.GET)
 	public ModelAndView unfollow(@RequestParam int userId) {
 		ModelAndView result;
+		//TODO pa servicio
 		User followed = userService.findOne(userId);
 		Customer follower = customerService.findActorByPrincial();
 		Follow follow = followService.findFollowByFollowedAndFollower(followed,

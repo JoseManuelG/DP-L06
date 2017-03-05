@@ -119,6 +119,7 @@ public class SponsorController extends AbstractController {
 		ModelAndView result;
 		Sponsor sponsor= sponsorService.findByPrincipal();
 		ActorForm actorForm= new ActorForm();
+		//TODO pa servicio
 		result = new ModelAndView("user/edit");
 		actorForm.setAddress(sponsor.getAddress());
 		actorForm.setEmail(sponsor.getEmail());
@@ -140,6 +141,7 @@ public class SponsorController extends AbstractController {
 			result = createEditModelAndView(actorForm);
 		} else {
 			try {
+				//TODO pa servicio
 				Sponsor sponsor= sponsorService.findByPrincipal();
 
 				UserAccount userAccount = sponsor.getUserAccount();

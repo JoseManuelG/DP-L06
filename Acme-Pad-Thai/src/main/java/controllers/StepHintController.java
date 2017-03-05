@@ -85,7 +85,7 @@ public class StepHintController extends AbstractController {
 		Step step = stepService.findOne(stepId);
 		Collection<StepHint> stepHints = stepHintService.findAll();
 		
-		
+		//TODO pa servicio
 		stepHint.setStep(step);
 		result = createEditModelAndView(stepHint);
 		result.addObject("stepHints",stepHints);

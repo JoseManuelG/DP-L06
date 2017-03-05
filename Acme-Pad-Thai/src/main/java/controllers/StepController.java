@@ -92,7 +92,7 @@ public class StepController extends AbstractController {
 		Assert.notNull(step);
 		Recipe recipe = recipeService.findOne(recipeId);
 		Collection<StepHint> stepHints = new ArrayList<StepHint>();
-
+		//TODO pa servicio
 		step.setRecipe(recipe);
 		step.setStepHints(stepHints);
 		result = createEditModelAndView(step);
@@ -118,7 +118,7 @@ public class StepController extends AbstractController {
 		} else {
 			try {
 				Assert.isTrue(!step.getRecipe().getIsCopy());
-
+				//TODO pa servicio
 				Collection<StepHint> sh =new ArrayList<StepHint>();
 				step.setStepHints(sh);
 				stepService.save(step);
@@ -197,6 +197,7 @@ public class StepController extends AbstractController {
 			stepService.delete(step);
 			ArrayList<Step> steps = new ArrayList<Step>();
 			steps.addAll(step.getRecipe().getSteps());
+			//TODO pa servicio
 			int index =1;
 			for(Step s:steps){
 				s.setNumber(index);
