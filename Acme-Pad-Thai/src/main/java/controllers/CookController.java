@@ -114,7 +114,9 @@ public class CookController extends AbstractController {
 		
 		ActorForm actorForm= new ActorForm();
 		result = new ModelAndView("cook/edit");
+		//TODO Pa Servicio
 		actorForm.setTypeOfActor("COOK");
+		//fin del todo
 		result.addObject("actorForm", actorForm);
 
 		result.addObject("requestURI", "cook/administrator/create.do");
@@ -134,7 +136,7 @@ public class CookController extends AbstractController {
 		} else {
 			try {
 				Cook cook= cookService.create();
-
+				//TODO pal servicio
 				UserAccount userAccount = new UserAccount();
 				
 				
@@ -152,7 +154,7 @@ public class CookController extends AbstractController {
 				authorities.add(authority);
 				userAccount.setAuthorities(authorities);
 				cook.setUserAccount(userAccount);
-				
+				//fin del todo
 				cookService.save(cook);	
 				
 				result = this.list();
@@ -173,6 +175,7 @@ public class CookController extends AbstractController {
 		Cook cook= cookService.findByPrincipal();
 		ActorForm actorForm= new ActorForm();
 		result = new ModelAndView("cook/edit");
+		//Pa servicios
 		actorForm.setAddress(cook.getAddress());
 		actorForm.setEmail(cook.getEmail());
 		actorForm.setName(cook.getName());
@@ -181,6 +184,7 @@ public class CookController extends AbstractController {
 		actorForm.setSurname(cook.getSurname());
 		actorForm.setTypeOfActor("COOK");
 		actorForm.setUsername(cook.getUserAccount().getUsername());
+		//fin del todo
 		result.addObject("actorForm", actorForm);
 		result.addObject("requestURI", "cook/edit.do");
 		return result;
@@ -189,14 +193,16 @@ public class CookController extends AbstractController {
 	public @ResponseBody ModelAndView save(@Valid ActorForm actorForm, BindingResult binding) {
 		ModelAndView result;
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		//TODO pal servicio
 		actorForm.setTypeOfActor("COOK");
+		//fin del todo
 		if (binding.hasErrors()) {
 			System.out.print(binding.getAllErrors().toString());
 			result = createEditModelAndView(actorForm);
 		} else {
 			try {
 				Cook cook= cookService.findByPrincipal();
-
+				//Pal Servicio
 				UserAccount userAccount = cook.getUserAccount();
 				
 				
@@ -214,7 +220,7 @@ public class CookController extends AbstractController {
 				authorities.add(authority);
 				userAccount.setAuthorities(authorities);
 				cook.setUserAccount(userAccount);
-				
+				//fin del todo
 				cookService.save(cook);	
 				
 				result = this.view(null);

@@ -81,7 +81,6 @@ public class CurriculumService {
 	}
 	//other business methods --------------------------------------
 	public boolean existCurriculumOfNutritionist(int nutritionistId) {
-		// TODO Auto-generated method stub
 		Collection<Curriculum> curriculums=curriculumRepository.existCurriculumOfNutritionist(nutritionistId);
 		Boolean result=curriculums.isEmpty();
 		return !result;

@@ -58,13 +58,13 @@ public class FolderController extends AbstractController {
 		Collection<Folder> folders=folderService.findAll();
 		Actor actor=actorService.findActorByPrincial();
 		Collection<Folder> resultFolders=new ArrayList<Folder>();
-		
+		//TODO pASAR A QUERY
 		for(Folder folder:folders){
 			if(folder.getActor().equals(actor)){
 				resultFolders.add(folder);
 			}
 		}
-		
+		//fin del todo
 		result = new ModelAndView("folder/list");
 		result.addObject("folders",resultFolders);
 		result.addObject("requestURI","folder/list.do");
@@ -136,11 +136,12 @@ public class FolderController extends AbstractController {
 			
 			Folder folder=folderService.create();
 			Assert.notNull(folder);
+			//TODO Para servicio
 			Actor actor=actorService.findActorByPrincial();
 			folder.setActor(actor);
 			Collection<Message> messages=new ArrayList<Message>();
 			folder.setMessages(messages);
-			
+			//fin del todo
 			result=createEditModelAndView(folder);
 
 			return result;

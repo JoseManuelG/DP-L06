@@ -13,7 +13,6 @@ public class DateToStringConverter implements Converter<Date, String> {
 	@SuppressWarnings("deprecation")
 	@Override
 	public String convert(Date arg0) {
-		// TODO Auto-generated method stub
 		String result=String.valueOf(arg0.getYear());
 		result=result.concat("-");
 		 result=result.concat(String.valueOf(arg0.getMonth()));

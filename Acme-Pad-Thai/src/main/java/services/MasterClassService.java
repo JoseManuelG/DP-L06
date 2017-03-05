@@ -115,7 +115,7 @@ public class MasterClassService {
 	}
 
 	public boolean existMasterClassesOfCook(int cookId) {
-		// TODO Auto-generated method stub
+		
 		Collection<MasterClass> MasterClasses = masterClassRepository
 				.existMasterClassesOfCook(cookId);
 		Boolean result = MasterClasses.isEmpty();
