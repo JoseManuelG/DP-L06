@@ -45,10 +45,8 @@ public class EndorserController {
 		ModelAndView result;
 		Nutritionist nutritionist = nutritionistService.findByPrincipal();
 		Curriculum curriculum=nutritionist.getCurriculum();
-		Endorser endorser= endorserService.create();
-		//TODO para servicio
-		endorser.setCurriculum(curriculum);
-		//fin del todo
+		Endorser endorser= endorserService.create(curriculum);
+		
 		result=createEditModelAndView(endorser);
 
 		return result; 
@@ -61,9 +59,7 @@ public class EndorserController {
 				
 				
 				result=new ModelAndView("endorser/nutritionist/edit");
-				//TODO ??
-				nutritionistService.findByPrincipal();
-				//fin del todo
+				
 				Endorser endorser= endorserService.findOne(endorserId);
 				result.addObject("endorser", endorser);
 				
@@ -73,9 +69,7 @@ public class EndorserController {
 			@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 			public @ResponseBody ModelAndView save(@Valid Endorser endorser, BindingResult binding) {
 				ModelAndView result=null;
-				// ??
-				nutritionistService.findByPrincipal();
-				//fin del todo
+				
 				if (binding.hasErrors()) {
 					result = createEditModelAndView(endorser);
 					System.out.println(binding.getAllErrors().toString());

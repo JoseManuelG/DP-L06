@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import repositories.EndorserRepository;
 import security.LoginService;
+import domain.Curriculum;
 import domain.Endorser;
 
 @Service
@@ -28,6 +29,12 @@ public class EndorserService {
 		public Endorser create() {
 			Endorser result;
 			result = new Endorser();
+			return result;
+		}
+		public Endorser create(Curriculum  curriculum) {
+			Endorser result;
+			result = new Endorser();
+			result.setCurriculum(curriculum);
 			return result;
 		}
 		public Collection<Endorser> findAll() {

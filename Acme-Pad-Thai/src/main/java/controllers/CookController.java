@@ -177,7 +177,7 @@ public class CookController extends AbstractController {
 		} else {
 			try {
 				Cook cook= cookService.findByPrincipal();
-				cook=cookService.Reconstruc(cook, actorForm);
+				cook=cookService.reconstruct(cook, actorForm);
 				cookService.save(cook);	
 				
 				result = this.view(null);
