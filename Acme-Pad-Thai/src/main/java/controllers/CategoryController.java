@@ -168,7 +168,7 @@ public class CategoryController extends AbstractController {
 	public ModelAndView edit(@RequestParam int categoryId){
 		ModelAndView result;
 		Category category;
-//TODO		Todo esto a un servicio
+//TODO Todo esto a un servicio
 		category = categoryService.findOne(categoryId);
 		Collection<Category> subCategory= category.getSubCategory();
 		Collection<Belongs> belongs= category.getBelongs();

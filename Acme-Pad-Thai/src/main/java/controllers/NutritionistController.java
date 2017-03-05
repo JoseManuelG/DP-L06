@@ -112,7 +112,7 @@ public class NutritionistController extends AbstractController {
 		result = new ModelAndView("nutritionist/view");
 		Nutritionist nutritionist;
 		Curriculum curriculum;
-		
+		//TODO no se si va a servicio
 		if(nutritionistId==null){
 			nutritionist = nutritionistService.findByPrincipal();
 			result.addObject("principal",true);
@@ -123,7 +123,7 @@ public class NutritionistController extends AbstractController {
 			curriculum = nutritionist.getCurriculum();
 			endorsers= curriculum.getEndorsers();
 		}
-
+		
 		result.addObject("socialIdentities",nutritionist.getSocialIdentities());
 
 		if(nutritionist.getCurriculum()!=null){
@@ -132,7 +132,8 @@ public class NutritionistController extends AbstractController {
 		}else{
 				curriculum= curriculumService.create();
 			}
-		
+		//fin del todo
+		//TODO pal servicio
 		Integer follow =1;
 		if(customerService.findActorByPrincial()==null){
 			follow=3;
@@ -145,6 +146,7 @@ public class NutritionistController extends AbstractController {
 				}
 			}
 		}
+		//fin del todo
 		endorsers= curriculum.getEndorsers();
 		result.addObject("nutritionist",nutritionist);
 		result.addObject("curriculum",curriculum);
@@ -178,6 +180,7 @@ public class NutritionistController extends AbstractController {
 		Nutritionist nutritionist= nutritionistService.findByPrincipal();
 		ActorForm actorForm= new ActorForm();
 		result = new ModelAndView("user/edit");
+		//TODO pal servicio
 		actorForm.setAddress(nutritionist.getAddress());
 		actorForm.setEmail(nutritionist.getEmail());
 		actorForm.setName(nutritionist.getName());
@@ -188,6 +191,7 @@ public class NutritionistController extends AbstractController {
 		actorForm.setUsername(nutritionist.getUserAccount().getUsername());
 		result.addObject("actorForm", actorForm);
 		result.addObject("typeActor", "nutritionist");
+		//fin del todo
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
@@ -198,6 +202,7 @@ public class NutritionistController extends AbstractController {
 			result = createEditModelAndView(actorForm);
 		} else {
 			try {
+				//TODO Pal servicio
 				Nutritionist nutritionist= nutritionistService.findByPrincipal();
 
 				UserAccount userAccount = nutritionist.getUserAccount();
@@ -219,7 +224,7 @@ public class NutritionistController extends AbstractController {
 				nutritionist.setUserAccount(userAccount);
 				
 				nutritionistService.save(nutritionist);	
-				
+				//fin del todo
 				result = this.view(null);
 			} catch (Throwable oops) {
 				result = createEditModelAndView(actorForm, "recipe.commit.error");	
@@ -234,11 +239,13 @@ public class NutritionistController extends AbstractController {
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public ModelAndView follow(@RequestParam int nutritionistId) {
 		ModelAndView result;
+		//TODO Pa Servicios
 		Nutritionist followed = nutritionistService.findOne(nutritionistId);
 		Customer follower = customerService.findActorByPrincial();
 		Follow follow = followService.create();
 		follow.setFollowed(followed);
 		follow.setFollower(follower);
+		//fin del todo
 		followService.save(follow);
 		result = new ModelAndView("redirect:/nutritionist/view.do?nutritionistId=" + nutritionistId);
 		return result;
@@ -247,10 +254,12 @@ public class NutritionistController extends AbstractController {
 	@RequestMapping(value = "/unfollow", method = RequestMethod.GET)
 	public ModelAndView unfollow(@RequestParam int nutritionistId) {
 		ModelAndView result;
+		//TODO Pa Servicio
 		Nutritionist followed = nutritionistService.findOne(nutritionistId);
 		Customer follower = customerService.findActorByPrincial();
 		Follow follow = followService.findFollowByFollowedAndFollower(followed,
 				follower);
+		//fin del todo
 		followService.delete(follow);
 		result = new ModelAndView("redirect:/nutritionist/view.do?nutritionistId=" + nutritionistId);
 		return result;

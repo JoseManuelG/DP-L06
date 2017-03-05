@@ -93,7 +93,7 @@ public class FolderService {
 	}
 	//Busca un Folder con el nombre "name" del actor "actor"
 //	public Folder findFolderFromActor(Actor actor, String name) {
-//		// TODO Auto-generated method stub
+//	
 //		Assert.notNull(actor);
 //		Assert.hasText(name);
 //		Collection<Folder> folders =findFoldersOfActor(actor);
@@ -109,7 +109,7 @@ public class FolderService {
 //	}
 	//busca todos los Folder del actor "actor"
 	public Collection<Folder> findFoldersOfActor(Actor actor) {
-		// TODO Auto-generated method stub
+		
 		Collection<Folder> result = folderRepository.findFoldersOfActor(actor.getId());
 		return result;
 	}

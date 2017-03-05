@@ -82,7 +82,7 @@ public class NutritionistService {
 	//other business methods --------------------------------------
 
 	public Nutritionist nutritionistOfCurriculum(Curriculum curriculum) {
-		// TODO Auto-generated method stub
+		
 		Nutritionist result=nutritionistRepository.nutritionistOfCurriculum(curriculum.getId());
 		return result;
 	}

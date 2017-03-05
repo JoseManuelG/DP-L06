@@ -68,6 +68,7 @@ public class MasterClassController extends AbstractController {
 		
 		try {
 			Actor actor = actorService.findActorByPrincial();
+			//TODO pa servicio
 			if(actor !=null && actor instanceof Cook){
 				masterClasses.removeAll(cookService.findByPrincipal().getMasterClasses());
 			}
@@ -75,6 +76,7 @@ public class MasterClassController extends AbstractController {
 			for(Attend attend:actor.getAttends()){
 				attendClasses.add(attend.getMasterClass().getId());
 			}
+			//fin del todo
 			result.addObject("attendClasses", attendClasses);
 			result.addObject("requestURI", false);
 
@@ -88,6 +90,7 @@ public class MasterClassController extends AbstractController {
 	public ModelAndView listByCook(@RequestParam(required = false) Integer userId) {
 		ModelAndView result;
 		Collection<MasterClass> masterClasses;
+		//TODO pa servicios
 		if(userId == null){
 			Cook cook = cookService.findByPrincipal();
 			masterClasses = masterClassService.findRecipesByCook(cook);
@@ -95,6 +98,7 @@ public class MasterClassController extends AbstractController {
 			Cook cook= cookService.findOne(userId);
 			masterClasses = masterClassService.findRecipesByCook(cook);
 		}
+		//fin del todo
 		result = new ModelAndView("masterclass/listByCook");
 		
 		result.addObject("masterClasses",masterClasses);
@@ -112,12 +116,14 @@ public class MasterClassController extends AbstractController {
 		
 		
 		try {
-			
+			//TODO pal Servicio
 			Attend attend= attendService.create();
+			
 			Actor actor= actorService.findActorByPrincial();
 			System.out.println(actor.getId());
 			attend.setActor(actor);
 			attend.setMasterClass(masterClassService.findOne(masterclassId));
+			//fin del todo
 			attendService.save(attend);
 			
 		}catch(IllegalArgumentException e){
@@ -138,8 +144,10 @@ public class MasterClassController extends AbstractController {
 			
 			
 			try {
+				//TODO Pal Sercio
 				Actor actor = actorService.findActorByPrincial();
 				Attend attend = attendService.findAttendByMasterClassAndActor(actor.getId(), masterclassId);
+				//fin del todo
 				attendService.delete(attend);
 				
 			}catch(IllegalArgumentException e){
@@ -160,7 +168,9 @@ public class MasterClassController extends AbstractController {
 			
 			try {
 				MasterClass masterClass = masterClassService.findOne(masterclassId);
+				//TODO Pa servicio
 				masterClass.setPromoted(true);
+				//fin del todo
 				masterClassService.save(masterClass);
 			}catch(IllegalArgumentException e){
 				
@@ -183,7 +193,9 @@ public class MasterClassController extends AbstractController {
 				
 				try {
 					MasterClass masterClass = masterClassService.findOne(masterclassId);
+					//TODO pa Servicio
 					masterClass.setPromoted(false);
+					//fin del todo
 					masterClassService.save(masterClass);
 				}catch(IllegalArgumentException e){
 					
@@ -202,6 +214,7 @@ public class MasterClassController extends AbstractController {
 		Actor actor = actorService.findActorByPrincial();
 		MasterClass mc= masterClassService.findOne(masterClassId);
 		Boolean aux = false;
+		//TODO SACA ESTO DE AQUI!
 		for(Attend attend : actor.getAttends()){
 			aux=attend.getMasterClass().equals(mc);
 			if(aux){
@@ -220,7 +233,7 @@ public class MasterClassController extends AbstractController {
 			Cook ownerCook= cookService.findByPrincipal();
 			result.addObject("ownerCook", ownerCook);
 		}
-	
+		//fin del todo
 		return result;
 	}
 	// Create ----------------------------------------------------------------	
@@ -230,12 +243,14 @@ public class MasterClassController extends AbstractController {
 		ModelAndView result;
 		MasterClass masterClass=masterClassService.create();
 		Assert.notNull(masterClass);
-		
+		//TODO Pa servicios
 		Collection<Attend> attends=new ArrayList<Attend>();
 		Collection<LearningMaterial>learningMaterials =new ArrayList<LearningMaterial>();
 		masterClass.setAttends(attends);
+		
 		masterClass.setLearningMaterials(learningMaterials);
 		masterClass.setCook(cookService.findByPrincipal());
+		//fin del todo
 		result=createEditModelAndView(masterClass);
 
 		return result; 

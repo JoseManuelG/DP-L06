@@ -74,8 +74,10 @@ public class LearningMaterialController extends AbstractController {
 		ModelAndView result;
 		LearningMaterial learningMaterial = learningMaterialService.create();
 		Assert.notNull(learningMaterial);
+		//TODO Pa servicio
 		MasterClass masterClass= masterClassService.findOne(masterClassId);
 		learningMaterial.setMasterClass(masterClass);
+		//fin del todo
 		result = new ModelAndView("learningmaterial/cook/edit");
 		result.addObject("learningMaterial",learningMaterial);
 		return result;
@@ -99,6 +101,7 @@ public class LearningMaterialController extends AbstractController {
 	@RequestMapping(value = "/cook/edit", method = RequestMethod.POST, params = "save")
 	public @ResponseBody ModelAndView save(@Valid LearningMaterial learningMaterial,BindingResult binding) {
 		ModelAndView result = null;
+		//TODO para servicio
 		boolean aux = false;
 		if(learningMaterial.getType().equals("presentation")){
 			aux=learningMaterial.getData().contains("slideshare.net");
@@ -107,6 +110,7 @@ public class LearningMaterialController extends AbstractController {
 		}else if(learningMaterial.getType().contains("text")){
 			aux=true;
 		}
+		//fin del todo
 		if (binding.hasErrors()) {
 			result = createEditModelAndView(learningMaterial);
 			System.out.println(binding.getAllErrors().toString());
@@ -149,9 +153,13 @@ public class LearningMaterialController extends AbstractController {
 			public ModelAndView addAttachment(String learningMaterialId) {
 				ModelAndView result;
 				AttachmentForm af = new AttachmentForm();
+				//TODO Pa placeHolder
 				af.setText("http://www.yourattachment.com");
+				//fin del todo
+				// Pa servicio
 				LearningMaterial learningMaterial = learningMaterialService.findOne(Integer.valueOf(learningMaterialId));
 				af.setLearningMaterial(learningMaterial);
+				//fin del todo
 				result = new ModelAndView("learningmaterial/cook/addAttachment");
 				result.addObject("attachmentForm",af);
 				return result;
@@ -161,11 +169,13 @@ public class LearningMaterialController extends AbstractController {
 			public ModelAndView addAttachment(AttachmentForm attachmentForm, BindingResult binding) {
 				ModelAndView result;
 				LearningMaterial learningMaterial = attachmentForm.getLearningMaterial();
+				//Pa servicio
 				List<String> attachments = new ArrayList<String>();
 				attachments.addAll(learningMaterial.getAttachments());
 				String newAttachment =attachmentForm.getText();
 				attachments.add(newAttachment);
 				learningMaterial.setAttachments(attachments);
+				//fin del todo
 				learningMaterialService.save(learningMaterial);
 				result = new ModelAndView("redirect:../view.do?learningMaterialId="+learningMaterial.getId());
 				return result;
@@ -177,12 +187,13 @@ public class LearningMaterialController extends AbstractController {
 				ModelAndView result;
 				LearningMaterial learningMaterial = learningMaterialService.findOne(Integer.valueOf(learningMaterialId));
 				try {
-					
+					//TODO Pa servicios
 					List<String> attachments = new LinkedList<String>();
 					attachments.addAll(learningMaterial.getAttachments());
 					String attachmentToDelete= attachments.get(attachmentIndex);
 					attachments.remove(attachmentToDelete);
 					learningMaterial.setAttachments(attachments);
+					//fin del todo
 					learningMaterialService.save(learningMaterial);
 					result = new ModelAndView("redirect:../view.do?learningMaterialId="+learningMaterial.getId());
 				} catch (Throwable oops) {

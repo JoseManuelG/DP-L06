@@ -65,8 +65,10 @@ public class CreditCardController extends AbstractController {
 				
 				if(creditCard.getId()==0){
 					creditCard=creditCardService.save(creditCard);
+					//No se si debe ir a servicio
 					Sponsor sponsor=sponsorService.findByPrincipal();
 					sponsor.getCreditCards().add(creditCard);
+					//fin del todo
 					sponsorService.save(sponsor);
 				}else{
 					creditCardService.save(creditCard);

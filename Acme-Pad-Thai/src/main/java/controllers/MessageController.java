@@ -60,6 +60,7 @@ public class MessageController extends AbstractController {
 			ModelAndView result;
 		
 			Message message=messageService.create();
+			//TODO en el servicio
 			Assert.notNull(message);
 			Actor sender=actorService.findActorByPrincial();
 			Assert.notNull(sender);
@@ -69,7 +70,7 @@ public class MessageController extends AbstractController {
 			message.setFolder(folder);
 			message.setSender(sender.getName());
 			message.setRecipient(recipient.getName());
-			
+			//fin del todo
 			result=createCreateModelAndView(message);
 			return result;
 		}
@@ -86,8 +87,9 @@ public class MessageController extends AbstractController {
 				result=createCreateModelAndView(message);
 				
 			}else{
-
+				//Pal servicio
 				Actor sender =actorService.findActorByPrincial();
+				//fin del todo
 				messageService.sendMessage(message, sender , message.getFolder().getActor());
 				result=new ModelAndView("redirect:/folder/list.do");
 				
