@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Banner;
 import domain.Campaign;
+import domain.Sponsor;
 
 @Service
 @Transactional
@@ -27,11 +29,19 @@ public class CampaignService {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private SponsorService sponsorService;
+	
 	//Constructors------------------------------------
 	
 	//Simple CRUD methods-----------------------------
 	public Campaign create(){
 		Campaign result=new Campaign();
+		Sponsor sponsor=sponsorService.findByPrincipal();
+		result.setSponsor(sponsor);
+		Collection<Banner> BannerList=new ArrayList<Banner>();
+		result.setBannerList(BannerList);
 		return result;
 	}
 
@@ -79,5 +89,10 @@ public class CampaignService {
 		Collection<Campaign> result;
 		result=campaignRepository.activeCampaigns();
 		return result;
-	}	
+	}
+	public Collection<Campaign> sponsorCampaigns(int sponsorId){
+		Collection<Campaign> result=new ArrayList<Campaign>();
+		result=campaignRepository.sponsorCampaigns(sponsorId);
+		return result;
+	}
 }

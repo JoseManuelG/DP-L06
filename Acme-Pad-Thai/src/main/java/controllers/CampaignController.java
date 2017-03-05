@@ -55,18 +55,10 @@ public class CampaignController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		
-		Collection<Campaign> campaigns=campaignService.findAll();
 		Sponsor sponsor=sponsorService.findByPrincipal();
-		Collection<Campaign> resultCampaigns=new ArrayList<Campaign>();
-//TODO Pasar este for a una query		
-		for(Campaign campaign:campaigns){
-			if(campaign.getSponsor().equals(sponsor)){
-				resultCampaigns.add(campaign);
-			}
-		}
-//Fin del todo
+		Collection<Campaign> campaigns=campaignService.sponsorCampaigns(sponsor.getId());
 		result = new ModelAndView("campaign/sponsor/list");
-		result.addObject("campaigns",resultCampaigns);
+		result.addObject("campaigns",campaigns);
 		result.addObject("requestURI","campaign/sponsor/list.do");
 
 		return result;
@@ -94,14 +86,11 @@ public class CampaignController extends AbstractController {
 			
 			Assert.notNull(campaign);
 			Date currentDate=new Date(System.currentTimeMillis()-1000);
-//TODO Comprobar esta estructura			
-			if(binding.hasErrors()
-					||campaign.getDateOfEnd().before(campaign.getDateOfStart())
-					||campaign.getDateOfStart().before(currentDate)){
-				System.out.println(binding);
-				System.out.println("algo falla");
+			if(binding.hasErrors()){
 				result=createEditModelAndView(campaign,"campaign.commit.error");
-//Fin del todo 	
+			}else if(campaign.getDateOfEnd().before(campaign.getDateOfStart())
+					||campaign.getDateOfStart().before(currentDate)){
+				result=createEditModelAndView(campaign,"campaign.commit.error");
 			}else{
 				
 				campaignService.save(campaign);
@@ -135,13 +124,7 @@ public class CampaignController extends AbstractController {
 			ModelAndView result;
 			
 			Campaign campaign=campaignService.create();
-			Assert.notNull(campaign);
-//TODO esto en servicio
-			Sponsor sponsor=sponsorService.findByPrincipal();
-			campaign.setSponsor(sponsor);
-			Collection<Banner> BannerList=new ArrayList<Banner>();
-			campaign.setBannerList(BannerList);
-//Fin del todo 					
+			Assert.notNull(campaign);				
 			result=createEditModelAndView(campaign);
 			result = new ModelAndView("campaign/sponsor/edit");
 			result.addObject("campaign",campaign);
