@@ -114,7 +114,7 @@ public class CookController extends AbstractController {
 		
 		ActorForm actorForm= new ActorForm();
 		result = new ModelAndView("cook/edit");
-		//TODO Pa Servicio
+		//TODO Pa Servicio(me parece estupido crear un servicio pa esto)
 		actorForm.setTypeOfActor("COOK");
 		//fin del todo
 		result.addObject("actorForm", actorForm);
@@ -127,7 +127,7 @@ public class CookController extends AbstractController {
 	@RequestMapping(value = "/administrator/create", method = RequestMethod.POST,params = "save")
 	public ModelAndView create(@Valid ActorForm actorForm, BindingResult binding) {
 		ModelAndView result;
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		
 		actorForm.setTypeOfActor("COOK");
 		
 		if (binding.hasErrors()) {
@@ -135,25 +135,9 @@ public class CookController extends AbstractController {
 			result = createEditModelAndView(actorForm);
 		} else {
 			try {
-				Cook cook= cookService.create();
+				Cook cook= cookService.create(actorForm);
 				//TODO pal servicio
-				UserAccount userAccount = new UserAccount();
 				
-				
-				userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
-				userAccount.setUsername(actorForm.getUsername());
-		
-				cook.setName(actorForm.getName());
-				cook.setSurname(actorForm.getSurname());
-				cook.setAddress(actorForm.getAddress());
-				cook.setEmail(actorForm.getEmail());
-				cook.setPhone(actorForm.getPhone());
-				Collection<Authority> authorities = new ArrayList<Authority>();
-				Authority authority = new Authority();
-				authority.setAuthority(actorForm.getTypeOfActor());
-				authorities.add(authority);
-				userAccount.setAuthorities(authorities);
-				cook.setUserAccount(userAccount);
 				//fin del todo
 				cookService.save(cook);	
 				
@@ -173,18 +157,9 @@ public class CookController extends AbstractController {
 	public ModelAndView edit() {
 		ModelAndView result;
 		Cook cook= cookService.findByPrincipal();
-		ActorForm actorForm= new ActorForm();
+		ActorForm actorForm= cookService.fillActorForm(cook);
 		result = new ModelAndView("cook/edit");
-		//Pa servicios
-		actorForm.setAddress(cook.getAddress());
-		actorForm.setEmail(cook.getEmail());
-		actorForm.setName(cook.getName());
-		actorForm.setPassword(cook.getUserAccount().getPassword());
-		actorForm.setPhone(cook.getPhone());
-		actorForm.setSurname(cook.getSurname());
-		actorForm.setTypeOfActor("COOK");
-		actorForm.setUsername(cook.getUserAccount().getUsername());
-		//fin del todo
+		
 		result.addObject("actorForm", actorForm);
 		result.addObject("requestURI", "cook/edit.do");
 		return result;
@@ -193,7 +168,7 @@ public class CookController extends AbstractController {
 	public @ResponseBody ModelAndView save(@Valid ActorForm actorForm, BindingResult binding) {
 		ModelAndView result;
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		//TODO pal servicio
+		//TODO Pa Servicio(me parece estupido crear un servicio pa esto)
 		actorForm.setTypeOfActor("COOK");
 		//fin del todo
 		if (binding.hasErrors()) {
@@ -202,25 +177,7 @@ public class CookController extends AbstractController {
 		} else {
 			try {
 				Cook cook= cookService.findByPrincipal();
-				//Pal Servicio
-				UserAccount userAccount = cook.getUserAccount();
-				
-				
-				userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
-				userAccount.setUsername(actorForm.getUsername());
-		
-				cook.setName(actorForm.getName());
-				cook.setSurname(actorForm.getSurname());
-				cook.setAddress(actorForm.getAddress());
-				cook.setEmail(actorForm.getEmail());
-				cook.setPhone(actorForm.getPhone());
-				Collection<Authority> authorities = new ArrayList<Authority>();
-				Authority authority = new Authority();
-				authority.setAuthority(actorForm.getTypeOfActor());
-				authorities.add(authority);
-				userAccount.setAuthorities(authorities);
-				cook.setUserAccount(userAccount);
-				//fin del todo
+				cook=cookService.Reconstruc(cook, actorForm);
 				cookService.save(cook);	
 				
 				result = this.view(null);

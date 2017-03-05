@@ -199,10 +199,6 @@ public class CategoryService {
 		return res;
 	}
 		
-	public  Collection<Category> findCategoriesForRecipe(Recipe recipe){
-		Collection<Category> result = categoryRepository.findCategoriesForRecipeId(recipe.getId());
-		return result;
-	}
 	public  Category addTag(Category category, String newTag ){
 		ArrayList<String> tags = new ArrayList<String>();
 		

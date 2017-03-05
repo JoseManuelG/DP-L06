@@ -166,9 +166,9 @@ public class UserService {
 		
 		Recipe copyOfRecipe =recipeService.createCopyOfRecipe(recipe);	
 		Recipe copyOfRecipeSaved = recipeService.save(copyOfRecipe);
-		qualified = qualifiedService.create();
-		qualified.setContest(contest);
-		qualified.setRecipe(copyOfRecipeSaved);
+		qualified = qualifiedService.create(contest,copyOfRecipeSaved,false);
+		//qualified.setContest(contest);
+		//qualified.setRecipe(copyOfRecipeSaved);
 		qualifiedSaved =qualifiedService.save(qualified);
 		
 				

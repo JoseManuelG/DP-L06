@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -16,6 +17,7 @@ import domain.Attend;
 import domain.Cook;
 import domain.MasterClass;
 import domain.SocialIdentity;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -31,18 +33,76 @@ public class CookService {
 
 	// Simple CRUD methods --------------------------------------
 
-	public Cook create() {
+	public Cook create(ActorForm actorForm) {
 		Cook result;
 		result = new Cook();
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		folderService.createBasicsFolders(result);
 		result.setAttends(new ArrayList<Attend>());
 		result.setSocialIdentities(new ArrayList<SocialIdentity>());
 		result.setMasterClasses(new ArrayList<MasterClass>());
 		
 		
+		
+		
+		UserAccount userAccount = new UserAccount();
+		
+		
+		userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
+		userAccount.setUsername(actorForm.getUsername());
+
+		result.setName(actorForm.getName());
+		result.setSurname(actorForm.getSurname());
+		result.setAddress(actorForm.getAddress());
+		result.setEmail(actorForm.getEmail());
+		result.setPhone(actorForm.getPhone());
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
+		authority.setAuthority(actorForm.getTypeOfActor());
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+		result.setUserAccount(userAccount);
+		
+		
 		return result;
 	}
+	
+	public ActorForm fillActorForm(Cook cook) {
+		ActorForm actorForm= new ActorForm();
+		actorForm.setAddress(cook.getAddress());
+		actorForm.setEmail(cook.getEmail());
+		actorForm.setName(cook.getName());
+		actorForm.setPassword(cook.getUserAccount().getPassword());
+		actorForm.setPhone(cook.getPhone());
+		actorForm.setSurname(cook.getSurname());
+		actorForm.setTypeOfActor("COOK");
+		actorForm.setUsername(cook.getUserAccount().getUsername());
+		return actorForm;
+		
+	}
+	public Cook Reconstruc(Cook cook,ActorForm actorForm) {
+		
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		UserAccount userAccount = cook.getUserAccount();
+		
+		
+		userAccount.setPassword(encoder.encodePassword(actorForm.getPassword(), null));
+		userAccount.setUsername(actorForm.getUsername());
 
+		cook.setName(actorForm.getName());
+		cook.setSurname(actorForm.getSurname());
+		cook.setAddress(actorForm.getAddress());
+		cook.setEmail(actorForm.getEmail());
+		cook.setPhone(actorForm.getPhone());
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
+		authority.setAuthority(actorForm.getTypeOfActor());
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+		cook.setUserAccount(userAccount);
+		return cook;
+		
+	}
 	public Collection<Cook> findAll() {
 		Collection<Cook> result;
 		Assert.notNull(cookRepository);
