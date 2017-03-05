@@ -14,15 +14,15 @@ import domain.Step;
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 	
 	//The average of number of steps per recipe.
-	@Query("select avg(r.steps.size),stddev(r.steps.size) from Recipe r where r.isCopy=false")
+	@Query("select avg(r.steps.size) from Recipe r where r.isCopy=false")
 	public Double findAvgOfStepsForRecipes();
 	
 	//The standard deviation  of number of steps per recipe.
-	@Query("select stddev(r.steps.size),stddev(r.steps.size) from Recipe r where r.isCopy=false")
+	@Query("select stddev(r.steps.size) from Recipe r where r.isCopy=false")
 	public Double findStdDevOfStepsForRecipes();
 	
 	//The average of number of ingredients per recipe.
-	@Query("select stddev(r.quantities.size) from Recipe r where r.isCopy=false")
+	@Query("select avg(r.quantities.size) from Recipe r where r.isCopy=false")
 	public Double findAvgOfIngredientsPerRecipe();
 		
 	//The standard deviation of number of ingredients per recipe.

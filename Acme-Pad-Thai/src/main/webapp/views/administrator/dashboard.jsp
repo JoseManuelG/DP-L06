@@ -203,7 +203,7 @@
 
 </display:table>
 <br>
-<spring:message  code="administrator.stdDevOfIngredientsPerRecipe" />: <jstl:out value="${avgOfIngredientsPerRecipe}"/>
+<spring:message  code="administrator.stdDevOfIngredientsPerRecipe" />: <jstl:out value="${stdDevOfIngredientsPerRecipe}"/>
 <br>
 <spring:message  code="administrator.avgOfIngredientsPerRecipe" />: <jstl:out value="${avgOfIngredientsPerRecipe}"/>
 <br>
