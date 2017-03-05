@@ -74,10 +74,18 @@ public class BannerService {
 	public Banner randomBanner(){
 		Banner result=null;
 		List<Banner> banners=(List<Banner>) bannerRepository.activeBanners();
+		boolean aux= true;
+		
 		if(!banners.isEmpty()){
-			Random randomIndex=new Random();
-			Integer index=randomIndex.nextInt(banners.size());
-			result=banners.get(index);
+			while(aux){
+				Random randomIndex=new Random();
+					Integer index=randomIndex.nextInt(banners.size());
+				result=banners.get(index);
+			
+			if(result.getCampaign().getMaxNumOfDisplays()>result.getCampaign().getnumOfDisplays()){
+				aux=false;
+			}
+			}
 		}
 		return result;
 	}
@@ -85,10 +93,18 @@ public class BannerService {
 	public Banner randomStarBanner(){
 		Banner result=null;
 		List<Banner> banners=(List<Banner>) bannerRepository.activeStarBanners();
+		boolean aux= true;
+		
 		if(!banners.isEmpty()){
-			Random randomIndex=new Random();
-			Integer index=randomIndex.nextInt(banners.size());
-			result=banners.get(index);
+			while(aux){
+				Random randomIndex=new Random();
+				Integer index=randomIndex.nextInt(banners.size());
+				result=banners.get(index);
+			
+			if(result.getCampaign().getMaxNumOfDisplays()>result.getCampaign().getnumOfDisplays()){
+				aux=false;
+			}
+			}
 		}
 		return result;
 	}

@@ -65,6 +65,8 @@ public class MessageService {
 		loginService.getPrincipal();
 		Assert.notNull(message,"SAVE: El message ha de ser NO null");
 		Assert.notNull(message.getFolder(),"El message ha de tener un folder NO null");
+		Date sendingMoment=new Date(System.currentTimeMillis()-100);
+		message.setSendingMoment(sendingMoment);
 		Message result=messageRepository.save(message);
 		return result;
 	}
@@ -147,6 +149,7 @@ public class MessageService {
 	public void sendMessage(Message message, Actor recipient){
 		Folder folder=folderService.findFolderOfActor(recipient,"inbox");
 		message.setFolder(folder);
+		
 		save(message);
 	}
 }
