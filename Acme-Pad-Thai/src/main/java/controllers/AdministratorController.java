@@ -129,11 +129,13 @@ public class AdministratorController extends AbstractController {
 		//The average number of promoted and demoted master classes per cook.
 		Collection<Double> avgOfDemotedClass=cookService.avgOfDemotedClass();
 		Collection<Cook> cooksOfDemotedClass=cookService.cooksOfDemotedClass();
+		Collection<Cook> cooksOfPromotedClass=cookService.listOfCooksByPromotedMasterClass();
 		Collection<Double> avgOfPromotedClass=cookService.avgOfPromotedClass();
 		
 		
 		result = new ModelAndView("administrator/dashboard");
 		result.addObject("cooksOfDemotedClass",cooksOfDemotedClass);
+		result.addObject("cooksOfPromotedClass",cooksOfPromotedClass);
 		result.addObject("avgOfPromotedClass",avgOfPromotedClass);
 		result.addObject("avgOfDemotedClass",avgOfDemotedClass);
 		result.addObject("listOfCooksByPromotedMasterClass",listOfCooksByPromotedMasterClass);

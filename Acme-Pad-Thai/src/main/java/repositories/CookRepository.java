@@ -28,11 +28,11 @@ public interface CookRepository extends JpaRepository<Cook,Integer>{
 	public Double stddevOfMasterClassPerCook();
 	
 	//Select the list of cooks ordered by their amount of cook
-	@Query("select r.cook from MasterClass r group by r.cook order by count(r.promoted) DESC")
+	@Query("select r.cook from MasterClass r group by r.cook order by count(r.promoted) ASC")
 	public Collection<Cook> listOfCooksByPromotedMasterClass();
 	
 	//The average number of promoted masterclasses by cook
-	@Query("select avg(m.promoted) from Cook c JOIN c.masterClasses m group by c")
+	@Query("select avg(m.promoted) from Cook c JOIN c.masterClasses m group by c order by count(m.promoted) ASC")
 	public Collection<Double> avgOfPromotedClass();
 	
 	//The average number of demoted masterclasses by cook
@@ -40,8 +40,8 @@ public interface CookRepository extends JpaRepository<Cook,Integer>{
 	public Collection<Double> avgOfDemotedClass();
 	
 	//Cook from The average number of demoted/promoted masterclasses
-	@Query("select c from Cook c JOIN c.masterClasses m group by c")
-	public Collection<Cook> cooksOfDemotedClass();
+	@Query("select r.cook from MasterClass r group by r.cook order by count(r.promoted) DESC")
+	public Collection<Cook> listOfCooksByDemotedMasterClass();
 			
 	@Query("select u from Cook u where u.userAccount.id = ?1")
 	public Cook findByUserAccountId(int id);	

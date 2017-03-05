@@ -184,7 +184,7 @@ public class CookService {
 		return result;
 	}
 	public Collection<Cook> cooksOfDemotedClass(){
-		Collection<Cook> result = cookRepository.cooksOfDemotedClass();
+		Collection<Cook> result = cookRepository.listOfCooksByDemotedMasterClass();
 		return result;
 	}
 	

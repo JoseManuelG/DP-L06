@@ -23,7 +23,7 @@
 <jstl:set var="index" value="${-1}"/>
 <jstl:forEach var="avgOfPromoted" items="${avgOfPromotedClass}" >
 	<jstl:set var="index" value="${index+1}"/>
-	<jstl:out value="${cooksOfDemotedClass[index].name}"/> : 
+	<jstl:out value="${cooksOfPromotedClass[index].name}"/> : 
 	<jstl:out value="${avgOfPromoted}"/>
 </jstl:forEach>
 <br/>
