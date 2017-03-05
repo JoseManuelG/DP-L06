@@ -100,10 +100,10 @@ public class CategoryService {
 		
 			
 			public Collection<Category> getFullTree(Category category){
-				Collection<Category> result= category.getSubCategory();
+				Collection<Category> result= categoryRepository.findCategoriesByRecipe(category.getId());
 				Collection<Category> toFill= new LinkedList<Category>();
 				toFill.addAll(result);
-				Collection<Category> aux= category.getSubCategory();
+				Collection<Category> aux= categoryRepository.findCategoriesByRecipe(category.getId());
 				for(Category c: aux){
 					toFill.addAll(getFullTree(c));
 				}
@@ -186,7 +186,7 @@ public class CategoryService {
 			return res;
 		}
 		if(!c.getSubCategory().isEmpty()){
-			Collection<Category> sC=c.getSubCategory();
+			Collection<Category> sC=categoryRepository.findSubCategoryId(c.getId());
 			for(Category c2: sC){
 				res=checkCategoryDelete(c2);
 				if(!res){

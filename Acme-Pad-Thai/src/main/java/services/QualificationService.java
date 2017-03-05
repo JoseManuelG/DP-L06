@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.QualificationRepository;
 import security.LoginService;
+import security.UserAccount;
 import domain.Customer;
 import domain.Qualification;
 import domain.Recipe;
@@ -81,7 +82,8 @@ public class QualificationService {
 	@SuppressWarnings("static-access")
 	public Qualification save(Qualification qualification) {
 		Assert.notNull(qualification,"El objeto no puede ser nulo");
-		Assert.isTrue(qualification.getCustomer().getUserAccount()!=loginService.getPrincipal(),"Un usuario no puede dar like a su propia receta");
+		UserAccount account =qualification.getRecipe().getUser().getUserAccount();
+		Assert.isTrue(!account.equals(loginService.getPrincipal()),"Un usuario no puede dar like a su propia receta");
 
 		Qualification result;
 

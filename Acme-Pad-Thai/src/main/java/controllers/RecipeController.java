@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
 import services.BannerService;
 import services.BelongsService;
 import services.CampaignService;
@@ -96,6 +98,8 @@ public class RecipeController extends AbstractController {
 	private BannerService bannerService;
 	@Autowired
 	private CampaignService campaignService;
+	@Autowired
+	private LoginService loginService;
 	
 	@Autowired
 	private QualificationService qualificationService;
@@ -268,6 +272,10 @@ public class RecipeController extends AbstractController {
 	@RequestMapping(value="/user/edit", method=RequestMethod.GET)
 	public ModelAndView edit(@RequestParam int recipeId){
 		ModelAndView result;
+		UserAccount account =recipeService.findOne(recipeId).getUser().getUserAccount();
+
+		Assert.isTrue(account.equals(loginService.getPrincipal()),"Un usuario no puede editar la receta de otra persona");
+
 		Recipe recipe;
 		recipe = recipeService.findOne(recipeId);
 		Collection<Qualification> qualifications = qualificationService.findQualificationsByRecipe(recipe);
@@ -312,6 +320,7 @@ public class RecipeController extends AbstractController {
 	@RequestMapping(value="/user/dislike", method=RequestMethod.GET)
 	public ModelAndView dislike(@RequestParam int recipeId){
 		qualificationService.dislike(recipeId);
+	
 		ModelAndView result;
 		result = new ModelAndView("redirect:../view.do?recipeId="+recipeId);
 		result.addObject("requestURI","recipe/user/dislike.do");
@@ -328,7 +337,8 @@ public class RecipeController extends AbstractController {
 			result = createEditModelAndView(recipe);
 		} else {
 			try {
-				
+				UserAccount account =recipe.getUser().getUserAccount();
+				Assert.isTrue(account.equals(loginService.getPrincipal()),"Un usuario no puede editar la receta de otra persona");
 				recipeService.save(recipe);		
 				result = new ModelAndView("redirect:myRecipes.do");
 			} catch (Throwable oops) {
