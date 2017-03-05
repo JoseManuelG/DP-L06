@@ -105,11 +105,7 @@ public class ContestController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Contest contest;
-		//TODO INICIACION DE COLECCIONES EN CREATE
-		Collection<Qualified> qualifieds=new LinkedList<Qualified>();
 		contest = contestService.create();
-		contest.setQualifieds(qualifieds);
-		//Fin del todo
 		result = createEditModelAndView(contest);
 		result.addObject("requestURI","contest/administrator/edit.do");
 		result.addObject("contest", contest);
@@ -126,15 +122,10 @@ public class ContestController extends AbstractController {
 		result = new ModelAndView("contest/submit");
 		result.addObject("contest" , contest);
 		User user= userService.findByPrincipal();
-		Collection<Recipe> recipes = recipeService.findRecipesByUser(user);
-		Collection<Qualified> qualifieds = qualifiedService.findByContest(contest);
-		//TODO pasar a un servcio
-		for( Qualified q : qualifieds){
-			Recipe recipe = qualifiedService.getParentRecipeOfQualified(q);
-			recipes.remove(recipe);
-				
-		}
-		//Fin del todo
+		
+		
+		Collection<Recipe> recipes = contestService.recipesNotQualifiedsForContest(user,contest);
+		
 		Collection<Recipe> recipesQualificable =recipeService.recipesValidToQualify(recipes);
 		result.addObject("recipes",recipesQualificable);
 		result.addObject("contestId",contestId);
@@ -149,12 +140,8 @@ public class ContestController extends AbstractController {
 		Contest contest = contestService.findOne(contestId);
 		Recipe recipe = recipeService.findOne(recipeId);
 		result = new ModelAndView("contest/submitfinal");
-		Qualified qualified= qualifiedService.create();
-		//TODO PASAR a servicio
-		qualified.setContest(contest);
-		qualified.setRecipe(recipe);
-		qualified.setWinner(false);
-		//Fin del todo
+		Qualified qualified= qualifiedService.create(contest,recipe,false);
+		
 		qualifiedService.save(qualified);
 		
 		
@@ -186,9 +173,9 @@ public class ContestController extends AbstractController {
 		ModelAndView result;
 		Contest contest;
 		contest = contestService.findOne(contestId);
-		//TODO ????
+		//TODO no entiendo el porque setear de vuelta el objeto revisar mas palante
 		Collection<Qualified> qualifieds = contest.getQualifieds();
-		contest.setQualifieds(qualifieds);
+		//contest.setQualifieds(qualifieds);
 		//Fin del todo
 		result = createEditModelAndView(contest);
 		result.addObject("requestURI","contest/list.do");

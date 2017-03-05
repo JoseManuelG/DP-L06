@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import domain.Contest;
 import domain.Qualification;
 import domain.Qualified;
 import domain.Recipe;
+import domain.User;
 
 @Service
 @Transactional
@@ -28,6 +30,8 @@ public class ContestService {
 	//SupportingServices-----------------------------------
 	@Autowired
 	private QualifiedService qualifiedService;
+	@Autowired
+	private RecipeService recipeService;
 	
 	//Constructors----------------------------------------
 	
@@ -38,9 +42,11 @@ public class ContestService {
 	//Simple Crud methods---------------------------------
 	public Contest create(){
 		Contest result;
-		
+		Collection<Qualified> qualifieds=new LinkedList<Qualified>();
+
 		result=new Contest();
-		
+		result.setQualifieds(qualifieds);
+
 		return result;
 	}
 	
@@ -186,6 +192,18 @@ public class ContestService {
 	public Collection<Contest> findContestsWithMoreRecipes(){
 		Collection<Contest> result;
 		result=contestRepository.findContestsWithMoreRecipes();
+		return result;
+	}
+	
+	public Collection<Recipe> recipesNotQualifiedsForContest(User user,Contest contest){
+		Collection<Recipe> result = recipeService.findRecipesByUser(user);
+		Collection<Qualified> qualifieds = qualifiedService.findByContest(contest);
+		for( Qualified q : qualifieds){
+			Recipe recipe = qualifiedService.getParentRecipeOfQualified(q);
+			result.remove(recipe);
+				
+		}
+		
 		return result;
 	}
 }
