@@ -75,7 +75,7 @@
 		<!-- Action links -->
 		<spring:message code="recipe.view.title" var="viewTitleHeader" />
 		<display:column title="${viewTitleHeader}">
-				<a href="recipe/view.do?recipeId=${row.id}">
+				<a href="recipe/view.do?recipeId=${recipe.id}">
 					<spring:message	code="recipe.view" />
 				</a>
 		</display:column>	
