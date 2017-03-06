@@ -32,21 +32,21 @@
 	<!-- Attributes -->
 
 	<spring:message code="cook.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column property="name" title="${nameHeader}" />
 	
 	<spring:message code="cook.surname" var="surnameHeader" />
-	<display:column property="surname" title="${surnameHeader}" sortable="true" />
+	<display:column property="surname" title="${surnameHeader}" />
 
 	<spring:message code="cook.email" var="emailHeader" />
-	<display:column property="email" title="${emailHeader}" sortable="true" />
+	<display:column property="email" title="${emailHeader}"  />
 
 	<spring:message code="cook.phone" var="phoneHeader" />
-	<display:column property="phone" title="${phoneHeader}" sortable="true" />
+	<display:column property="phone" title="${phoneHeader}"  />
 
 	<spring:message code="cook.address" var="addressHeader" />
-	<display:column property="address" title="${addressHeader}"	sortable="false" />
+	<display:column property="address" title="${addressHeader}"	/>
 	
 	<spring:message code="cook.cookname" var="cooknameHeader" />
-	<display:column property="userAccount.username" title="${cooknameHeader}"	sortable="true" />
+	<display:column property="userAccount.username" title="${cooknameHeader}" />
 
 </display:table>

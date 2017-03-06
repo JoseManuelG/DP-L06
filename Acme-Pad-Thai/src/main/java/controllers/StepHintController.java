@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -102,6 +103,7 @@ public class StepHintController extends AbstractController {
 			result.addObject("stepHint",stepHint);
 		} else {
 			try {
+				Assert.isTrue(stepHint.getStep().getRecipe().getIsCopy()==false);
 				stepHintService.save(stepHint);
 				result = new ModelAndView("redirect:/recipe/user/edit.do?recipeId=".concat(String.valueOf(stepHint.getStep().getRecipe().getId())));
 				result.addObject("stepHint",stepHint);
@@ -139,6 +141,7 @@ public class StepHintController extends AbstractController {
 			result = createEditModelAndView(stepHint);
 		} else {
 			try {
+				Assert.isTrue(stepHint.getStep().getRecipe().getIsCopy()==false);
 				stepHintService.save(stepHint);		
 				result = new ModelAndView("redirect:/recipe/user/myRecipes.do");
 			} catch (Throwable oops) {
@@ -155,7 +158,8 @@ public class StepHintController extends AbstractController {
 	public ModelAndView delete(StepHint stepHint, BindingResult binding) {
 		ModelAndView result;
 
-		try {			
+		try {	
+			Assert.isTrue(stepHint.getStep().getRecipe().getIsCopy()==false);
 			stepHintService.delete(stepHint);
 			result = new ModelAndView("redirect:../../recipe/list.do");
 			result.addObject("requestURI","stephint/user/delete.do");

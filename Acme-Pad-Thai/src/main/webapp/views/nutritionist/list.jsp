@@ -33,21 +33,21 @@
 	<!-- Attributes -->
 
 	<spring:message code="nutritionist.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column property="name" title="${nameHeader}"  />
 	
 	<spring:message code="nutritionist.surname" var="surnameHeader" />
-	<display:column property="surname" title="${surnameHeader}" sortable="true" />
+	<display:column property="surname" title="${surnameHeader}" />
 
 	<spring:message code="nutritionist.email" var="emailHeader" />
-	<display:column property="email" title="${emailHeader}" sortable="true" />
+	<display:column property="email" title="${emailHeader}"  />
 
 	<spring:message code="nutritionist.phone" var="phoneHeader" />
-	<display:column property="phone" title="${phoneHeader}" sortable="true" />
+	<display:column property="phone" title="${phoneHeader}" />
 
 	<spring:message code="nutritionist.address" var="addressHeader" />
-	<display:column property="address" title="${addressHeader}"	sortable="false" />
+	<display:column property="address" title="${addressHeader}"/>
 	
 	<spring:message code="nutritionist.nutritionistname" var="usernameHeader" />
-	<display:column property="userAccount.username" title="${usernameHeader}"	sortable="true" />
+	<display:column property="userAccount.username" title="${usernameHeader}" />
 
 </display:table>

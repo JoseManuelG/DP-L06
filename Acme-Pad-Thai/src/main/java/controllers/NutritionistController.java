@@ -120,8 +120,8 @@ public class NutritionistController extends AbstractController {
 			
 		}else{
 			nutritionist = nutritionistService.findOne(nutritionistId);
-			curriculum = nutritionist.getCurriculum();
-			endorsers= curriculum.getEndorsers();
+//			curriculum = nutritionist.getCurriculum();
+//			endorsers= curriculum.getEndorsers();
 		}
 		
 		result.addObject("socialIdentities",nutritionist.getSocialIdentities());
@@ -146,12 +146,12 @@ public class NutritionistController extends AbstractController {
 			}
 		}
 		//fin del todo
-		endorsers= curriculum.getEndorsers();
+		//endorsers= curriculum.getEndorsers();
 		result.addObject("nutritionist",nutritionist);
 		result.addObject("curriculum",curriculum);
 		result.addObject("endorsers",curriculum.getEndorsers());
 		result.addObject("requestURI","nutritionist/view.do");
-		result.addObject("endosers",endorsers);
+		//result.addObject("endosers",endorsers);
 		result.addObject("follow",follow);
 		result.addObject("followers",nutritionist.getFollowers());
 		result.addObject("followeds",nutritionist.getFolloweds());

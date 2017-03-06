@@ -74,10 +74,9 @@ public class QualifiedService {
 
 	@SuppressWarnings("static-access")
 	public Qualified save(Qualified qualified){
-		
 
 		Assert.notNull(qualified,"El objeto a guardar no debe ser nulo");
-		Assert.isTrue(qualified.getId()!=0,"La id del objeto a borrar debe ser valida");
+	//	Assert.isTrue(qualified.getId()!=0,"La id del objeto a borrar debe ser valida");
 		Assert.notNull(qualified.getContest(),"El contest a relacionar con el qualified debe ser valido");
 		Assert.notNull(qualified.getRecipe(),"El recipe a relacionar con el qualified debe ser valido");
 		UserAccount userAccount=qualified.getRecipe().getUser().getUserAccount();
