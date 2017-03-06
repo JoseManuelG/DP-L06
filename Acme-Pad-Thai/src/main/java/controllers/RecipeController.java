@@ -171,7 +171,7 @@ public class RecipeController extends AbstractController {
 	    User user = userService.findByPrincipal();
 	   
 	    recipes = recipeService.findRecipesByUser(user);
-	    result = new ModelAndView("recipe/list");
+	    result = new ModelAndView("recipe/user/myRecipes");
 	    result.addObject("requestURI","recipe/user/myRecipes.do");
 	    result.addObject("recipes",recipes);
 	    return result;

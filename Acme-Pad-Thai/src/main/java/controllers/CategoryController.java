@@ -78,7 +78,7 @@ public class CategoryController extends AbstractController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/listrecipe", method = RequestMethod.GET)
+	@RequestMapping(value = "/listrecipefinal", method = RequestMethod.GET)
 	public ModelAndView listrecipe() {
 		ModelAndView result;
 		Collection<Category> categories;
@@ -94,7 +94,7 @@ public class CategoryController extends AbstractController {
 	}
 	
 //list recipe-------------------------------------------	
-	@RequestMapping(value = "/listrecipefinal", method = RequestMethod.POST, params = "accept")
+	@RequestMapping(value = "/listrecipefinal", method ={ RequestMethod.GET, RequestMethod.POST }, params = "accept")
 	public ModelAndView listrecipefinal( CategoryForm categoryForm, BindingResult binding) {
 		ModelAndView result;
 		Collection<Category> categories = categoryService.findAll();

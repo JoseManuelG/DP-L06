@@ -15,10 +15,13 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<div>
-	<img src="images/logo.jpg" width="363" height="130" alt="Acme-Pad-Thai Co., Inc." />
 
+<div>
+	<a href="<spring:url value='/' />">
+		<img src="images/logo.jpg" width="363" height="130" alt="Acme-Pad-Thai Co., Inc." />
+	</a>
 </div>
+
 
 <div>
 	<c:set var="user" scope="session"
@@ -29,7 +32,7 @@
 		<li><a class="fNiv"><spring:message code="master.page.recipe" /></a>
 			<ul>
 				<li class="arrow"></li>
-				<li><a href="recipe/list.do"><spring:message
+				<li><a href="category/listrecipefinal.do"><spring:message
 							code="master.page.recipe.list" /></a></li>
 				<li><a href="recipe/search.do"><spring:message
 							code="master.page.recipe.search" /></a></li>

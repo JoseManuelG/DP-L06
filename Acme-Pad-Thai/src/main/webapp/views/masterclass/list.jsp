@@ -10,7 +10,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table pagesize="5" class="displaytag" keepStatus="false"
-	name="masterClasses" requestURI="masterclass/list.do" id="row">
+	name="masterClasses" requestURI="masterclass/list.do" uid="masterclass">
 
 	<!-- Action links -->
 	<jstl:if test="${requestURI }">
@@ -18,7 +18,7 @@
 			<spring:message code="masterclass.edit" var="editHeader" />
 
 			<display:column title="${editHeader}" sortable="true">
-				<a href="masterclass/cook/edit.do?masterClassId=${row.id}"> <spring:message
+				<a href="masterclass/cook/edit.do?masterClassId=${masterclass.id}"> <spring:message
 						code="masterclass.edit" />
 				</a>
 			</display:column>
@@ -33,16 +33,16 @@
 
 
 
-			<jstl:if test="${row.promoted}">
-				<a href="masterclass/administrator/unpromote.do?masterclassId=${row.id}"> <spring:message
+			<jstl:if test="${masterclass.promoted}">
+				<a href="masterclass/administrator/unpromote.do?masterclassId=${masterclass.id}"> <spring:message
 						code="masterclass.unpromote" />
 				</a>
 				<jstl:set var="attended" value="${false}" />
 			</jstl:if>
 
-			<jstl:if test="${!row.promoted}">
+			<jstl:if test="${!masterclass.promoted}">
 
-				<a href="masterclass/administrator/promote.do?masterclassId=${row.id}"> <spring:message
+				<a href="masterclass/administrator/promote.do?masterclassId=${masterclass.id}"> <spring:message
 						code="masterclass.promote" />
 				</a>
 			</jstl:if>
@@ -55,7 +55,7 @@
 
 	<jstl:if test="${!requestURI}">
 	<security:authorize access="hasAnyRole('USER','NUTRITIONIST','SPONSOR','ADMIN','COOK')" var="isAuthenticated" />
-	<jstl:if test="${isAuthenticated}">
+	<jstl:if test="${isAuthenticatmasterclass">
 	
 		<spring:message code="masterclass.attend" var="attendantsHeader" />
 		<display:column title="${attendantsHeader}" sortable="true">
@@ -65,8 +65,8 @@
 			<jstl:set var="attended" value="${true}" />
 
 			<jstl:forEach items="${attendClasses}" var="attend">
-				<jstl:if test="${attend eq row.id}">
-					<a href="masterclass/unattend.do?masterclassId=${row.id}"> <spring:message
+				<jstl:if test="${attend eq masterclass.id}">
+					<a href="masterclass/unattend.do?masterclassId=${masterclass.id}"> <spring:message
 							code="masterclass.unattend" />
 					</a>
 					<jstl:set var="attended" value="${false}" />
@@ -75,7 +75,7 @@
 
 			<jstl:if test="${attended}">
 
-				<a href="masterclass/attend.do?masterclassId=${row.id}"> <spring:message
+				<a href="masterclass/attend.do?masterclassId=${masterclass.id}"> <spring:message
 						code="masterclass.attend" />
 				</a>
 			</jstl:if>
@@ -94,8 +94,8 @@
 			<jstl:set var="attended" value="${true}" />
 
 			<jstl:forEach items="${attendClasses}" var="attend">
-				<jstl:if test="${attend eq row.id }">
-					<a href="masterclass/view.do?masterClassId=${row.id}"> <spring:message
+				<jstl:if test="${attend eq masterclass.id }">
+					<a href="masterclass/view.do?masterClassId=${masterclass.id}"> <spring:message
 							code="masterclass.view" />
 					</a>
 					<jstl:set var="attended" value="${false}" />
@@ -116,7 +116,7 @@
 
 		<display:column title="${viewHeader}" sortable="true">
 
-			<a href="masterclass/view.do?masterClassId=${row.id}"> <spring:message
+			<a href="masterclass/view.do?masterClassId=${masterclass.id}"> <spring:message
 					code="masterclass.view" />
 			</a>
 		</display:column>
