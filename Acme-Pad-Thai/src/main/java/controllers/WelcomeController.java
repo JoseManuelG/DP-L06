@@ -11,6 +11,7 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -60,6 +61,7 @@ public class WelcomeController extends AbstractController {
 		SimpleDateFormat formatter;
 		String moment;
 		Banner banner = bannerService.randomStarBanner();
+		result = new ModelAndView("welcome/index");
 		if(banner!=null){
 			campaignService.bannerDisplayed(banner);
 		}
@@ -71,12 +73,22 @@ public class WelcomeController extends AbstractController {
 			Actor actor = actorService.findActorByPrincial();
 			if(actor !=null && actor instanceof Cook){
 				cookId=cookService.findByPrincipal().getId();
+			}else if(actor !=null){
+				ArrayList<Integer> attendClasses = masterClassService.attendedClassesOfActor(actor);
+				
+				result.addObject("attendClasses", attendClasses);
+				
 			}
+				
+				
+			
 		}catch(Throwable t){
 			
 		}
+		
+		
 			
-		result = new ModelAndView("welcome/index");
+		
 		result.addObject("name", name);
 		result.addObject("banner2", banner);
 		result.addObject("moment", moment);
